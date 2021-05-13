@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { UserContext } from './hooks/UserContext';
 
 const App = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>({});
   const userRef = useRef();
   userRef.current = user;
   // Hardcoded userId for production

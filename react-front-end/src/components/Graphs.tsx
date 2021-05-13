@@ -1,54 +1,74 @@
-// import Paper from '@material-ui/core/Paper';
 import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../hooks/UserContext';
 import axios from 'axios';
 import {
-  ArgumentAxis,
-  ValueAxis,
   Chart,
-  SplineSeries,
-  ScatterSeries
-} from '@devexpress/dx-react-chart-material-ui';
-
-
-// const test = [
-//   { day: 1, mood: 10 },
-//   { day: 2, mood: 40 },
-//   { day: 3, mood: 30 },
-//   { day: 4, mood: 5 },
-//   { day: 5, mood: 10 },
-//   { day: 6, mood: 1 },
-// ];
+  Series,
+  Legend,
+  ValueAxis,
+  ArgumentAxis,
+  Grid,
+  MinorGrid,
+  CommonPaneSettings,
+  Border,
+  Label,
+  CommonSeriesSettings
+} from 'devextreme-react/chart';
 
 export default function Graphs() {
-  const [data, setData] = useState<any>([{mood: 1, date_created: '2019-08-30T12:33:58.695Z', best_fit: 1}]);
+  const { userRef } = useContext(UserContext);
+  const color = userRef.current.accent_hex
+  console.log(color)
+  const [data, setData] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   useEffect(() => {
     axios.get('/api/graph')
     .then((res) => {
       // Add line of best fit
-      for (let i = 0; i < res.data.length; i++) {
-        (res.data[i + 1])
-        ? res.data[i].best_fit = ((res.data[i].mood + res.data[i + 1].mood) / 2)
-        : res.data[i].best_fit = (res.data[i].mood)
+      const { data } = res
+      for (let i = 0; i < data.length; i++) {
+        (data[i + 1] && data[i - 1])
+        ? data[i].best_fit = ((data[i - 1].mood + data[i].mood + data[i + 1].mood) / 3)
+        : (data[i + 1])
+        ? data[i].best_fit = ((data[i].mood + data[i + 1].mood) / 2)
+        : data[i].best_fit = ((data[i - 1].mood + data[i].mood) / 2 )
       }
-      setData(res.data)
-      console.log('the res data', res.data)
+      setData(data)
+      console.log('the res data', data)
       // console.log('the setData data', data)
     })
   }, [])
   return (
-    <div className="Graphs">
-      <h2>Graphs</h2>
-    {/* <Paper> */}
-    <Chart
-      data={data}
-    >
-      <ArgumentAxis />
-      <ValueAxis />
-
-      <ScatterSeries name="points" valueField="mood" argumentField="date_created" />
-      <SplineSeries name="best fit" valueField="best_fit" argumentField="date_created" />
-    </Chart>
-  {/* </Paper> */}
-    </div>
+    <Chart id="mood-graph" dataSource={data} title="Your Mood Over Time">
+      <CommonSeriesSettings color="#3d2200" />
+    <Series
+      type="scatter"
+      color={userRef.current.accent_hex}
+      valueField="mood"
+      name="Mood"
+      argumentField="date" />
+    <Series
+      type="spline"
+      color={userRef.current.text_hex}
+      valueField="best_fit"
+      name="Average Mood"
+      argumentField="date" />
+    <ArgumentAxis>
+    <Label wordWrap="none" overlappingBehavior="hide" />
+      <Grid visible={true} />
+      <MinorGrid visible={true} />
+      <h4>Entry Dates</h4>
+    </ArgumentAxis>
+    <ValueAxis>
+      <h4>Mood</h4>
+    </ValueAxis>
+    <Legend
+            verticalAlignment="top"
+            horizontalAlignment="right"
+          />
+    <CommonPaneSettings>
+      <Border visible={true} />
+    </CommonPaneSettings>
+  </Chart>
   );
 }

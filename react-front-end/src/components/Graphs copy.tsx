@@ -1,4 +1,4 @@
-// import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';   
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
@@ -6,26 +6,27 @@ import {
   ValueAxis,
   Chart,
   SplineSeries,
-  ScatterSeries
+  ScatterSeries,
 } from '@devexpress/dx-react-chart-material-ui';
 
 
-// const test = [
-//   { day: 1, mood: 10 },
-//   { day: 2, mood: 40 },
-//   { day: 3, mood: 30 },
-//   { day: 4, mood: 5 },
-//   { day: 5, mood: 10 },
-//   { day: 6, mood: 1 },
-// ];
-
 export default function Graphs() {
-  const [data, setData] = useState<any>([{mood: 1, date_created: '2019-08-30T12:33:58.695Z'}]);
+  const [data, setData] = useState<any>([{mood: 1, date: '2019-08-30T12:33:58.695Z', best_fit: 1}]);
   useEffect(() => {
     axios.get('/api/graph')
     .then((res) => {
-      setData(res.data)
-      console.log('the res data', res.data)
+      // Add line of best fit
+      const { data } = res
+      for (let i = 0; i < data.length; i++) {
+        (data[i + 1] && data[i - 1])
+        ? data[i].best_fit = ((data[i - 1].mood + data[i].mood + data[i + 1].mood) / 3)
+        : (data[i + 1])
+        ? data[i].best_fit = ((data[i].mood + data[i + 1].mood) / 2)
+        : data[i].best_fit = ((data[i - 1].mood + data[i].mood) / 2 )
+      }
+      setData(data)
+      console.log('the res data', data)
+      // console.log('the setData data', data)
     })
   }, [])
   return (
@@ -35,11 +36,12 @@ export default function Graphs() {
     <Chart
       data={data}
     >
-      <ArgumentAxis />
+      <ArgumentAxis>
+        </ArgumentAxis>
       <ValueAxis />
 
-      <ScatterSeries name="points" valueField="mood" argumentField="date_created" />
-      <SplineSeries name="average" valueField="mood" argumentField="date_created" />
+      <ScatterSeries name="points" valueField="mood" argumentField="date" />
+      <SplineSeries name="best fit" valueField="best_fit" argumentField="date"  />
     </Chart>
   {/* </Paper> */}
     </div>
