@@ -20,19 +20,12 @@ import {
 // ];
 
 export default function Graphs() {
-  const [data, setData] = useState<any>([{mood: 1, date_created: '2019-08-30T12:33:58.695Z', best_fit: 1}]);
+  const [data, setData] = useState<any>([{mood: 1, date_created: '2019-08-30T12:33:58.695Z'}]);
   useEffect(() => {
     axios.get('/api/graph')
     .then((res) => {
-      // Add line of best fit
-      for (let i = 0; i < res.data.length; i++) {
-        (res.data[i + 1])
-        ? res.data[i].best_fit = ((res.data[i].mood + res.data[i + 1].mood) / 2)
-        : res.data[i].best_fit = (res.data[i].mood)
-      }
       setData(res.data)
       console.log('the res data', res.data)
-      // console.log('the setData data', data)
     })
   }, [])
   return (
@@ -46,7 +39,7 @@ export default function Graphs() {
       <ValueAxis />
 
       <ScatterSeries name="points" valueField="mood" argumentField="date_created" />
-      <SplineSeries name="best fit" valueField="best_fit" argumentField="date_created" />
+      <SplineSeries name="average" valueField="mood" argumentField="date_created" />
     </Chart>
   {/* </Paper> */}
     </div>
