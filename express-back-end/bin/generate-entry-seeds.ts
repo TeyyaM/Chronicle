@@ -7,7 +7,7 @@ const createFakeEntries = (category: number | null) => {
     return Math.random() * 100
   };
 
-  const varyMood = (mood: number, varyChance: number, hoursAgo: number, avgTimeAgo: number) => {
+  const varyMood = (mood: number, varyChance: number, hoursAgo: number, timeAgoBreakpoint: number) => {
     // Make the mood less extreme overall
     let newMood = mood;
     if (getPercentage() > 50) {
@@ -17,10 +17,10 @@ const createFakeEntries = (category: number | null) => {
     if (varyChance > 0) {
       const varyMood = getPercentage();
       if (varyMood <= varyChance) {
-        if (hoursAgo < avgTimeAgo && newMood !== 1) {
+        if (hoursAgo > timeAgoBreakpoint && newMood !== 1) {
           newMood--
         }
-        if (hoursAgo > avgTimeAgo && newMood !== 5) {
+        if (hoursAgo < timeAgoBreakpoint && newMood !== 5) {
           newMood++
         }
       }
@@ -36,9 +36,10 @@ const createFakeEntries = (category: number | null) => {
   ? mood = Math.ceil(Math.random() * 5)
   : mood = null;
   const hoursAgo = Math.floor(Math.random() * maxTimeAgo);
-  // bring the average mood down for the first half, not the second
+  // bring the average mood down for the first half and quarter, not the second
   if (mood) {
     mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 2);
+    mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 4);
   }
   
   return(`

@@ -74,8 +74,8 @@ const getEntryByEntryId = (attributes: { entryId: string; userId: string; }) => 
 };
 
 const getGraphByUserId = ( userId: string ) => {
-  const query = `SELECT mood, date_created FROM entries
-  WHERE user_id = $1 AND mood IS NOT NULL ORDER BY date_created DESC;`;
+  const query = `SELECT mood, TO_CHAR(date_created, 'YYYY-MM-DD') as date FROM entries
+  WHERE user_id = $1 AND mood IS NOT NULL ORDER BY date_created;`;
   const queryParams = [userId];
   return pool.query(query, queryParams);
 };
@@ -209,7 +209,7 @@ App.post('/api/entries', (req: Request, res: Response) => {
     title: req.body.title,
     content: req.body.content,
     mood: req.body.mood || null,
-    privacy: req.body.privacy,
+    privacy: req.body.privacy || true,
     userId: userId,
     categoryId: req.body.category || null
   }

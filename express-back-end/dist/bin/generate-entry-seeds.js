@@ -4,7 +4,7 @@ const createFakeEntries = (category) => {
     const getPercentage = () => {
         return Math.random() * 100;
     };
-    const varyMood = (mood, varyChance, hoursAgo, avgTimeAgo) => {
+    const varyMood = (mood, varyChance, hoursAgo, timeAgoBreakpoint) => {
         let newMood = mood;
         if (getPercentage() > 50) {
             newMood = 3;
@@ -12,10 +12,10 @@ const createFakeEntries = (category) => {
         if (varyChance > 0) {
             const varyMood = getPercentage();
             if (varyMood <= varyChance) {
-                if (hoursAgo < avgTimeAgo && newMood !== 1) {
+                if (hoursAgo > timeAgoBreakpoint && newMood !== 1) {
                     newMood--;
                 }
-                if (hoursAgo > avgTimeAgo && newMood !== 5) {
+                if (hoursAgo < timeAgoBreakpoint && newMood !== 5) {
                     newMood++;
                 }
             }
@@ -30,6 +30,7 @@ const createFakeEntries = (category) => {
     const hoursAgo = Math.floor(Math.random() * maxTimeAgo);
     if (mood) {
         mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 2);
+        mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 4);
     }
     return (`
   ('${faker.lorem.sentence()}',
