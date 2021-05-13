@@ -1,5 +1,5 @@
-// import { useContext } from 'react';
-// import { UserContext } from '../../hooks/UserContext';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import PieChart, {
   Series,
   Label,
@@ -10,11 +10,25 @@ import PieChart, {
 
 
 export default function PieGraph(props) {
-  // const { userRef } = useContext(UserContext);
+  const { startDate, endDate } = props;
+  const [data, setData] = useState<any>([{mood: 1, entries: 1}]);
+
+  useEffect(() => {
+    axios.get('/api/graph', {
+    params: {
+      type: 'pie',
+      startDate,
+      endDate
+    }
+  })
+    .then((res) => {
+      setData(res.data)
+    })
+  }, [])
   return (
     <PieChart
         id="pie-mood"
-        dataSource={props.data}
+        dataSource={data}
         palette="Bright"
         title="Your Moods Over This Time"
       >

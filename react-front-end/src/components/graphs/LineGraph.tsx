@@ -16,17 +16,17 @@ import {
   CommonSeriesSettings
 } from 'devextreme-react/chart';
 
-export default function LineGraph() {
+export default function LineGraph(props) {
+  const { startDate, endDate } = props;
   const [data, setData] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
   const { userRef } = useContext(UserContext);
+
   useEffect(() => {
     axios.get('/api/graph', {
     params: {
       type: 'line',
-      startDate: '2020-01-01' || null,
-      endData: '2021-01-01' || null
+      startDate,
+      endDate
     }
   })
     .then((res) => {
@@ -41,7 +41,7 @@ export default function LineGraph() {
       }
       setData(data)
     })
-  }, [startDate, endDate])
+  }, [])
   return (
     <Chart id="mood-graph" dataSource={data} title="Your Mood Over Time">
       <CommonSeriesSettings color="#3d2200" />
