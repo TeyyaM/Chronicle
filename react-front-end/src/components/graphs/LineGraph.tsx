@@ -12,12 +12,14 @@ import {
   Border,
   Label,
   CommonSeriesSettings, 
-  Point
+  Point, 
 } from 'devextreme-react/chart';
 
 export default function LineGraph(props: { data: [{mood: number, date: string }], startDate: string | null, endDate: string | null }) {
+
   const { data } = props;
   const { userRef } = useContext(UserContext);
+  // ['very sad', 'Sad', 'So-So', 'Happy', 'Very Happy']
 
   return (
     <Chart id="mood-graph" dataSource={data} title="Your Mood Over Time">
@@ -38,12 +40,11 @@ export default function LineGraph(props: { data: [{mood: number, date: string }]
     </Series>
     <ArgumentAxis>
     <Label wordWrap="none" overlappingBehavior="hide" />
-      <Grid visible={true} />
-      <MinorGrid visible={true} />
-      <h4>Entry Dates</h4>
+      <Grid visible={false} />
+      <MinorGrid visible={false} />
     </ArgumentAxis>
     <ValueAxis>
-      <h4>Mood</h4>
+    <Label >null</Label>
     </ValueAxis>
     <Legend
             verticalAlignment="top"

@@ -7,7 +7,7 @@ export default function Graphs() {
   // const [endDate, setEndDate] = useState<string | null>(null);
   const startDate = '2019-08-30';
   const endDate = '2021-08-30';
-  const [pieData, setPieData] = useState<any>([{mood: 1, entries: 1}]);
+  const [pieData, setPieData] = useState<any>([{mood: 'So-So', entries: 1}]);
   const [lineData, setLineData] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   useEffect(() => {
     // get pie chart data
@@ -19,8 +19,27 @@ export default function Graphs() {
     }
   })
   .then((res) => {
-    console.log('pie', res.data)
-    setPieData(res.data)
+    const stringifiedMood = res.data.map((count: {mood: number | string, entries: string}) => {
+      switch(count.mood) {
+        case 1:
+          count.mood = 'Very Sad'
+          break;
+        case 2:
+          count.mood = 'Sad'
+          break;
+        case 3:
+          count.mood = 'So-So'
+          break;
+        case 4:
+          count.mood = 'Happy'
+          break;
+        case 5:
+          count.mood = 'Very Happy'
+          break;
+      }
+      return count;
+    })
+    setPieData(stringifiedMood)
   });
 
   // get line graph data

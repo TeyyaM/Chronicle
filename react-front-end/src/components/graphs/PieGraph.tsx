@@ -5,7 +5,7 @@ import PieChart, {
   Export
 } from 'devextreme-react/pie-chart';
 
-export default function PieGraph(props: {data: [{mood: number, entires: string | number}], startDate: string | null, endDate: string | null}) {
+export default function PieGraph(props: {data: [{mood: number | string, entires: string | number}], startDate: string | null, endDate: string | null}) {
   const { data } = props;
 
   const legendClickHandler = (event: any) => {
