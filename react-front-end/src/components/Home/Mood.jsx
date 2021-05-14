@@ -41,7 +41,7 @@ export default function Mood() {
       <li 
       key={index}  
       onClick={() => clickHandler(index)}
-      style={state.mood === (index + 1) ? {opacity: 1} : {opacity: 0.3}}>
+      style={state.mood === (index + 1) ? {opacity: 1} : {opacity: 0.4}}>
 
         <img src={item} alt={item.toString()}/>
 
