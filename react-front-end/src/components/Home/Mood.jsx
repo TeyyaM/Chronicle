@@ -8,8 +8,9 @@ import neutral from '../../imgs/neutral.ico';
 import unhappy from '../../imgs/unhappy.ico';
 import angry from '../../imgs/angry.ico';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
+    // display: 'flex',
     border: 0,
     borderRadius: 3,
     height: 40,
@@ -29,7 +30,8 @@ export default function Mood() {
   const { state, setState } = useContentData();
 
   function clickHandler(i) {
-    setState(prev => ({...prev, mood: 1}))
+    setState(prev => ({...prev, mood: i}));
+    console.log("@@@@", i);
   }
 
   const emojiArr = [angry, unhappy, neutral, mild, smiley];
@@ -37,10 +39,15 @@ export default function Mood() {
     return (
       <li 
       key={index}  
-      onClick={() => clickHandler(index)}>
+      onClick={() => clickHandler(index)}
+      style={state.mood ? {opacity: 1} : {opacity: 0.3}}>
+
         <img src={item} alt={item.toString()}/>
-        </li>
+
+      </li>
     )})
+
+
 
   return (
     <Box className={classes.root}>

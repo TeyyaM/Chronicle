@@ -3,7 +3,7 @@
 
 
 import { useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 export default function useEntryData() {
 
@@ -16,9 +16,9 @@ export default function useEntryData() {
   const submitContent = () => {
     
 
-    // axios.post('api/entries', {state}) 
-    //   .then(res => console.log("POST", res.data))
-    //   .catch(err => console.log("ERROR", err));
+    axios.post('api/entries', {state}) 
+      .then(res => console.log("POST", res.data))
+      .catch(err => console.log("ERROR", err));
   }
 
   return { state, setState, submitContent };
