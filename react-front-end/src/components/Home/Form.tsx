@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
+    display: 'flex',
     background: 'white',
     border: 0,
     borderRadius: 3,

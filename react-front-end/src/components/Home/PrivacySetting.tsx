@@ -1,22 +1,23 @@
-// import useEntryData from '../../hooks/useEntryData';
+import useContentData from '../../hooks/useContentData';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
 
 export default function PrivacySetting() {
+  const { state, setState } = useContentData();
 
-  let val = true;
-  // const { privacyData } = useEntryData();
   const handleChange = () => {
-    console.log("switch");
-    val ? val = false : val = true;
+
+    state.privacy ? setState(prev => ({...prev, privacy: false})) 
+    : setState(prev => ({...prev, privacy: true}));
+    
   }
 
   return (
     <FormControlLabel
-        control={<Switch  checked={val} onChange={handleChange} name="checkedA" />}
-        label="Secondary"
+        control={<Switch  checked={state.privacy} onChange={handleChange} name="switch" />}
+        label="Privacy"
       />
   )
 } 

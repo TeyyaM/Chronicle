@@ -14,9 +14,9 @@ const Home = () => {
       <div>
         <h1>Create An Entry</h1>
         <h2>{currentDay.toDateString()}</h2>
+          <PrivacySetting />
           <Mood />
           <Form />
-          <PrivacySetting />
       </div>
     
   );

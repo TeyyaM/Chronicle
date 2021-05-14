@@ -21,28 +21,6 @@ export default function useEntryData() {
     //   .catch(err => console.log("ERROR", err));
   }
 
-  // function titleData(title) {
-
-  //   setState({...state, title});
-  // };
-
-  // function contentData(content) {
-
-  //   setState({...state, content});
-  // };
-
-  // function moodData(num) {
-  //   console.log("num", num);
-
-  //   setState({...state, mood: num});
-  // };
-
-  // function privacyData(val) {
-
-  //   setState({...state, privacy: val})
-  // };
-
-
   return { state, setState, submitContent };
 
 }
