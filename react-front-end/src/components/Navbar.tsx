@@ -38,22 +38,29 @@ function Navbar() {
       <img src="images/ChronicleLogo.png" alt="logo">
       </img>
 
-      <Link to="/">Chronicle Your Day </Link>
-      <Link to="/categories">Categories </Link>
-      <Link to="/entries">Entries</Link>
-      <Link to="/settings">Settings</Link>
-      <Link to="/graphs">Graphs</Link>
+      <Link to="/"><button>Chronicle Your Day </button></Link>
+      <Link to="/categories">
+        <div className="dropdown">
+          <button className="dropbtn">Categories</button>
+          <div className="dropdown-content">
+            <ul>
+              {searchResults.map(item => (
+                <li>{item.name}</li>
+              ))}
+            </ul>
+          </div>
+        </div></Link>
+
+      <Link to="/entries"><button>Entries</button></Link>
+      <Link to="/settings"><button>Settings</button></Link>
+      <Link to="/graphs"><button>Graphs</button></Link>
+      <Link to="/login"><button>Login or Sign up</button></Link>
       <input
         type="text"
         placeholder="Search"
         value={searchTerm}
         onChange={handleChange}
       />
-      <ul>
-        {searchResults.map(item => (
-          <li>{item.name}</li>
-        ))}
-      </ul>
     </div>
   );
 }
