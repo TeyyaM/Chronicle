@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import LineGraph from './graphs/LineGraph';
 import PieGraph from './graphs/PieGraph';
+import DatePicker from './DatePicker';
 export default function Graphs() {
   // const [startDate, setStartDate] = useState<string | null>(null);
   // const [endDate, setEndDate] = useState<string | null>(null);
@@ -67,6 +68,14 @@ export default function Graphs() {
   return (
   <>
   <PieGraph data={pieData} startDate={startDate} endDate={endDate} />
+  <DatePicker 
+    id="date-picker-start-date" 
+    name="Start Date"
+    placeholderDate="'2015-08-18'" />
+  <DatePicker 
+    id="date-picker-end-date" 
+    name="End Date" 
+    placeholderDate="'2030-01-01'"/>
   <LineGraph data={lineData} startDate={startDate} endDate={endDate} />
   </>
   );

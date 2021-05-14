@@ -37,7 +37,7 @@ export default function PieGraph(props: {data: [{mood: number | string, entires:
     </Series>
 
     <Size width={700} />
-    <Export enabled={true} />
+    <Export enabled={false} />
   </PieChart>
   );
 }
