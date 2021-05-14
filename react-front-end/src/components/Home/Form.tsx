@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
     background: 'white',
     border: 0,
     borderRadius: 3,
@@ -62,7 +65,9 @@ export default function Form() {
         <Button 
         variant="contained" 
         color="primary"
-        type="submit"/>
+        type="submit" >
+          Submit
+        </Button>
       </Box>
     </form>
     
