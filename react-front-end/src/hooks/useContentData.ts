@@ -5,7 +5,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function useEntryData() {
+export default function useContentData() {
+
+  console.log("useContentData has been called");
 
   const [ state, setState ] = useState({
     title: "", content: "", mood: undefined, privacy: true

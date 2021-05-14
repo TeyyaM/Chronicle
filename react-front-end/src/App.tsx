@@ -37,8 +37,6 @@ const App = () => {
             <Route path="/entries" component={Entries} />
             <Route path="/settings" component={Settings} />
             <Route path="/graphs" component={Graphs} />
-            <Route path="/home" component={Home} />
-            <Redirect to='/' />
             <Route path="/" component={Home} />
               
             <Redirect to='/' />
