@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import PieChart, {
   Series,
   Label,
@@ -10,21 +8,8 @@ import PieChart, {
 
 
 export default function PieGraph(props) {
-  const { startDate, endDate } = props;
-  const [data, setData] = useState<any>([{mood: 1, entries: 1}]);
-
-  useEffect(() => {
-    axios.get('/api/graph', {
-    params: {
-      type: 'pie',
-      startDate,
-      endDate
-    }
-  })
-    .then((res) => {
-      setData(res.data)
-    })
-  }, [])
+  const { data } = props;
+  console.log(data)
   return (
     <PieChart
         id="pie-mood"
@@ -33,15 +18,15 @@ export default function PieGraph(props) {
         title="Your Moods Over This Time"
       >
       <Series
-        valueField="mood"
         name="Mood"
-        argumentField="date">
+        argumentField="mood"
+        valueField="entires">
         <Label visible={true}>
           <Connector visible={true} width={1} />
         </Label>
       </Series>
 
-        <Size width={500} />
+        <Size width={700} />
         <Export enabled={true} />
     </PieChart>
   );
