@@ -13,7 +13,7 @@ const Home = () => {
   
   return (
     
-      <div style={{backgroundImage: `url(${background})`}}>
+      <div style={{backgroundImage: `url(${background})`, height: '600px'}}>
         <h1>Create An Entry</h1>
         <h2>{currentDay.toDateString()}</h2>
           <PrivacySetting />
