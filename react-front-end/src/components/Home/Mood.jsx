@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import useEntryData from '../../hooks/useEntryData'
+import useContentData from '../../hooks/useContentData'
 
 import Box from '@material-ui/core/Box';
 import smiley from '../../emojis/smiley.ico';
@@ -26,14 +26,18 @@ const useStyles = makeStyles((theme) => ({
 export default function Mood() {
   const classes = useStyles();
 
-  const { moodData } = useEntryData();
+  const { state, setState } = useContentData();
+
+  function clickHandler(i) {
+    setState(prev => ({...prev, mood: 1}))
+  }
 
   const emojiArr = [angry, unhappy, neutral, mild, smiley];
   const emojiList = emojiArr.map((item, index) => {  
     return (
       <li 
       key={index}  
-      onClick={event => moodData((index + 1))}>
+      onClick={() => clickHandler(index)}>
         <img src={item} alt={item.toString()}/>
         </li>
     )})

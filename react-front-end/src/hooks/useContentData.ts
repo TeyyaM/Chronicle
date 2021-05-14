@@ -8,39 +8,41 @@ import { useState } from 'react';
 export default function useEntryData() {
 
   const [ state, setState ] = useState({
-    title: "", content: "", mood: null, privacy: true
+    title: "", content: "", mood: undefined, privacy: true
   });
 
+  console.log("STATE ", state);
   
-  const submitEntry = () => {
+  const submitContent = () => {
     
-    console.log("STATE ", state);
 
     // axios.post('api/entries', {state}) 
     //   .then(res => console.log("POST", res.data))
     //   .catch(err => console.log("ERROR", err));
   }
 
-  function titleData(title) {prev => {
+  // function titleData(title) {
 
-    setState({...prev, title});
-  }};
+  //   setState({...state, title});
+  // };
 
-  function contentData(content) {prev => {
+  // function contentData(content) {
 
-    setState({...prev, content});
-  }};
+  //   setState({...state, content});
+  // };
 
-  function moodData(mood) {prev => {
+  // function moodData(num) {
+  //   console.log("num", num);
 
-    setState({...prev, mood});
-  }};
+  //   setState({...state, mood: num});
+  // };
 
-  function privacyData(val) {prev => {
-    setState({...prev, privacy: val})
-  }};
+  // function privacyData(val) {
+
+  //   setState({...state, privacy: val})
+  // };
 
 
-  return { titleData, contentData, moodData, privacyData, submitEntry };
+  return { state, setState, submitContent };
 
 }

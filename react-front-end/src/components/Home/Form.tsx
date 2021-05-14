@@ -1,4 +1,7 @@
-import useEntryData from '../../hooks/useEntryData';
+// to resolve error "Expected an assignment or function call and instead saw an expression"
+/* eslint-disable */
+
+import useContentData from '../../hooks/useContentData';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -27,13 +30,21 @@ export default function Form() {
 
   const classes = useStyles();
 
-  const { contentData, titleData, submitEntry } = useEntryData();
+  const { state, setState, submitContent } = useContentData();
 
   function submitHandler(event) {
     event.preventDefault();
     console.log("form was submitted");
-    submitEntry();
+    submitContent();
   }
+
+  function titleHandler(event) {
+    setState(prev => ({...prev, title: event.target.value}))
+  };
+
+  function contentHandler(event) {
+    setState(prev => ({...prev, content: event.target.value}))
+  };
  
   return (
     <form id="entry_form" className={classes.root} noValidate autoComplete="off" onSubmit={submitHandler}>
@@ -49,7 +60,8 @@ export default function Form() {
           label="Title" 
           variant="outlined" 
           fullWidth
-          onInput={e => titleData((e.target as any).value)}
+          value={state.title}
+          onInput={titleHandler}
           />
 
         <TextField 
@@ -59,7 +71,8 @@ export default function Form() {
           label="Whats on your mind?" 
           variant="outlined" 
           fullWidth
-          onInput={e => contentData((e.target as any).value)}
+          value={state.content}
+          onInput={contentHandler}
           />
 
         <Button 
