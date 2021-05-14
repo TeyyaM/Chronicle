@@ -35,13 +35,18 @@ interface IEntry {
   privacy?: boolean;
   dateCreated?: string;
   dateUpdated?: string;
-  categoryId?: string | number | null;
-  userId: string | number;
+  category_id?: string | number | null;
+  user_id: string | number;
 }
 interface ICategory {
   id?: string | number;
   name: string;
-  userId: string | number;
+  user_id: string | number;
+}
+interface IGraphParams {
+  type?: string;
+  startDate?: string | null;
+  endDate?: string | null;
 }
 
 const getEntryByCategory = (attributes: { categoryId: string | null; userId: string; }) => {
@@ -70,6 +75,38 @@ const getEntryByEntryId = (attributes: { entryId: string; userId: string; }) => 
   const query = `SELECT * FROM entries
   WHERE user_id = $1 AND id = $2;`;
   const queryParams = [userId, entryId];
+  return pool.query(query, queryParams);
+};
+
+const getGraphByUserId = ( userId: string, params: IGraphParams ) => {
+  const { type, startDate, endDate } = params;
+  const queryParams = [userId];
+  let queryStart = 'SELECT mood, ';
+  let queryMid = ' FROM entries WHERE user_id = $1 AND mood IS NOT NULL ';
+  let queryEnd = '';
+  if (type === 'line') {
+    queryStart += `TO_CHAR(date_created, 'YYYY-MM-DD') as date`;
+    queryEnd = 'ORDER BY date_created';
+  }
+  if (type === 'pie') {
+    queryStart += 'count(*) as entries';
+    queryEnd = 'GROUP BY mood';
+  }
+  if (startDate && endDate) {
+    queryMid += 'AND date_created BETWEEN $2 and $3'
+    queryParams.push(startDate, endDate)
+  } else {
+    if (startDate) {
+      queryMid += `AND date_created > $2 `
+      queryParams.push(startDate)
+    }
+    if (endDate) {
+      queryMid += `AND date_created < $2 `
+      queryParams.push(endDate)
+    }
+  }
+    
+  const query = queryStart + queryMid + queryEnd;
   return pool.query(query, queryParams);
 };
 
@@ -124,6 +161,7 @@ const insertIntoDatabase = (attributes: IEntry | IUser | ICategory, table: strin
   for (const [attribute, value] of Object.entries(attributes)) {
 
     if (queryParams.length) {
+      queryStart += ', ';
       queryMid += ', ';
     }
     queryParams.push(value);
@@ -131,20 +169,21 @@ const insertIntoDatabase = (attributes: IEntry | IUser | ICategory, table: strin
     queryMid += `$${queryParams.length}`;
   }
   if (table !== 'users') {
-    queryEnd += ', user_id';
+    queryEnd += ', user_id as userId';
   }
   const queryString = queryStart + queryMid + queryEnd;
+  console.log(queryString)
   return pool.query(queryString, queryParams);
 };
 
 const insertCategory = (attributes: ICategory) => {
-  insertIntoDatabase(attributes, 'categories')
+  return insertIntoDatabase(attributes, 'categories')
 }
 const insertEntry = (attributes: IEntry) => {
-  insertIntoDatabase(attributes, 'entries')
+  return insertIntoDatabase(attributes, 'entries')
 }
 const insertUser = (attributes: IUser) => {
-  insertIntoDatabase(attributes, 'users')
+  return insertIntoDatabase(attributes, 'users')
 }
 
 // Express Configuration
@@ -189,22 +228,29 @@ App.get('/api/fonts', (req: Request, res: Response) => {
   .then((data) => res.json(data.rows));
 });
 App.get('/api/fonts/:id', (req: Request, res: Response) => {
-   getFontByFontId(req.params.id)
-   .then((data) => res.json(data.rows));
+  getFontByFontId(req.params.id)
+  .then((data) => res.json(data.rows));
+});
+App.get('/api/graph/', (req: Request, res: Response) => {
+  getGraphByUserId(userId, req.query)
+  .then((data) => res.json(data.rows));
 });
 App.post('/api/entries', (req: Request, res: Response) => {
   const attributes = {
     title: req.body.title,
     content: req.body.content,
     mood: req.body.mood || null,
-    privacy: req.body.privacy,
-    userId: userId,
-    categoryId: req.body.category || null
+    privacy: req.body.privacy || true,
+    user_id: req.body.userId,
+    category_id: req.body.category || null
   }
+  console.log(attributes)
   insertEntry(attributes)
+  .then((data) => res.json(data.rows));
 });
 App.post('/api/categories', (req: Request, res: Response) => {
-  insertCategory({userId, name: req.body.name})
+  insertCategory({user_id: userId, name: req.body.name})
+  .then((data) => res.json(data.rows));
 });
 App.post('/api/users', (req: Request, res: Response) => {
   const attributes = {
@@ -213,6 +259,7 @@ App.post('/api/users', (req: Request, res: Response) => {
     password: req.body.password
   }
   insertUser(attributes)
+  .then((data) => res.json(data.rows));
 });
 
 

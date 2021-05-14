@@ -4,7 +4,7 @@ import { UserContext } from '../hooks/UserContext';
 
 const Categories = () => {
   const { userRef } = useContext(UserContext);
-  const user = userRef.current
+  const user = userRef.current;
   console.log('from categories', user);
   return (
     <div>

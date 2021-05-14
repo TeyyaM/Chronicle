@@ -1,11 +1,42 @@
 import faker from "faker";
 import fs from 'fs';
 const createFakeEntries = (category) => {
+    const getPercentage = () => {
+        return Math.random() * 100;
+    };
+    const varyMood = (mood, varyChance, hoursAgo, timeAgoBreakpoint) => {
+        let newMood = mood;
+        if (getPercentage() > 50) {
+            newMood = 3;
+        }
+        if (varyChance > 0) {
+            const varyMood = getPercentage();
+            if (varyMood <= varyChance) {
+                if (hoursAgo > timeAgoBreakpoint && newMood !== 1) {
+                    newMood--;
+                }
+                if (hoursAgo < timeAgoBreakpoint && newMood !== 5) {
+                    newMood++;
+                }
+            }
+        }
+        return newMood;
+    };
+    const maxTimeAgo = 40000;
+    let mood;
+    (getPercentage() >= 60)
+        ? mood = Math.ceil(Math.random() * 5)
+        : mood = null;
+    const hoursAgo = Math.floor(Math.random() * maxTimeAgo);
+    if (mood) {
+        mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 2);
+        mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 4);
+    }
     return (`
   ('${faker.lorem.sentence()}',
   '${faker.lorem.paragraph()}',
-  ${Math.ceil(Math.random() * 5)},
-  NOW() -  interval '${Math.floor(Math.random() * 40000)} hours',
+  ${mood},
+  NOW() -  interval '${hoursAgo} hours',
   ${category},
   1)`);
 };

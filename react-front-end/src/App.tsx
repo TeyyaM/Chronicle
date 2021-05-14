@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import './styles/App.css';
-import Home from './components/Home';
+import Home from './components/Home/index';
 import Categories from './components/Categories';
 import Entries from './components/Entries';
 import Navbar from './components/menu/Navbar';
@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { UserContext } from './hooks/UserContext';
 
 const App = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>({});
   const userRef = useRef();
   userRef.current = user;
   // Hardcoded userId for production
@@ -36,10 +36,11 @@ const App = () => {
             <Route path="/categories" component={Categories} />
             <Route path="/entries" component={Entries} />
             <Route path="/settings" component={Settings} />
-            <Route path="/graphs" component={Graphs} >
-            <Route path="/home" component={Home} />
+            <Route path="/graphs" component={Graphs} />
+            <Route path="/" component={Home} />
+              
             <Redirect to='/' />
-            </Route>
+            {/* </Route> */}
           </Switch>
         </Router >
       </UserContext.Provider>
