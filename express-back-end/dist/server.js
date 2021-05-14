@@ -14,20 +14,21 @@ const getEntryByCategory = (attributes) => {
     const queryParams = [userId];
     let queryStart = 'SELECT ';
     let queryMid = ' FROM entries';
-    let queryEnd = ' WHERE entries.user_id = $1';
+    let queryEnd = ' WHERE entries.user_id = $1'
+    let queryLimit = ' LIMIT 10';
     if (categoryId === '0') {
         queryStart += '*';
-        queryEnd += ` AND category_id IS NULL`;
+        queryEnd += ` AND category_id IS NULL`
     }
     else {
         queryStart += 'entries.*, categories.name as category_name';
         queryMid += ' JOIN categories ON entries.category_id = categories.id';
         if (categoryId) {
-            queryEnd += ' AND category_id = $2';
+            queryEnd += ' AND category_id = $2'
             queryParams.push(categoryId);
         }
     }
-    let query = queryStart + queryMid + queryEnd;
+    let query = queryStart + queryMid + queryEnd + queryLimit;
     return pool.query(query, queryParams);
 };
 const getEntryByEntryId = (attributes) => {

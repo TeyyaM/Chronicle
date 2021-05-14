@@ -1,7 +1,18 @@
+import { useEffect } from 'react';
+import axios from 'axios';
+
 import {Link, Route, Switch} from 'react-router-dom';
 import Entry from './Entry';
 
 const Entries = () => {
+  
+  useEffect(() => {
+
+    axios.get('api/entries')
+      .then(res => console.log("DATA", res.data))
+  }) 
+
+
   return (
     <div>
       <h2>Entries</h2>
