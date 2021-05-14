@@ -37,6 +37,7 @@ const createFakeEntries = (category) => {
   '${faker.lorem.paragraph()}',
   ${mood},
   NOW() -  interval '${hoursAgo} hours',
+  NOW() -  interval '${hoursAgo} hours',
   ${category},
   1)`);
 };
@@ -46,6 +47,7 @@ const generateEntries = () => {
                     content,
                     mood,
                     date_created,
+                    date_updated,
                     category_id,
                     user_id
                     ) VALUES `;

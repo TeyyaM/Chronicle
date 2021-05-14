@@ -48,9 +48,16 @@ interface IGraphParams {
   startDate?: string | null;
   endDate?: string | null;
 }
+interface IEntryParams {
+  startDate?: string | null;
+  endDate?: string | null;
+  mood?: null | string;
+  limit?: null | string
+}
 
-const getEntryByCategory = (attributes: { categoryId: string | null; userId: string; }) => {
+const getEntryByCategory = (attributes: { categoryId: string | null; userId: string; }, params: IEntryParams) => {
   const { categoryId, userId } = attributes;
+  const { startDate, endDate, mood, limit } = params;
   const queryParams = [userId];
   let queryStart = 'SELECT ';
   let queryMid = ' FROM entries';
@@ -62,11 +69,33 @@ const getEntryByCategory = (attributes: { categoryId: string | null; userId: str
     queryStart += 'entries.*, categories.name as category_name';
     queryMid += ' JOIN categories ON entries.category_id = categories.id';
     if (categoryId) {
-      queryEnd += ' AND category_id = $2';
       queryParams.push(categoryId);
+      queryEnd += ' AND category_id = $2';
     } 
   }
+    if (startDate) {
+      queryParams.push(startDate);
+      queryEnd += ` AND date_created > $${queryParams.length}`;
+    }
+    if (endDate) {
+      queryParams.push(endDate);
+      queryEnd += ` AND date_created < $${queryParams.length}`;
+    }
+
+    if (mood && mood !== 'all' && mood !== 'null') {
+      queryParams.push(mood);
+      queryEnd += ` AND mood = $${queryParams.length}`;
+    }
+    if (mood === 'null') {
+      queryEnd += ` AND mood IS NULL`;
+    }
+    if (limit) {
+      queryParams.push(limit);
+      queryEnd += ` LIMIT $${queryParams.length}`;
+    }
+
   let query = queryStart + queryMid + queryEnd;
+  console.log(query)
   return pool.query(query, queryParams);
 };
 
@@ -195,7 +224,7 @@ App.use(Express.static('public'));
 const userId = '1';
 
 App.get('/api/entries', (req: Request, res: Response) => {
-  getEntryByCategory({categoryId: null, userId})
+  getEntryByCategory({categoryId: null, userId}, req.query)
   .then((data) => res.json(data.rows));
 });
 App.get('/api/entries/:id', (req: Request, res: Response) => {
@@ -208,7 +237,7 @@ App.get('/api/categories', (req: Request, res: Response) => {
   .then((data) => res.json(data.rows));
 });
 App.get('/api/categories/:id', (req: Request, res: Response) => {
-   getEntryByCategory({categoryId: req.params.id, userId})
+   getEntryByCategory({categoryId: req.params.id, userId}, req.query)
    .then((data) => res.json(data.rows));
   });
 
