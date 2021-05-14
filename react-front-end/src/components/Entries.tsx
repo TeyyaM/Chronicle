@@ -10,6 +10,7 @@ const Entries = () => {
 
     axios.get('api/entries')
       .then(res => console.log("DATA", res.data))
+      .catch(err => console.log("error", err.message))
   }) 
 
 
