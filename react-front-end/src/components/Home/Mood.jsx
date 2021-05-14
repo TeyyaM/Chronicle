@@ -30,7 +30,8 @@ export default function Mood() {
   const { state, setState } = useContentData();
 
   function clickHandler(i) {
-    setState(prev => ({...prev, mood: i}));
+    const val = i + 1;
+    setState(prev => ({...prev, mood: val}));
     console.log("@@@@", i);
   }
 
@@ -40,7 +41,7 @@ export default function Mood() {
       <li 
       key={index}  
       onClick={() => clickHandler(index)}
-      style={state.mood ? {opacity: 1} : {opacity: 0.3}}>
+      style={state.mood === (index + 1) ? {opacity: 1} : {opacity: 0.3}}>
 
         <img src={item} alt={item.toString()}/>
 
