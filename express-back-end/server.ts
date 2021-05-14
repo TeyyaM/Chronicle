@@ -35,13 +35,13 @@ interface IEntry {
   privacy?: boolean;
   dateCreated?: string;
   dateUpdated?: string;
-  categoryId?: string | number | null;
-  userId: string | number;
+  category_id?: string | number | null;
+  user_id: string | number;
 }
 interface ICategory {
   id?: string | number;
   name: string;
-  userId: string | number;
+  user_id: string | number;
 }
 interface IGraphParams {
   type?: string;
@@ -161,6 +161,7 @@ const insertIntoDatabase = (attributes: IEntry | IUser | ICategory, table: strin
   for (const [attribute, value] of Object.entries(attributes)) {
 
     if (queryParams.length) {
+      queryStart += ', ';
       queryMid += ', ';
     }
     queryParams.push(value);
@@ -168,20 +169,21 @@ const insertIntoDatabase = (attributes: IEntry | IUser | ICategory, table: strin
     queryMid += `$${queryParams.length}`;
   }
   if (table !== 'users') {
-    queryEnd += ', user_id';
+    queryEnd += ', user_id as userId';
   }
   const queryString = queryStart + queryMid + queryEnd;
+  console.log(queryString)
   return pool.query(queryString, queryParams);
 };
 
 const insertCategory = (attributes: ICategory) => {
-  insertIntoDatabase(attributes, 'categories')
+  return insertIntoDatabase(attributes, 'categories')
 }
 const insertEntry = (attributes: IEntry) => {
-  insertIntoDatabase(attributes, 'entries')
+  return insertIntoDatabase(attributes, 'entries')
 }
 const insertUser = (attributes: IUser) => {
-  insertIntoDatabase(attributes, 'users')
+  return insertIntoDatabase(attributes, 'users')
 }
 
 // Express Configuration
@@ -239,13 +241,16 @@ App.post('/api/entries', (req: Request, res: Response) => {
     content: req.body.content,
     mood: req.body.mood || null,
     privacy: req.body.privacy || true,
-    userId: userId,
-    categoryId: req.body.category || null
+    user_id: req.body.userId,
+    category_id: req.body.category || null
   }
+  console.log(attributes)
   insertEntry(attributes)
+  .then((data) => res.json(data.rows));
 });
 App.post('/api/categories', (req: Request, res: Response) => {
-  insertCategory({userId, name: req.body.name})
+  insertCategory({user_id: userId, name: req.body.name})
+  .then((data) => res.json(data.rows));
 });
 App.post('/api/users', (req: Request, res: Response) => {
   const attributes = {
@@ -254,6 +259,7 @@ App.post('/api/users', (req: Request, res: Response) => {
     password: req.body.password
   }
   insertUser(attributes)
+  .then((data) => res.json(data.rows));
 });
 
 

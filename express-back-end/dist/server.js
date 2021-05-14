@@ -113,6 +113,7 @@ const insertIntoDatabase = (attributes, table) => {
     let queryEnd = ') RETURNING id';
     for (const [attribute, value] of Object.entries(attributes)) {
         if (queryParams.length) {
+            queryStart += ', ';
             queryMid += ', ';
         }
         queryParams.push(value);
@@ -120,19 +121,20 @@ const insertIntoDatabase = (attributes, table) => {
         queryMid += `$${queryParams.length}`;
     }
     if (table !== 'users') {
-        queryEnd += ', user_id';
+        queryEnd += ', user_id as userId';
     }
     const queryString = queryStart + queryMid + queryEnd;
+    console.log(queryString);
     return pool.query(queryString, queryParams);
 };
 const insertCategory = (attributes) => {
-    insertIntoDatabase(attributes, 'categories');
+    return insertIntoDatabase(attributes, 'categories');
 };
 const insertEntry = (attributes) => {
-    insertIntoDatabase(attributes, 'entries');
+    return insertIntoDatabase(attributes, 'entries');
 };
 const insertUser = (attributes) => {
-    insertIntoDatabase(attributes, 'users');
+    return insertIntoDatabase(attributes, 'users');
 };
 App.use(Express.urlencoded({ extended: false }));
 App.use(Express.json());
@@ -180,13 +182,16 @@ App.post('/api/entries', (req, res) => {
         content: req.body.content,
         mood: req.body.mood || null,
         privacy: req.body.privacy || true,
-        userId: userId,
-        categoryId: req.body.category || null
+        user_id: req.body.userId,
+        category_id: req.body.category || null
     };
-    insertEntry(attributes);
+    console.log(attributes);
+    insertEntry(attributes)
+        .then((data) => res.json(data.rows));
 });
 App.post('/api/categories', (req, res) => {
-    insertCategory({ userId, name: req.body.name });
+    insertCategory({ user_id: userId, name: req.body.name })
+        .then((data) => res.json(data.rows));
 });
 App.post('/api/users', (req, res) => {
     const attributes = {
@@ -194,7 +199,8 @@ App.post('/api/users', (req, res) => {
         email: req.body.email,
         password: req.body.password
     };
-    insertUser(attributes);
+    insertUser(attributes)
+        .then((data) => res.json(data.rows));
 });
 App.listen(PORT, () => {
     console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);

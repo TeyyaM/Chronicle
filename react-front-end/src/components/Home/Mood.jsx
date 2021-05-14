@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Mood() {
   const classes = useStyles();
 
-  const { state, setState } = useContentData();
+  const { setState } = useContentData();
 
   function clickHandler(i) {
     setState(prev => ({...prev, mood: 1}))

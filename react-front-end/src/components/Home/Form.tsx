@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import useContentData from '../../hooks/useContentData';
+import { useContext } from 'react';
+import { UserContext } from '../../hooks/UserContext';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -28,16 +30,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 export default function Form() {
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+
+  const { state, setState, submitContent } = useContentData();
 
   const classes = useStyles();
 
-  const { state, setState, submitContent } = useContentData();
 
   function submitHandler(event) {
     event.preventDefault();
     console.log("form was submitted");
-    submitContent();
+    submitContent(user.id);
   }
 
   function titleHandler(event) {
