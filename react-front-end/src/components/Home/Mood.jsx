@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import useContentData from '../../hooks/useContentData'
+// import useContentData from '../../hooks/useContentData';
 
 import Box from '@material-ui/core/Box';
 import smiley from '../../imgs/smiley.ico';
@@ -9,6 +9,8 @@ import unhappy from '../../imgs/unhappy.ico';
 import angry from '../../imgs/angry.ico';
 
 const useStyles = makeStyles((theme) => ({
+
+  
   root: {
     border: 0,
     borderRadius: 3,
@@ -23,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Mood() {
+export default function Mood(props) {
+
   const classes = useStyles();
 
-  const { setState } = useContentData();
+  const { setMood } = props;
 
   function clickHandler(index) {
-    setState(prev => ({...prev, mood: index}))
+    setMood(index);
   }
 
   const emojiArr = [angry, unhappy, neutral, mild, smiley];

@@ -1,7 +1,5 @@
 // to resolve error "Expected an assignment or function call and instead saw an expression"
 /* eslint-disable */
-
-import useContentData from '../../hooks/useContentData';
 import { useContext } from 'react';
 import { UserContext } from '../../hooks/UserContext';
 
@@ -31,11 +29,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Form() {
+export default function Form(props) {
+  const { entry, setEntry, submitContent } = props;
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-
-  const { state, setState, submitContent } = useContentData();
 
   const classes = useStyles();
 
@@ -47,11 +44,11 @@ export default function Form() {
   }
 
   function titleHandler(event) {
-    setState(prev => ({...prev, title: event.target.value}))
+    setEntry(prev => ({...prev, title: event.target.value}))
   };
 
   function contentHandler(event) {
-    setState(prev => ({...prev, content: event.target.value}))
+    setEntry(prev => ({...prev, content: event.target.value}))
   };
  
   return (
@@ -68,7 +65,7 @@ export default function Form() {
           label="Title" 
           variant="outlined" 
           fullWidth
-          value={state.title}
+          value={entry.title}
           onInput={titleHandler}
           />
 
@@ -79,7 +76,7 @@ export default function Form() {
           label="Whats on your mind?" 
           variant="outlined" 
           fullWidth
-          value={state.content}
+          value={entry.content}
           onInput={contentHandler}
           />
 
