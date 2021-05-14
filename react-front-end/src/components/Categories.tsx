@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../hooks/UserContext';
 
+
 const Categories = () => {
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
