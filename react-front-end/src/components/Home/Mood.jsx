@@ -8,10 +8,9 @@ import neutral from '../../imgs/neutral.ico';
 import unhappy from '../../imgs/unhappy.ico';
 import angry from '../../imgs/angry.ico';
 
-const useStyles = makeStyles((theme) => ({
-
-  
+const useStyles = makeStyles(() => ({
   root: {
+    // display: 'flex',
     border: 0,
     borderRadius: 3,
     height: 40,
@@ -40,10 +39,15 @@ export default function Mood(props) {
     return (
       <li 
       key={index}  
-      onClick={() => clickHandler(index + 1)}>
+      onClick={() => clickHandler(index)}
+      style={state.mood === (index + 1) ? {opacity: 1} : {opacity: 0.4}}>
+
         <img src={item} alt={item.toString()}/>
-        </li>
+
+      </li>
     )})
+
+
 
   return (
     <Box className={classes.root}>

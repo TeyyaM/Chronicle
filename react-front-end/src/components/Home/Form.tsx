@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'black',
-    height: 300,
+    height: 375,
     width: '90%',
     padding: '0 10px',
-    margin: theme.spacing(1),
+    margin: 'auto',
   }
 }));
 

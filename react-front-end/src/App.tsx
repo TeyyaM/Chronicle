@@ -37,6 +37,11 @@ const App = () => {
             <Route path="/entries" component={Entries} />
             <Route path="/settings" component={Settings} />
             <Route path="/graphs" component={Graphs} />
+<<<<<<< HEAD
+=======
+            <Route path="/home" component={Home} />
+            <Redirect to='/' />
+>>>>>>> 99bd3459090f5f45624d2e13e5b8ebe6d21ba8f0
             <Route path="/" component={Home} />
               
             <Redirect to='/' />
