@@ -11,7 +11,6 @@ export default function PrivacySetting() {
 
     state.privacy ? setState(prev => ({...prev, privacy: false})) 
     : setState(prev => ({...prev, privacy: true}));
-    
   }
 
   return (

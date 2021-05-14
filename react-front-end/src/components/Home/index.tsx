@@ -2,6 +2,8 @@ import Form from './Form';
 import Mood from './Mood';
 import PrivacySetting from './PrivacySetting'
 
+import background from '../../imgs/backgroundImg.png'
+
 const Home = () => {
 
   const timeElapsed: number = Date.now();
@@ -11,7 +13,7 @@ const Home = () => {
   
   return (
     
-      <div>
+      <div style={{backgroundImage: `url(${background})`}}>
         <h1>Create An Entry</h1>
         <h2>{currentDay.toDateString()}</h2>
           <PrivacySetting />
