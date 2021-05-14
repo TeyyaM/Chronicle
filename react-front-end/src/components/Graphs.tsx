@@ -4,10 +4,10 @@ import LineGraph from './graphs/LineGraph';
 import PieGraph from './graphs/PieGraph';
 import DatePicker from './DatePicker';
 export default function Graphs() {
-  // const [startDate, setStartDate] = useState<string | null>(null);
-  // const [endDate, setEndDate] = useState<string | null>(null);
-  const startDate = '2019-08-30';
-  const endDate = '2021-08-30';
+  const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
+  const [endDate, setEndDate] = useState<null | Date>(new Date('2030-01-01'));
+  // const startDate = '2015-08-18';
+  // const endDate = '2030-01-01';
   const [pieData, setPieData] = useState<any>([{mood: 'So-So', entries: 1}]);
   const [lineData, setLineData] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   useEffect(() => {
@@ -64,18 +64,20 @@ export default function Graphs() {
       console.log('line', data)
       setLineData(data)
     });
-  }, [])
+  }, [startDate, endDate])
   return (
   <>
   <PieGraph data={pieData} startDate={startDate} endDate={endDate} />
   <DatePicker 
     id="date-picker-start-date" 
     name="Start Date"
-    placeholderDate="'2015-08-18'" />
+    date={startDate}
+    setDate={setStartDate} />
   <DatePicker 
     id="date-picker-end-date" 
     name="End Date" 
-    placeholderDate="'2030-01-01'"/>
+    date={endDate}
+    setDate={setEndDate}/>
   <LineGraph data={lineData} startDate={startDate} endDate={endDate} />
   </>
   );
