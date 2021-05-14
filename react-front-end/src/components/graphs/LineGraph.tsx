@@ -19,7 +19,6 @@ export default function LineGraph(props: { data: [{mood: number, date: string }]
 
   const { data } = props;
   const { userRef } = useContext(UserContext);
-  // ['very sad', 'Sad', 'So-So', 'Happy', 'Very Happy']
 
   return (
     <Chart id="mood-graph" dataSource={data} title="Your Mood Over Time">
@@ -44,7 +43,7 @@ export default function LineGraph(props: { data: [{mood: number, date: string }]
       <MinorGrid visible={false} />
     </ArgumentAxis>
     <ValueAxis>
-    <Label >null</Label>
+    <Label>null</Label>
     </ValueAxis>
     <Legend
             verticalAlignment="top"

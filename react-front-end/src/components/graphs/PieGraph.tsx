@@ -24,7 +24,7 @@ export default function PieGraph(props: {data: [{mood: number | string, entires:
     id="pie"
     dataSource={data}
     palette="Bright"
-    title="Your Moods Over This Time"
+    title="Your Cumulative Mood Over Time"
     onPointClick={(event) => {toggleVisibility(event.target)}}
     onLegendClick={(event) => {legendClickHandler(event)}}
   >
