@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import './styles/App.css';
-import Home from './components/Home';
+import Home from './components/Home/index';
 import Categories from './components/Categories';
 import Entries from './components/Entries';
 import Navbar from './components/menu/Navbar';
@@ -39,6 +39,10 @@ const App = () => {
             <Route path="/graphs" component={Graphs} />
             <Route path="/home" component={Home} />
             <Redirect to='/' />
+            <Route path="/" component={Home} />
+              
+            <Redirect to='/' />
+            {/* </Route> */}
           </Switch>
         </Router >
       </UserContext.Provider>
