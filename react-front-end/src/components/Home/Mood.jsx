@@ -28,8 +28,8 @@ export default function Mood() {
 
   const { setState } = useContentData();
 
-  function clickHandler(i) {
-    setState(prev => ({...prev, mood: 1}))
+  function clickHandler(index) {
+    setState(prev => ({...prev, mood: index}))
   }
 
   const emojiArr = [angry, unhappy, neutral, mild, smiley];
@@ -37,7 +37,7 @@ export default function Mood() {
     return (
       <li 
       key={index}  
-      onClick={() => clickHandler(index)}>
+      onClick={() => clickHandler(index + 1)}>
         <img src={item} alt={item.toString()}/>
         </li>
     )})
