@@ -37,10 +37,35 @@ const getEntryByEntryId = (attributes) => {
     const queryParams = [userId, entryId];
     return pool.query(query, queryParams);
 };
-const getGraphByUserId = (userId) => {
-    const query = `SELECT mood, TO_CHAR(date_created, 'YYYY-MM-DD') as date FROM entries
-  WHERE user_id = $1 AND mood IS NOT NULL ORDER BY date_created;`;
+const getGraphByUserId = (userId, params) => {
+    const { type, startDate, endDate } = params;
     const queryParams = [userId];
+    let queryStart = 'SELECT mood, ';
+    let queryMid = ' FROM entries WHERE user_id = $1 AND mood IS NOT NULL ';
+    let queryEnd = '';
+    if (type === 'line') {
+        queryStart += `TO_CHAR(date_created, 'YYYY-MM-DD') as date`;
+        queryEnd = 'ORDER BY date_created';
+    }
+    if (type === 'pie') {
+        queryStart += 'count(*) as entries';
+        queryEnd = 'GROUP BY mood';
+    }
+    if (startDate && endDate) {
+        queryMid += 'AND date_created BETWEEN $2 and $3';
+        queryParams.push(startDate, endDate);
+    }
+    else {
+        if (startDate) {
+            queryMid += `AND date_created > $2 `;
+            queryParams.push(startDate);
+        }
+        if (endDate) {
+            queryMid += `AND date_created < $2 `;
+            queryParams.push(endDate);
+        }
+    }
+    const query = queryStart + queryMid + queryEnd;
     return pool.query(query, queryParams);
 };
 const getCategories = (userId) => {
@@ -145,8 +170,8 @@ App.get('/api/fonts/:id', (req, res) => {
     getFontByFontId(req.params.id)
         .then((data) => res.json(data.rows));
 });
-App.get('/api/graph', (req, res) => {
-    getGraphByUserId(userId)
+App.get('/api/graph/', (req, res) => {
+    getGraphByUserId(userId, req.query)
         .then((data) => res.json(data.rows));
 });
 App.post('/api/entries', (req, res) => {

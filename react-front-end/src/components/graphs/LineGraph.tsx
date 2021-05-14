@@ -15,7 +15,7 @@ import {
   Point
 } from 'devextreme-react/chart';
 
-export default function LineGraph(props) {
+export default function LineGraph(props: { data: [{mood: number, date: string }], startDate: string | null, endDate: string | null }) {
   const { data } = props;
   const { userRef } = useContext(UserContext);
 

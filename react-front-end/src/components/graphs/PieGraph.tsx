@@ -1,33 +1,43 @@
 import PieChart, {
   Series,
   Label,
-  Connector,
   Size,
   Export
 } from 'devextreme-react/pie-chart';
 
-
-export default function PieGraph(props) {
+export default function PieGraph(props: {data: [{mood: number, entires: string | number}], startDate: string | null, endDate: string | null}) {
   const { data } = props;
-  console.log(data)
+
+  const legendClickHandler = (event: any) => {
+    const arg = event.target;
+    const item = event.component.getAllSeries()[0].getPointsByArg(arg)[0];
+
+    toggleVisibility(item);
+  }
+
+  const toggleVisibility = (item: any) => {
+    item.isVisible() ? item.hide() : item.show();
+  }
+
   return (
     <PieChart
-        id="pie-mood"
-        dataSource={data}
-        palette="Bright"
-        title="Your Moods Over This Time"
-      >
-      <Series
-        name="Mood"
-        argumentField="mood"
-        valueField="entires">
-        <Label visible={true}>
-          <Connector visible={true} width={1} />
-        </Label>
-      </Series>
+    id="pie"
+    dataSource={data}
+    palette="Bright"
+    title="Your Moods Over This Time"
+    onPointClick={(event) => {toggleVisibility(event.target)}}
+    onLegendClick={(event) => {legendClickHandler(event)}}
+  >
+    <Series
+      argumentField="mood"
+      valueField="entries"
+    >
+      <Label visible={true}>
+      </Label>
+    </Series>
 
-        <Size width={700} />
-        <Export enabled={true} />
-    </PieChart>
+    <Size width={700} />
+    <Export enabled={true} />
+  </PieChart>
   );
 }

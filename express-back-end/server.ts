@@ -43,6 +43,11 @@ interface ICategory {
   name: string;
   userId: string | number;
 }
+interface IGraphParams {
+  type?: string;
+  startDate?: string | null;
+  endDate?: string | null;
+}
 
 const getEntryByCategory = (attributes: { categoryId: string | null; userId: string; }) => {
   const { categoryId, userId } = attributes;
@@ -73,10 +78,35 @@ const getEntryByEntryId = (attributes: { entryId: string; userId: string; }) => 
   return pool.query(query, queryParams);
 };
 
-const getGraphByUserId = ( userId: string ) => {
-  const query = `SELECT mood, TO_CHAR(date_created, 'YYYY-MM-DD') as date FROM entries
-  WHERE user_id = $1 AND mood IS NOT NULL ORDER BY date_created;`;
+const getGraphByUserId = ( userId: string, params: IGraphParams ) => {
+  const { type, startDate, endDate } = params;
   const queryParams = [userId];
+  let queryStart = 'SELECT mood, ';
+  let queryMid = ' FROM entries WHERE user_id = $1 AND mood IS NOT NULL ';
+  let queryEnd = '';
+  if (type === 'line') {
+    queryStart += `TO_CHAR(date_created, 'YYYY-MM-DD') as date`;
+    queryEnd = 'ORDER BY date_created';
+  }
+  if (type === 'pie') {
+    queryStart += 'count(*) as entries';
+    queryEnd = 'GROUP BY mood';
+  }
+  if (startDate && endDate) {
+    queryMid += 'AND date_created BETWEEN $2 and $3'
+    queryParams.push(startDate, endDate)
+  } else {
+    if (startDate) {
+      queryMid += `AND date_created > $2 `
+      queryParams.push(startDate)
+    }
+    if (endDate) {
+      queryMid += `AND date_created < $2 `
+      queryParams.push(endDate)
+    }
+  }
+    
+  const query = queryStart + queryMid + queryEnd;
   return pool.query(query, queryParams);
 };
 
@@ -199,9 +229,8 @@ App.get('/api/fonts/:id', (req: Request, res: Response) => {
   getFontByFontId(req.params.id)
   .then((data) => res.json(data.rows));
 });
-App.get('/api/graph', (req: Request, res: Response) => {
-
-  getGraphByUserId(userId)
+App.get('/api/graph/', (req: Request, res: Response) => {
+  getGraphByUserId(userId, req.query)
   .then((data) => res.json(data.rows));
 });
 App.post('/api/entries', (req: Request, res: Response) => {
