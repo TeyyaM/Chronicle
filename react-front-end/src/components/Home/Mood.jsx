@@ -28,7 +28,7 @@ export default function Mood(props) {
 
   const classes = useStyles();
 
-  const { setMood } = props;
+  const { mood, setMood } = props;
 
   function clickHandler(index) {
     setMood(index);
@@ -40,7 +40,7 @@ export default function Mood(props) {
       <li 
       key={index}  
       onClick={() => clickHandler(index)}
-      style={state.mood === (index + 1) ? {opacity: 1} : {opacity: 0.4}}>
+      style={mood === (index) ? {opacity: 1} : {opacity: 0.4}}>
 
         <img src={item} alt={item.toString()}/>
 
