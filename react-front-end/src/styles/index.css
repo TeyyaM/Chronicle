@@ -15,7 +15,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-nav {
+.Navbar {
   text-align:center;
   align-items: center;
   font-family: Zilla Slab, sans-serif;

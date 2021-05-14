@@ -37,6 +37,12 @@ const getEntryByEntryId = (attributes) => {
     const queryParams = [userId, entryId];
     return pool.query(query, queryParams);
 };
+const getGraphByUserId = (userId) => {
+    const query = `SELECT mood, date_created FROM entries
+  WHERE user_id = $1 AND mood IS NOT NULL ORDER BY date_created DESC;`;
+    const queryParams = [userId];
+    return pool.query(query, queryParams);
+};
 const getCategories = (userId) => {
     const query = `SELECT * FROM categories
   WHERE user_id = $1`;
@@ -137,6 +143,10 @@ App.get('/api/fonts', (req, res) => {
 });
 App.get('/api/fonts/:id', (req, res) => {
     getFontByFontId(req.params.id)
+        .then((data) => res.json(data.rows));
+});
+App.get('/api/graph', (req, res) => {
+    getGraphByUserId(userId)
         .then((data) => res.json(data.rows));
 });
 App.post('/api/entries', (req, res) => {
