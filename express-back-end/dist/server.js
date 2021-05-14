@@ -9,8 +9,9 @@ const connectionString = process.env.DATABASE_URL ||
 const pool = new pg.Pool({ connectionString });
 pool.connect()
     .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
-const getEntryByCategory = (attributes) => {
+const getEntryByCategory = (attributes, params) => {
     const { categoryId, userId } = attributes;
+    const { startDate, endDate, mood, limit } = params;
     const queryParams = [userId];
     let queryStart = 'SELECT ';
     let queryMid = ' FROM entries';
@@ -23,11 +24,31 @@ const getEntryByCategory = (attributes) => {
         queryStart += 'entries.*, categories.name as category_name';
         queryMid += ' JOIN categories ON entries.category_id = categories.id';
         if (categoryId) {
-            queryEnd += ' AND category_id = $2';
             queryParams.push(categoryId);
+            queryEnd += ' AND category_id = $2';
         }
     }
+    if (startDate) {
+        queryParams.push(startDate);
+        queryEnd += ` AND date_created > $${queryParams.length}`;
+    }
+    if (endDate) {
+        queryParams.push(endDate);
+        queryEnd += ` AND date_created < $${queryParams.length}`;
+    }
+    if (mood && mood !== 'all' && mood !== 'null') {
+        queryParams.push(mood);
+        queryEnd += ` AND mood = $${queryParams.length}`;
+    }
+    if (mood === 'null') {
+        queryEnd += ` AND mood IS NULL`;
+    }
+    if (limit) {
+        queryParams.push(limit);
+        queryEnd += ` LIMIT $${queryParams.length}`;
+    }
     let query = queryStart + queryMid + queryEnd;
+    console.log(query);
     return pool.query(query, queryParams);
 };
 const getEntryByEntryId = (attributes) => {
@@ -141,7 +162,7 @@ App.use(Express.json());
 App.use(Express.static('public'));
 const userId = '1';
 App.get('/api/entries', (req, res) => {
-    getEntryByCategory({ categoryId: null, userId })
+    getEntryByCategory({ categoryId: null, userId }, req.query)
         .then((data) => res.json(data.rows));
 });
 App.get('/api/entries/:id', (req, res) => {
@@ -153,7 +174,7 @@ App.get('/api/categories', (req, res) => {
         .then((data) => res.json(data.rows));
 });
 App.get('/api/categories/:id', (req, res) => {
-    getEntryByCategory({ categoryId: req.params.id, userId })
+    getEntryByCategory({ categoryId: req.params.id, userId }, req.query)
         .then((data) => res.json(data.rows));
 });
 App.get('/api/users', (req, res) => {
