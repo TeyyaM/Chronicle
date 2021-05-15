@@ -149,6 +149,35 @@ const insertEntry = (attributes) => {
 const insertUser = (attributes) => {
     return insertIntoDatabase(attributes, 'users');
 };
+const updateDatabase = (attributes, identifiers) => {
+    const { table, type, id } = identifiers;
+    const queryParams = [];
+    let query = '';
+    if (type === 'delete') {
+        query += `DELETE
+    FROM ${table}`;
+    }
+    else {
+        query += `UPDATE ${table}`;
+        for (const [attribute, value] of Object.entries(attributes)) {
+            !queryParams.length
+                ? query += ' SET '
+                : query += ', ';
+            queryParams.push(value);
+            query += `${attribute} = $${queryParams.length}`;
+        }
+        if (table === 'entries') {
+            query += ', date_updated = NOW()';
+        }
+    }
+    queryParams.push(id);
+    query += ` WHERE id = $${queryParams.length}`;
+    if (table !== 'users') {
+        queryParams.push(attributes.user_id);
+        query += ` AND user_id = $${queryParams.length}`;
+    }
+    return pool.query(query, queryParams);
+};
 App.use(Express.urlencoded({ extended: false }));
 App.use(Express.json());
 App.use(Express.static('public'));
@@ -199,6 +228,14 @@ App.post('/api/entries', (req, res) => {
         category_id: req.body.category || null
     };
     insertEntry(attributes)
+        .then((data) => res.json(data.rows));
+});
+App.post('/api/entries/:id', (req, res) => {
+    updateDatabase(req.body.params, { table: 'entries', type: 'update', id: req.params.id })
+        .then((data) => res.json(data.rows));
+});
+App.delete('/api/entries/:id', (req, res) => {
+    updateDatabase(req.body, { table: 'entries', type: 'delete', id: req.params.id })
         .then((data) => res.json(data.rows));
 });
 App.post('/api/categories', (req, res) => {
