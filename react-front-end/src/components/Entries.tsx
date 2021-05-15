@@ -38,13 +38,15 @@ const Entries = () => {
     width: '90%',
     border: '2px',
     borderColor: 'black',
-    backgroundColor: 'lightBlue',
-    margin: 'auto'
+    margin: 'auto',
+    backgroundColor: '#cfe8fc', 
+    height: '100vh', 
+    overflow: 'scroll'
   }
 
 
   const content = entries.map(entry => {
-   return ( <div style={contentStyling}>
+   return ( <div >
       <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
       <p>{entry.mood ? `Mood: ${entry.mood}`: null}</p>
       <p>{entry.content}</p>
@@ -57,7 +59,7 @@ const Entries = () => {
     <Fragment>
       <CssBaseline />
         <Container maxWidth="xl">
-          <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh', overflow: 'scroll' }} >
+          <Typography component="div" style={contentStyling} >
           <h2>Entries</h2>
           <DatePicker 
             id="date-picker-start-date" 
