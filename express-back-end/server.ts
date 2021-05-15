@@ -95,7 +95,6 @@ const getEntryByCategory = (attributes: { categoryId: string | null; userId: str
     }
 
   let query = queryStart + queryMid + queryEnd;
-  console.log(query)
   return pool.query(query, queryParams);
 };
 
@@ -201,7 +200,6 @@ const insertIntoDatabase = (attributes: IEntry | IUser | ICategory, table: strin
     queryEnd += ', user_id as userId';
   }
   const queryString = queryStart + queryMid + queryEnd;
-  console.log(queryString)
   return pool.query(queryString, queryParams);
 };
 
@@ -273,7 +271,6 @@ App.post('/api/entries', (req: Request, res: Response) => {
     user_id: req.body.userId,
     category_id: req.body.category || null
   }
-  console.log(attributes)
   insertEntry(attributes)
   .then((data) => res.json(data.rows));
 });

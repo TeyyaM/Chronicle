@@ -9,11 +9,11 @@ import Graphs from './components/Graphs';
 import Settings from './components/Settings';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { UserContext } from './hooks/UserContext';
-
 const App = () => {
   const [user, setUser] = useState<any>({});
   const userRef = useRef();
   userRef.current = user;
+
   // Hardcoded userId for production
   console.log('App has rerendered')
   useEffect(() => {
@@ -21,15 +21,25 @@ const App = () => {
     .then((res) => {
       setUser(res.data[0])
         console.log(userRef.current)
-    })
-  }, [])
+      })
+    }, [])
+
+
   return (
-    <div className="App">
+    <div className="App"
+    style={{
+      backgroundColor: user ? user.background_hex : 'rebeccapurple',
+      color: user ? user.text_hex : 'rebeccapurple'
+    }}>
       <UserContext.Provider value={{ userRef }}>
         <Router>
-          <Navbar />
-
-
+          <nav
+            style={{
+              backgroundColor: user ? user.accent_hex : 'rebeccapurple',
+              color: user ? user.text_hex : 'rebeccapurple'
+            }}>
+            <Navbar />
+          </nav>
 
           <Switch>
             <Route path="/categories" component={Categories} />
@@ -46,5 +56,6 @@ const App = () => {
     </div>
   );
 };
+// {/* </CustomColors> */}
 
 export default App;
