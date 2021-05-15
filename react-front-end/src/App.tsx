@@ -4,7 +4,7 @@ import './styles/App.css';
 import Home from './components/Home/index';
 import Categories from './components/Categories';
 import Entries from './components/Entries';
-import Navbar from './components/menu/Navbar';
+import Navbar from './components/Navbar';
 import Graphs from './components/Graphs';
 import Settings from './components/Settings';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -25,7 +25,6 @@ const App = () => {
   }, [])
   return (
     <div className="App">
-      <h2>Chronicle</h2>
       <UserContext.Provider value={{ userRef }}>
         <Router>
           <Navbar />
