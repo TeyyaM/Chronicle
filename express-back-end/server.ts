@@ -14,9 +14,9 @@ pool.connect()
 
 interface IUser {
   id?: string | number;
-  username: string;
-  email: string;
-  password: string;
+  username?: string;
+  email?: string;
+  password?: string;
   backgroundHex?: string;
   accentHex?: string;
   textHex?: string;
@@ -40,7 +40,7 @@ interface IEntry {
 }
 interface ICategory {
   id?: string | number;
-  name: string;
+  name?: string;
   user_id: string | number;
 }
 interface IGraphParams {
@@ -201,12 +201,47 @@ const insertIntoDatabase = (attributes: IEntry | IUser | ICategory, table: strin
 const insertCategory = (attributes: ICategory) => {
   return insertIntoDatabase(attributes, 'categories')
 }
+
 const insertEntry = (attributes: IEntry) => {
   return insertIntoDatabase(attributes, 'entries')
 }
+
 const insertUser = (attributes: IUser) => {
   return insertIntoDatabase(attributes, 'users')
 }
+const updateDatabase = (attributes: IEntry | IUser | ICategory, identifiers: { table: string, type: string, id: string }) => {
+  const { table, type, id } = identifiers;
+  const queryParams = [];
+  let query = '';
+  // either deleting or updating an item from a table
+  if (type === 'delete') {
+    query += `DELETE
+    FROM ${table}` ;
+  } else {
+    query += `UPDATE ${table}`
+    for (const [attribute, value] of Object.entries(attributes)) {
+      !queryParams.length 
+      ? query += ' SET '
+      : query += ', ';
+      queryParams.push(value);
+      query += `${attribute} = $${queryParams.length}`;
+    }
+    // update the date_updated if it's an entry
+    if (table === 'entries') {
+      query += ', date_updated = NOW()'
+    }
+  }
+
+  queryParams.push(id)
+  query += ` WHERE id = $${queryParams.length}`;
+  // this if will only fire when it's *not* the user table
+  if (table !== 'users') {
+    // @ts-ignore
+    queryParams.push(attributes.user_id)
+    query += ` AND user_id = $${queryParams.length}`
+  }
+  return pool.query(query, queryParams);
+};
 
 // Express Configuration
 App.use(Express.urlencoded({ extended: false }));
@@ -220,15 +255,18 @@ App.get('/api/entries', (req: Request, res: Response) => {
   getEntryByCategory({categoryId: null, userId}, req.query)
   .then((data) => res.json(data.rows));
 });
-App.get('/api/entries/:id', (req: Request, res: Response) => {
-  getEntryByEntryId({entryId: req.params.id, userId})
+
+App.get('/api/entries/:entryId', (req: Request, res: Response) => {
+  getEntryByEntryId({entryId: req.params.entryId, userId})
   .then((data) => res.json(data.rows));
 });
+
 App.get('/api/categories', (req: Request, res: Response) => {
 
   getCategories(userId)
   .then((data) => res.json(data.rows));
 });
+
 App.get('/api/categories/:id', (req: Request, res: Response) => {
    getEntryByCategory({categoryId: req.params.id, userId}, req.query)
    .then((data) => res.json(data.rows));
@@ -269,6 +307,14 @@ App.post('/api/entries', (req: Request, res: Response) => {
   insertEntry(attributes)
   .then((data) => res.json(data.rows));
 });
+App.post('/api/entries/:id', (req: Request, res: Response) => {
+  updateDatabase(req.body.params, { table: 'entries', type: 'update', id: req.params.id })
+  .then((data) => res.json(data.rows));
+});
+App.delete('/api/entries/:id', (req: Request, res: Response) => {
+  updateDatabase(req.body, { table: 'entries', type: 'delete', id: req.params.id })
+  .then((data) => res.json(data.rows));
+});
 App.post('/api/categories', (req: Request, res: Response) => {
   insertCategory({user_id: userId, name: req.body.name})
   .then((data) => res.json(data.rows));
@@ -282,6 +328,7 @@ App.post('/api/users', (req: Request, res: Response) => {
   insertUser(attributes)
   .then((data) => res.json(data.rows));
 });
+
 
 
 App.listen(PORT, () => {

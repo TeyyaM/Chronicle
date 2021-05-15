@@ -4,11 +4,10 @@ import LineGraph from './graphs/LineGraph';
 import PieGraph from './graphs/PieGraph';
 import DatePicker from './DatePicker';
 export default function Graphs() {
+
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
-  // const startDate = '2015-08-18';
-  // const endDate = '2030-01-01';
-  const [pieData, setPieData] = useState<any>([{mood: 'So-So', entries: 1}]);
+  const [pieData, setPieData] = useState<any>([{mood: 'Neutral', entries: 1}]);
   const [lineData, setLineData] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   useEffect(() => {
     // get pie chart data
@@ -20,24 +19,15 @@ export default function Graphs() {
     }
   })
   .then((res) => {
+    const moodNames = {
+      1: 'Very Unhappy',
+      2: 'Unhappy',
+      3: 'Neutral',
+      4: 'Happy',
+      5: 'Very Happy'
+    };
     const stringifiedMood = res.data.map((count: {mood: number | string, entries: string}) => {
-      switch(count.mood) {
-        case 1:
-          count.mood = 'Very Sad'
-          break;
-        case 2:
-          count.mood = 'Sad'
-          break;
-        case 3:
-          count.mood = 'So-So'
-          break;
-        case 4:
-          count.mood = 'Happy'
-          break;
-        case 5:
-          count.mood = 'Very Happy'
-          break;
-      }
+      count.mood = moodNames[count.mood]
       return count;
     })
     setPieData(stringifiedMood)
