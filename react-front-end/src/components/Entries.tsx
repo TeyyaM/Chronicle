@@ -10,11 +10,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-// import smiley from '../imgs/smiley.ico';
-// import mild from '../imgs/mildly_happy.ico';
-// import neutral from '../imgs/neutral.ico';
-// import unhappy from '../imgs/unhappy.ico';
-// import angry from '../imgs/angry.ico';
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
 const Entries = () => {
