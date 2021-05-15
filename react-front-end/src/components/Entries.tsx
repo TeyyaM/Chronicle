@@ -1,8 +1,21 @@
-import { useState, useEffect } from 'react';
-import {Link, Route, Switch} from 'react-router-dom';
+
+import { useEffect, useState, Fragment } from 'react';
+import axios from 'axios';
+
+import { Link, Route, Switch } from 'react-router-dom';
 import Entry from './Entry';
 import DatePicker from './DatePicker';
-import axios from 'axios';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+
+// import smiley from '../imgs/smiley.ico';
+// import mild from '../imgs/mildly_happy.ico';
+// import neutral from '../imgs/neutral.ico';
+// import unhappy from '../imgs/unhappy.ico';
+// import angry from '../imgs/angry.ico';
+
 
 const Entries = () => {
 
@@ -11,7 +24,7 @@ const Entries = () => {
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const limit = 10;
-  const mood = 'null';
+  const mood = 'all';
   useEffect(() => {
       // get pie chart data
     axios.get('/api/entries', {
@@ -27,36 +40,69 @@ const Entries = () => {
     });
   }, [startDate, endDate]);
 
-console.log(entries)
-  return (
-    <div>
-      <h2>Entries</h2>
-      <DatePicker 
-        id="date-picker-start-date" 
-        name="Start Date"
-        date={startDate}
-        setDate={setStartDate} />
-      <DatePicker 
-        id="date-picker-end-date" 
-        name="End Date" 
-        date={endDate}
-        setDate={setEndDate}/>
-      <div>
-        <Link to="/entries/1">Entry Title #1</Link><br/>
-        <Link to="/entries/2">Entry Title #2</Link><br/>
-        <Link to="/entries/3">Entry Title #3</Link><br/>
-        <Link to="/entries/4">Entry Title #4</Link><br/>
-        <Link to="/entries/5">Entry Title #5</Link>
-      </div>
+  // console.log("Entries", entries)
 
-      <Switch>
-        <Route path="/entries/:entryId" component={Entry} />
-        <Route path="/entries">
-          <h2>Please choose a entry from the list above</h2>
-        </Route>
-      </Switch>
-    </div>
-  );
+  const contentStyling = {
+    height: '100vh', 
+    width: '90%',
+    border: '2px',
+    borderColor: 'black',
+    margin: 'auto',
+    padding: '10px',
+    backgroundColor: '#cfe8fc', 
+    overflow: 'scroll',
+    fontFamily: 'Patrick Hand',
+    fontStyle: 'cursive',
+    fontSize: '1.5em'
+  }
+
+  const content = entries.map(entry => {
+   return ( <div style={{border: 'black', borderWidth: '3px'}}>
+      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+      <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
+      <p>{entry.mood ? `Mood: ${entry.mood}`: null}</p>
+      <p>{entry.content}</p>
+    </div>) 
+  })
+
+  // displays mood icon
+  // const moodImage = (num: number) => {
+  //   const imgs = {1: angry, 2: unhappy, 3: neutral, 4: mild, 5: smiley};
+  //   return (
+  //     <img src={imgs[num]}/>
+  //   )
+  // }
+
+
+  return (
+
+    <Fragment>
+      <CssBaseline />
+        <Container maxWidth="xl">
+          <Typography component="div" style={contentStyling} >
+          <h2>Entries</h2>
+          <DatePicker 
+            id="date-picker-start-date" 
+            name="Start Date"
+            date={startDate}
+            setDate={setStartDate} />
+          <DatePicker 
+            id="date-picker-end-date" 
+            name="End Date" 
+            date={endDate}
+            setDate={setEndDate}/>
+
+        {content}
+
+        <Switch>
+          <Route path="/entries/:entryId" component={Entry} />
+          <Route path="/entries">
+          </Route>
+        </Switch>
+        </Typography>
+        </Container>
+    </Fragment>
+  )  
 };
 
 export default Entries;
