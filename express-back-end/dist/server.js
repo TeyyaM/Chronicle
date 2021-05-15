@@ -164,7 +164,6 @@ const insertEntry = (attributes) => {
 const insertUser = (attributes) => {
     return insertIntoDatabase(attributes, 'users');
 };
-<<<<<<< HEAD
 const updateDatabase = (attributes, identifiers) => {
     const { table, type, id } = identifiers;
     const queryParams = [];
@@ -194,9 +193,6 @@ const updateDatabase = (attributes, identifiers) => {
     }
     return pool.query(query, queryParams);
 };
-=======
-
->>>>>>> 67ef8c542fd75db430d8309326e5e19250f29c19
 App.use(Express.urlencoded({ extended: false }));
 App.use(Express.json());
 App.use(Express.static('public'));
