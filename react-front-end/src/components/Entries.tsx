@@ -48,6 +48,7 @@ const Entries = () => {
     border: '2px',
     borderColor: 'black',
     margin: 'auto',
+    padding: '10px',
     backgroundColor: '#cfe8fc', 
     overflow: 'scroll',
     fontFamily: 'Patrick Hand',
@@ -56,8 +57,9 @@ const Entries = () => {
   }
 
   const content = entries.map(entry => {
-   return ( <div >
+   return ( <div style={{border: 'black', borderWidth: '3px'}}>
       <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+      <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
       <p>{entry.mood ? `Mood: ${entry.mood}`: null}</p>
       <p>{entry.content}</p>
     </div>) 
@@ -90,7 +92,7 @@ const Entries = () => {
             date={endDate}
             setDate={setEndDate}/>
 
-            {content}
+        {content}
 
         <Switch>
           <Route path="/entries/:entryId" component={Entry} />
