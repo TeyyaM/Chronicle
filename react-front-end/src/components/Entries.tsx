@@ -35,8 +35,6 @@ const Entries = () => {
     });
   }, [startDate, endDate]);
 
-  // console.log("Entries", entries)
-
   const contentStyling = {
     height: '100vh', 
     width: '90%',
@@ -78,15 +76,17 @@ const Entries = () => {
       return imgs[num];
     }
 
-  const content = entries.map(entry => {
+  const content = entries.map((entry, index) => {
       const mood = moodImage(entry.mood);
-   return ( <div style={{border: 'black', borderWidth: '3px'}}>
+   return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
       <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
       <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
       <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
       <p>{entry.content}</p>
     </div>) 
   })
+
+  // changed /entries/ to /entry/
 
   return (
 
@@ -113,6 +113,7 @@ const Entries = () => {
           <Route path="/entries">
           </Route>
         </Switch>
+        
         </Typography>
         </Container>
     </Fragment>

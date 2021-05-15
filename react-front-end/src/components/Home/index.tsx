@@ -10,10 +10,6 @@ import background from '../../imgs/backgroundImg.png';
 
 const useStyles = makeStyles(() => ({
   root: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignContent: 'center',
-    // justifyContent: 'center',
     backgroundImage: `url(${background})`, 
     height: '600px'
   }
@@ -26,9 +22,6 @@ const Home = () => {
     title: "", content: "", privacy: true, category: null
   });
   
-  // console.log('STATE:', entry)
-  // console.log('MOOD:', mood)
-
   const submitContent = (userId: string | number) => {
 
     axios.post('api/entries', {...entry, userId, mood}) 
@@ -39,8 +32,6 @@ const Home = () => {
 
   const timeElapsed: number = Date.now();
   const currentDay = new Date(timeElapsed);
-
-  console.log("Home has loaded");
   
   return (
     

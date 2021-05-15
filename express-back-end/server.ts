@@ -201,9 +201,11 @@ const insertIntoDatabase = (attributes: IEntry | IUser | ICategory, table: strin
 const insertCategory = (attributes: ICategory) => {
   return insertIntoDatabase(attributes, 'categories')
 }
+
 const insertEntry = (attributes: IEntry) => {
   return insertIntoDatabase(attributes, 'entries')
 }
+
 const insertUser = (attributes: IUser) => {
   return insertIntoDatabase(attributes, 'users')
 }
@@ -253,15 +255,18 @@ App.get('/api/entries', (req: Request, res: Response) => {
   getEntryByCategory({categoryId: null, userId}, req.query)
   .then((data) => res.json(data.rows));
 });
-App.get('/api/entries/:id', (req: Request, res: Response) => {
-  getEntryByEntryId({entryId: req.params.id, userId})
+
+App.get('/api/entries/:entryId', (req: Request, res: Response) => {
+  getEntryByEntryId({entryId: req.params.entryId, userId})
   .then((data) => res.json(data.rows));
 });
+
 App.get('/api/categories', (req: Request, res: Response) => {
 
   getCategories(userId)
   .then((data) => res.json(data.rows));
 });
+
 App.get('/api/categories/:id', (req: Request, res: Response) => {
    getEntryByCategory({categoryId: req.params.id, userId}, req.query)
    .then((data) => res.json(data.rows));
