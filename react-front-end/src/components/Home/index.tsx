@@ -31,7 +31,7 @@ const Home = () => {
 
   const submitContent = (userId: string | number) => {
 
-    axios.post('api/entries/new', {...entry, userId, mood}) 
+    axios.post('api/entries', {...entry, userId, mood}) 
       .then(res => console.log("POST", res.data))
       .catch(err => console.log("ERROR", err));
   }
