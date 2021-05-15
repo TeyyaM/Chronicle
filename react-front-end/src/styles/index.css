@@ -58,6 +58,7 @@ code {
 }
 
 .links {
+	display: inline-block;
 	font-size: x-large;
 	font-family: "Zilla Slab", sans-serif;
 	margin-left: 1.5em;

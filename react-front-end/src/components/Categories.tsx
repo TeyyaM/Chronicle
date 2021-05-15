@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import React,  { useContext } from 'react';
 import { UserContext } from '../hooks/UserContext';
 import axios from 'axios';
+import Category from './Category'
 
 
 const Categories = () => {
@@ -15,13 +16,14 @@ const Categories = () => {
         setCategories(res.data);
       })
   }, [])
+
   return (
     <div>
       <h2>Categories</h2>
 
 
       <div>
-        <Link to="/category/:id"><ul>
+        <Link to={`/category/${Category}`}><ul>
           {categories.map(item=> (
             <li>{item.name}</li>
           ))}

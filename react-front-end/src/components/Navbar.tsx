@@ -56,7 +56,7 @@ function Navbar() {
         </div></Link>
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Search by Category"
         value={searchTerm}
         onChange={handleChange}
       />
