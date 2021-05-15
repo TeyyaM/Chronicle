@@ -57,8 +57,7 @@ const Entries = () => {
     <Fragment>
       <CssBaseline />
         <Container maxWidth="xl">
-          <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} >
-          I am in the container
+          <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh', overflow: 'scroll' }} >
           <h2>Entries</h2>
           <DatePicker 
             id="date-picker-start-date" 
