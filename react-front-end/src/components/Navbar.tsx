@@ -30,7 +30,7 @@ function Navbar() {
       categories.name.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
-  }, [searchTerm]);
+  }, [categories, searchTerm]);
 
   return (
     <div className="Navbar">
@@ -39,6 +39,10 @@ function Navbar() {
       </img>
 
       <Link to="/"><button>Chronicle Your Day </button></Link>
+
+      <Link to="/entries"><button>Entries</button></Link>
+      <Link to="/settings"><button>Settings</button></Link>
+      <Link to="/graphs"><button>Graphs</button></Link>
       <Link to="/categories">
         <div className="dropdown">
           <button className="dropbtn">Categories</button>
@@ -46,21 +50,17 @@ function Navbar() {
             <ul>
               {searchResults.map(item => (
                 <li>{item.name}</li>
-              ))}
+                ))}
             </ul>
           </div>
         </div></Link>
-
-      <Link to="/entries"><button>Entries</button></Link>
-      <Link to="/settings"><button>Settings</button></Link>
-      <Link to="/graphs"><button>Graphs</button></Link>
-      <Link to="/login"><button>Login or Sign up</button></Link>
       <input
         type="text"
         placeholder="Search"
         value={searchTerm}
         onChange={handleChange}
       />
+      <Link to="/login"><button>Login or Sign up</button></Link>
     </div>
   );
 }
