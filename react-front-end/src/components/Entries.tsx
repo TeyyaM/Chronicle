@@ -4,7 +4,6 @@ import axios from 'axios';
 import {Link, Route, Switch} from 'react-router-dom';
 import Entry from './Entry';
 import DatePicker from './DatePicker';
-import axios from 'axios';
 
 const Entries = () => {
 
@@ -29,7 +28,23 @@ const Entries = () => {
     });
   }, [startDate, endDate]);
 
-console.log(entries)
+  // console.log("Entries", entries)
+
+  const contentStyling = {
+    width: '90%',
+    border: '2px black'
+  }
+
+
+  const content = entries.map(entry => {
+   return ( <div style={contentStyling}>
+      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+      <p>{entry.mood ? `Mood: ${entry.mood}`: null}</p>
+      <p>{entry.content}</p>
+    </div>) 
+  })
+
+
   return (
     <div>
       <h2>Entries</h2>
@@ -43,12 +58,9 @@ console.log(entries)
         name="End Date" 
         date={endDate}
         setDate={setEndDate}/>
+
       <div>
-        <Link to="/entries/1">Entry Title #1</Link><br/>
-        <Link to="/entries/2">Entry Title #2</Link><br/>
-        <Link to="/entries/3">Entry Title #3</Link><br/>
-        <Link to="/entries/4">Entry Title #4</Link><br/>
-        <Link to="/entries/5">Entry Title #5</Link>
+        {content}
       </div>
 
       <Switch>
