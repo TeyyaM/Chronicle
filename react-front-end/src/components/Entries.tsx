@@ -60,16 +60,17 @@ const Entries = () => {
    return ( <div style={{border: 'black', borderWidth: '3px'}}>
       <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
       <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
-      <p>{entry.mood ? `Mood: ${entry.mood}`: null}</p>
+      <p>{entry.mood ? `Mood: ${() => moodImage(entry.mood)}`: null}</p>
       <p>{entry.content}</p>
     </div>) 
   })
 
+
   // displays mood icon
-  // const moodImage = (num: number) => {
+  // const moodImage = (num) => {
   //   const imgs = {1: angry, 2: unhappy, 3: neutral, 4: mild, 5: smiley};
   //   return (
-  //     <img src={imgs[num]}/>
+  //     <img src={imgs[num]} alt="alt"/>
   //   )
   // }
 
