@@ -46,9 +46,7 @@ export default function Mood(props) {
 
       </li>
     )})
-
-
-
+    
   return (
     <Box className={classes.root}>
       <ul className={classes.ol}>

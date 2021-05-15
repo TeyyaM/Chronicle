@@ -26,8 +26,8 @@ const Home = () => {
     title: "", content: "", privacy: true, category: null
   });
   
-  console.log('STATE:', entry)
-  console.log('MOOD:', mood)
+  // console.log('STATE:', entry)
+  // console.log('MOOD:', mood)
 
   const submitContent = (userId: string | number) => {
 
