@@ -5,7 +5,7 @@ import PieGraph from './graphs/PieGraph';
 import DatePicker from './DatePicker';
 export default function Graphs() {
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
-  const [endDate, setEndDate] = useState<null | Date>(new Date('2030-01-01'));
+  const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   // const startDate = '2015-08-18';
   // const endDate = '2030-01-01';
   const [pieData, setPieData] = useState<any>([{mood: 'So-So', entries: 1}]);

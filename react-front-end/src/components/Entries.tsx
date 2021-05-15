@@ -20,7 +20,7 @@ import Container from '@material-ui/core/Container';
 const Entries = () => {
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
-  const [endDate, setEndDate] = useState<null | Date>(new Date('2030-01-01'));
+  const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const limit = 10;

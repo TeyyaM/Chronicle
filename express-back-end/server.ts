@@ -75,11 +75,11 @@ const getEntryByCategory = (attributes: { categoryId: string | null; userId: str
   }
     if (startDate) {
       queryParams.push(startDate);
-      queryEnd += ` AND date_created > $${queryParams.length}`;
+      queryEnd += ` AND date_created >= $${queryParams.length}`;
     }
     if (endDate) {
       queryParams.push(endDate);
-      queryEnd += ` AND date_created < $${queryParams.length}`;
+      queryEnd += ` AND date_created <= $${queryParams.length}`;
     }
 
     if (mood && mood !== 'all' && mood !== 'null') {
@@ -120,19 +120,14 @@ const getGraphByUserId = ( userId: string, params: IGraphParams ) => {
     queryStart += 'count(*) as entries';
     queryEnd = 'GROUP BY mood';
   }
-  if (startDate && endDate) {
-    queryMid += 'AND date_created BETWEEN $2 and $3'
-    queryParams.push(startDate, endDate)
-  } else {
     if (startDate) {
-      queryMid += `AND date_created > $2 `
-      queryParams.push(startDate)
+      queryParams.push(startDate);
+      queryMid += ` AND date_created >= $${queryParams.length}`;
     }
     if (endDate) {
-      queryMid += `AND date_created < $2 `
-      queryParams.push(endDate)
+      queryParams.push(endDate);
+      queryMid += ` AND date_created <= $${queryParams.length}`;
     }
-  }
     
   const query = queryStart + queryMid + queryEnd;
   return pool.query(query, queryParams);
