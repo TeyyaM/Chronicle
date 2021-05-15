@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 
 import {Link, Route, Switch} from 'react-router-dom';
 import Entry from './Entry';
 import DatePicker from './DatePicker';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 const Entries = () => {
 
@@ -32,7 +36,10 @@ const Entries = () => {
 
   const contentStyling = {
     width: '90%',
-    border: '2px black'
+    border: '2px',
+    borderColor: 'black',
+    backgroundColor: 'lightBlue',
+    margin: 'auto'
   }
 
 
@@ -46,31 +53,35 @@ const Entries = () => {
 
 
   return (
-    <div>
-      <h2>Entries</h2>
-      <DatePicker 
-        id="date-picker-start-date" 
-        name="Start Date"
-        date={startDate}
-        setDate={setStartDate} />
-      <DatePicker 
-        id="date-picker-end-date" 
-        name="End Date" 
-        date={endDate}
-        setDate={setEndDate}/>
 
-      <div>
-        {content}
-      </div>
+    <Fragment>
+      <CssBaseline />
+        <Container maxWidth="xl">
+          <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} >
+          I am in the container
+          <h2>Entries</h2>
+          <DatePicker 
+            id="date-picker-start-date" 
+            name="Start Date"
+            date={startDate}
+            setDate={setStartDate} />
+          <DatePicker 
+            id="date-picker-end-date" 
+            name="End Date" 
+            date={endDate}
+            setDate={setEndDate}/>
 
-      <Switch>
-        <Route path="/entries/:entryId" component={Entry} />
-        <Route path="/entries">
-          <h2>Please choose a entry from the list above</h2>
-        </Route>
-      </Switch>
-    </div>
-  );
+            {content}
+
+        <Switch>
+          <Route path="/entries/:entryId" component={Entry} />
+          <Route path="/entries">
+          </Route>
+        </Switch>
+        </Typography>
+        </Container>
+    </Fragment>
+  )  
 };
 
 export default Entries;
