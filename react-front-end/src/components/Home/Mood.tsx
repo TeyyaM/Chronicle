@@ -2,11 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 // import useContentData from '../../hooks/useContentData';
 
 import Box from '@material-ui/core/Box';
-// import smiley from '../../imgs/smiley.ico';
-// import mild from '../../imgs/mildly_happy.ico';
-// import neutral from '../../imgs/neutral.ico';
-// import unhappy from '../../imgs/unhappy.ico';
-// import angry from '../../imgs/angry.ico';
 import { smiley, mild, neutral, unhappy, angry } from '../emojis'
 
 const useStyles = makeStyles(() => ({
@@ -35,15 +30,26 @@ export default function Mood(props) {
     setMood(index);
   }
 
-  const emojiArr = [angry, unhappy, neutral, mild, smiley];
-  const emojiList = emojiArr.map((item, index) => {  
+  const emojiArr = [
+    { src: angry,
+    name: 'Very Unhappy' },
+    { src: unhappy,
+      name: 'Unhappy' },
+    { src: neutral,
+      name: 'Neutral' },
+    { src: mild,
+      name: 'Happy' },
+    { src: smiley,
+      name: 'Very Happy' }
+    ];
+  const emojiList = emojiArr.map((emoji, index) => {  
     return (
       <li 
       key={index}  
       onClick={() => clickHandler(index)}
       style={mood === (index) ? {opacity: 1} : {opacity: 0.4}}>
 
-        <img src={item} alt={item.toString()}/>
+        <img src={emoji.src} alt={emoji.name}/>
 
       </li>
     )})
