@@ -79,7 +79,7 @@ const Entries = () => {
   const content = entries.map((entry, index) => {
       const mood = moodImage(entry.mood);
    return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
-      <Link to={`/entry/${entry.id}`}>{entry.title}</Link><br/>
+      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
       <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
       <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
       <p>{entry.content}</p>
@@ -109,7 +109,7 @@ const Entries = () => {
         {content}
 
         <Switch>
-          <Route path="/entry/:entryId" component={Entry} />
+          <Route path="/entries/:entryId" component={Entry} />
           <Route path="/entries">
           </Route>
         </Switch>

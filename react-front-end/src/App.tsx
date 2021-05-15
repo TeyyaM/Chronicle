@@ -10,18 +10,19 @@ import Graphs from './components/Graphs';
 import Settings from './components/Settings';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { UserContext } from './hooks/UserContext';
+
 const App = () => {
   const [user, setUser] = useState<any>({});
   const userRef = useRef();
   userRef.current = user;
 
   // Hardcoded userId for production
-  console.log('App has rerendered')
+  // console.log('App has rerendered')
   useEffect(() => {
     axios.get('/api/users/1')
     .then((res) => {
       setUser(res.data[0])
-        console.log(userRef.current)
+        // console.log(userRef.current)
       })
     }, [])
 
@@ -44,8 +45,8 @@ const App = () => {
 
           <Switch>
             <Route path="/categories" component={Categories} />
+            <Route path="/entries/:entryId" component={Entry} />
             <Route path="/entries" component={Entries} />
-            <Route path="/entry/:entryId" component={Entry} />
             <Route path="/settings" component={Settings} />
             <Route path="/graphs" component={Graphs} />
             <Route path="/" component={Home} />

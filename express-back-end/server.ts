@@ -223,8 +223,7 @@ App.get('/api/entries', (req: Request, res: Response) => {
   .then((data) => res.json(data.rows));
 });
 
-App.get('/api/entry/:entryId', (req: Request, res: Response) => {
-  console.log("####", req.params.entryId);
+App.get('/api/entries/:entryId', (req: Request, res: Response) => {
   getEntryByEntryId({entryId: req.params.entryId, userId})
   .then((data) => res.json(data.rows));
 });
