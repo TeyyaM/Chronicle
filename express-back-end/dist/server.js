@@ -4,11 +4,15 @@ const PORT = 8080;
 import dotenv from 'dotenv';
 dotenv.config();
 import pg from 'pg';
+
 const connectionString = process.env.DATABASE_URL ||
     `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=disable`;
+
 const pool = new pg.Pool({ connectionString });
+
 pool.connect()
     .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
+
 const getEntryByCategory = (attributes, params) => {
     const { categoryId, userId } = attributes;
     const { startDate, endDate, mood, limit } = params;
@@ -50,6 +54,7 @@ const getEntryByCategory = (attributes, params) => {
     let query = queryStart + queryMid + queryEnd;
     return pool.query(query, queryParams);
 };
+
 const getEntryByEntryId = (attributes) => {
     const { entryId, userId } = attributes;
     const query = `SELECT * FROM entries
@@ -57,6 +62,7 @@ const getEntryByEntryId = (attributes) => {
     const queryParams = [userId, entryId];
     return pool.query(query, queryParams);
 };
+
 const getGraphByUserId = (userId, params) => {
     const { type, startDate, endDate } = params;
     const queryParams = [userId];
@@ -82,12 +88,14 @@ const getGraphByUserId = (userId, params) => {
     const query = queryStart + queryMid + queryEnd;
     return pool.query(query, queryParams);
 };
+
 const getCategories = (userId) => {
     const query = `SELECT * FROM categories
   WHERE user_id = $1`;
     const queryParams = [userId];
     return pool.query(query, queryParams);
 };
+
 const getUserByUserId = (id) => {
     const query = `
   SELECT users.*,
@@ -106,20 +114,24 @@ const getUserByUserId = (id) => {
     const queryParams = [id];
     return pool.query(query, queryParams);
 };
+
 const getUsers = () => {
     const query = 'SELECT * FROM users';
     return pool.query(query);
 };
+
 const getFontByFontId = (id) => {
     const query = `SELECT * FROM fonts
   WHERE id = $1;`;
     const queryParams = [id];
     return pool.query(query, queryParams);
 };
+
 const getFonts = () => {
     const query = 'SELECT * FROM fonts';
     return pool.query(query);
 };
+
 const insertIntoDatabase = (attributes, table) => {
     const queryParams = [];
     let queryStart = `INSERT INTO ${table} (`;
@@ -140,55 +152,69 @@ const insertIntoDatabase = (attributes, table) => {
     const queryString = queryStart + queryMid + queryEnd;
     return pool.query(queryString, queryParams);
 };
+
 const insertCategory = (attributes) => {
     return insertIntoDatabase(attributes, 'categories');
 };
+
 const insertEntry = (attributes) => {
     return insertIntoDatabase(attributes, 'entries');
 };
+
 const insertUser = (attributes) => {
     return insertIntoDatabase(attributes, 'users');
 };
+
 App.use(Express.urlencoded({ extended: false }));
 App.use(Express.json());
 App.use(Express.static('public'));
+
 const userId = '1';
 App.get('/api/entries', (req, res) => {
     getEntryByCategory({ categoryId: null, userId }, req.query)
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/entries/:id', (req, res) => {
     getEntryByEntryId({ entryId: req.params.id, userId })
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/categories', (req, res) => {
     getCategories(userId)
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/categories/:id', (req, res) => {
     getEntryByCategory({ categoryId: req.params.id, userId }, req.query)
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/users', (req, res) => {
     getUsers()
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/users/:id', (req, res) => {
     getUserByUserId(req.params.id)
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/fonts', (req, res) => {
     getFonts()
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/fonts/:id', (req, res) => {
     getFontByFontId(req.params.id)
         .then((data) => res.json(data.rows));
 });
+
 App.get('/api/graph/', (req, res) => {
     getGraphByUserId(userId, req.query)
         .then((data) => res.json(data.rows));
 });
+
 App.post('/api/entries', (req, res) => {
     const attributes = {
         title: req.body.title,
@@ -201,10 +227,12 @@ App.post('/api/entries', (req, res) => {
     insertEntry(attributes)
         .then((data) => res.json(data.rows));
 });
+
 App.post('/api/categories', (req, res) => {
     insertCategory({ user_id: userId, name: req.body.name })
         .then((data) => res.json(data.rows));
 });
+
 App.post('/api/users', (req, res) => {
     const attributes = {
         username: req.body.username,
@@ -214,6 +242,7 @@ App.post('/api/users', (req, res) => {
     insertUser(attributes)
         .then((data) => res.json(data.rows));
 });
+
 App.listen(PORT, () => {
     console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
 });

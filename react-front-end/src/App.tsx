@@ -4,6 +4,7 @@ import './styles/App.css';
 import Home from './components/Home/index';
 import Categories from './components/Categories';
 import Entries from './components/Entries';
+import Entry from './components/Entry'
 import Navbar from './components/Navbar';
 import Graphs from './components/Graphs';
 import Settings from './components/Settings';
@@ -44,6 +45,7 @@ const App = () => {
           <Switch>
             <Route path="/categories" component={Categories} />
             <Route path="/entries" component={Entries} />
+            <Route path="/entry/:entryId" component={Entry} />
             <Route path="/settings" component={Settings} />
             <Route path="/graphs" component={Graphs} />
             <Route path="/" component={Home} />

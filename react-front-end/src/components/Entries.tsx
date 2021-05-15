@@ -10,11 +10,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-// import smiley from '../imgs/smiley.ico';
-// import mild from '../imgs/mildly_happy.ico';
-// import neutral from '../imgs/neutral.ico';
-// import unhappy from '../imgs/unhappy.ico';
-// import angry from '../imgs/angry.ico';
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
 const Entries = () => {
@@ -39,8 +34,6 @@ const Entries = () => {
       setEntries(res.data)
     });
   }, [startDate, endDate]);
-
-  // console.log("Entries", entries)
 
   const contentStyling = {
     height: '100vh', 
@@ -83,15 +76,17 @@ const Entries = () => {
       return imgs[num];
     }
 
-  const content = entries.map(entry => {
+  const content = entries.map((entry, index) => {
       const mood = moodImage(entry.mood);
-   return ( <div style={{border: 'black', borderWidth: '3px'}}>
-      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+   return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
+      <Link to={`/entry/${entry.id}`}>{entry.title}</Link><br/>
       <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
       <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
       <p>{entry.content}</p>
     </div>) 
   })
+
+  // changed /entries/ to /entry/
 
   return (
 
@@ -114,10 +109,11 @@ const Entries = () => {
         {content}
 
         <Switch>
-          <Route path="/entries/:entryId" component={Entry} />
+          <Route path="/entry/:entryId" component={Entry} />
           <Route path="/entries">
           </Route>
         </Switch>
+        
         </Typography>
         </Container>
     </Fragment>

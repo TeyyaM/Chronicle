@@ -6,6 +6,7 @@ const Entry = () => {
   interface Params {
     entryId: string;
   };
+  console.log("Im the entry page");
   const params: Params = useParams();
 
   const history = useHistory();
