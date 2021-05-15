@@ -1,77 +1,76 @@
-
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #6fe4e8;
-  background-image: url("https://www.transparenttextures.com/patterns/scribble-light.png");
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	padding: 0;
+	/* background-color: #6fe4e8; */
+	background-image: url("https://www.transparenttextures.com/patterns/scribble-light.png");
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
 .Navbar {
-  text-align:center;
-  align-items: center;
-  font-family: Zilla Slab, sans-serif;
-  font-size: larger;
-  flex-direction: row;
-  height: 10em;
-  box-shadow: #023a50;
-  background-color:#24a4da;
-  color:rgb(30, 150, 255);
-  display: flex;
-  justify-content: space-evenly;
-  background-image: url(http://www.transparenttextures.com/patterns/brick-wall.png);
-  top: 0;
-  padding: 16px;
-  width: 100%;
+	text-align: center;
+	align-items: center;
+	font-family: Zilla Slab, sans-serif;
+	font-size: larger;
+	flex-direction: row;
+	height: 10em;
+	box-shadow: #023a50;
+	display: flex;
+	justify-content: space-evenly;
+	/* background-image: url(http://www.transparenttextures.com/patterns/brick-wall.png); */
+	top: 0;
+	padding: 16px;
+	width: 100%;
 }
 /* Dropdown button */
 
 .dropbtn {
-  background-color: black;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
+	background-color: black;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
 }
 .dropdown {
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
 }
-.dropdown-content a:hover {background-color: #ddd;}
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+	display: block;
+}
 
 .links {
-  font-size:x-large;
-  font-family: 'Zilla Slab', sans-serif;
-  margin-left: 1.5em;
-  width: 10em;
-  border: 15px black;
-  padding: 16px;
-  margin: 20px;
+	font-size: x-large;
+	font-family: "Zilla Slab", sans-serif;
+	margin-left: 1.5em;
+	width: 10em;
+	border: 15px black;
+	padding: 16px;
+	margin: 20px;
 }
 button:hover {
-
-  color: #0DADEA;
+	color: #0dadea;
 }
 h2 {
-  font-style: italic;
-  font-size: xx-large;
-  font-family: Zilla Slab, sans-serif;
-
+	font-style: italic;
+	font-size: xx-large;
+	font-family: Zilla Slab, sans-serif;
 }
