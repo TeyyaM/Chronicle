@@ -5,7 +5,7 @@ import React from 'react';
 // import Categories from './Categories';
 // import ReactDOM from 'react-dom';
 import { useEffect } from 'react';
-
+// import Category from './Category';
 
 
 
@@ -47,6 +47,7 @@ function Navbar() {
         <div className="dropdown">
           <button className="dropbtn">Categories</button>
           <div className="dropdown-content">
+ 
             <ul>
               {searchResults.map(item => (
                 <li>{item.name}</li>
