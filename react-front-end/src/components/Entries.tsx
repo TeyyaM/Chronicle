@@ -1,6 +1,4 @@
 
-
-
 import { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 
@@ -12,11 +10,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import smiley from '../imgs/smiley.ico';
-import mild from '../imgs/mildly_happy.ico';
-import neutral from '../imgs/neutral.ico';
-import unhappy from '../imgs/unhappy.ico';
-import angry from '../imgs/angry.ico';
+// import smiley from '../imgs/smiley.ico';
+// import mild from '../imgs/mildly_happy.ico';
+// import neutral from '../imgs/neutral.ico';
+// import unhappy from '../imgs/unhappy.ico';
+// import angry from '../imgs/angry.ico';
+
 
 const Entries = () => {
 
@@ -59,17 +58,18 @@ const Entries = () => {
   const content = entries.map(entry => {
    return ( <div >
       <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
-      <p>{entry.mood ? `Mood: ${() => moodImage(entry.mood)}`: null}</p>
+      <p>{entry.mood ? `Mood: ${entry.mood}`: null}</p>
       <p>{entry.content}</p>
     </div>) 
   })
 
-  const moodImage = (num: number) => {
-    const imgs = {1: angry, 2: unhappy, 3: neutral, 4: mild, 5: smiley};
-    return (
-      <img src={imgs[num]}/>
-    )
-  }
+  // displays mood icon
+  // const moodImage = (num: number) => {
+  //   const imgs = {1: angry, 2: unhappy, 3: neutral, 4: mild, 5: smiley};
+  //   return (
+  //     <img src={imgs[num]}/>
+  //   )
+  // }
 
 
   return (

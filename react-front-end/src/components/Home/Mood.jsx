@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // import useContentData from '../../hooks/useContentData';
 
 import Box from '@material-ui/core/Box';
+
 import smiley from '../../imgs/smiley.ico';
 import mild from '../../imgs/mildly_happy.ico';
 import neutral from '../../imgs/neutral.ico';
