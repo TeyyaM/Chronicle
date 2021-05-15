@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 import useEntryData from '../hooks/useEntryData'
-
+import { useContext } from 'react';
+import { UserContext } from '../hooks/UserContext';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Form() {
 
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+  console.log(user)
   const classes = useStyles();
 
   const { entryData, titleData, submitEntry } = useEntryData();
