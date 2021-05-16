@@ -88,6 +88,15 @@ const Entries = () => {
 
   // changed /entries/ to /entry/
 
+  // displays mood icon
+  // const moodImage = (num) => {
+  //   const imgs = {1: angry, 2: unhappy, 3: neutral, 4: mild, 5: smiley};
+  //   return (
+  //     <img src={imgs[num]} alt="alt"/>
+  //   )
+  // }
+
+
   return (
 
     <Fragment>
