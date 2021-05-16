@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <div className="App" style={appStyling}>
-      <UserContext.Provider value={{ userRef }}>
+      <UserContext.Provider value={{ userRef, setUser }}>
         <Router>
           <nav
             style={{

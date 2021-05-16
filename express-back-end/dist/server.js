@@ -230,6 +230,10 @@ App.post('/api/entries/:id', (req, res) => {
     updateDatabase(req.body.params, { table: 'entries', type: 'update', id: req.params.id })
         .then((data) => res.json(data.rows));
 });
+App.post('/api/users/:id', (req, res) => {
+    updateDatabase(req.body.params, { table: 'users', type: 'update', id: req.params.id })
+        .then((data) => res.json(data.rows));
+});
 App.delete('/api/entries/:id', (req, res) => {
     updateDatabase(req.body, { table: 'entries', type: 'delete', id: req.params.id })
         .then((data) => res.json(data.rows));

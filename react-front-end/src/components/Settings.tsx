@@ -1,5 +1,5 @@
-import { HexColorPicker } from 'react-colorful';
-import { useContext, useState } from 'react'; 
+import ColorPicker from './ColorPicker';
+import { useState, useContext, useEffect } from 'react'; 
 import { UserContext } from '../hooks/UserContext';  
 
 
@@ -13,16 +13,36 @@ export default function Settings() {
   const [accent, setAccent] = useState('#ebb30e');
   const [text, setText] = useState('#fafafa');
   const [title, setTitle] = useState('#1D2731');
-  console.log(user)
 
+  useEffect (() => {
+    if (user) {
+      setBackground(user.background_hex);
+      setSecondary(user.secondary_hex);
+      setAccent(user.accent_hex);
+      setText(user.text_hex);
+      setTitle(user.title_hex);
+    }
+    // there's never a user id without a user
+    // eslint-disable-next-line
+  }, [user.id])
 
   return (
     <div className="Settings">
-      <HexColorPicker color={background} onChange={setBackground} />
-      <HexColorPicker color={secondary} onChange={setSecondary} />
-      <HexColorPicker color={accent} onChange={setAccent} />
-      <HexColorPicker color={text} onChange={setText} />
-      <HexColorPicker color={title} onChange={setTitle} />
+      <ColorPicker color={background} 
+        setColor={setBackground}
+        name="Background" />
+      <ColorPicker color={secondary}
+        setColor={setSecondary} 
+        name="Secondary" />
+      <ColorPicker color={accent}
+        setColor={setAccent}
+        name="Accent" />
+      <ColorPicker color={text}
+        setColor={setText}
+        name="Text" />
+      <ColorPicker color={title}
+        setColor={setTitle} 
+        name="Title" />
     </div>
   );
 }
