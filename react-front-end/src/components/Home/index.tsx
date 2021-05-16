@@ -6,11 +6,9 @@ import Form from './Form';
 import Mood from './Mood';
 import PrivacySetting from './PrivacySetting'
 
-import background from '../../imgs/backgroundImg.png';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundImage: `url(${background})`, 
     height: '600px'
   }
 }))
