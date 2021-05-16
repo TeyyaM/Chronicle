@@ -1,14 +1,10 @@
 
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 import Entry from './Entry';
 import DatePicker from './DatePicker';
-
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
@@ -86,34 +82,20 @@ const Entries = () => {
     </div>) 
   })
 
-  // changed /entries/ to /entry/
-
-  // displays mood icon
-  // const moodImage = (num) => {
-  //   const imgs = {1: angry, 2: unhappy, 3: neutral, 4: mild, 5: smiley};
-  //   return (
-  //     <img src={imgs[num]} alt="alt"/>
-  //   )
-  // }
-
 
   return (
-
-    <Fragment>
-      <CssBaseline />
-        <Container maxWidth="xl">
-          <Typography component="div" style={contentStyling} >
-          <h2>Entries</h2>
-          <DatePicker 
-            id="date-picker-start-date" 
-            name="Start Date"
-            date={startDate}
-            setDate={setStartDate} />
-          <DatePicker 
-            id="date-picker-end-date" 
-            name="End Date" 
-            date={endDate}
-            setDate={setEndDate}/>
+      <div style={contentStyling}>
+        <h2>Entries</h2>
+        <DatePicker 
+          id="date-picker-start-date" 
+          name="Start Date"
+          date={startDate}
+          setDate={setStartDate} />
+        <DatePicker 
+          id="date-picker-end-date" 
+          name="End Date" 
+          date={endDate}
+          setDate={setEndDate}/>
 
         {content}
 
@@ -122,10 +104,7 @@ const Entries = () => {
           <Route path="/entries">
           </Route>
         </Switch>
-        
-        </Typography>
-        </Container>
-    </Fragment>
+      </div>        
   )  
 };
 
