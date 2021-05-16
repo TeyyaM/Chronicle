@@ -9,17 +9,18 @@ import { smiley, mild, neutral, unhappy, angry } from './emojis';
 
 interface Params {entryId: string};
 
-const { userRef } = useContext(UserContext);
-const user = userRef.current;
 
-const entryStyling = {
-  backgroundColor: user ? user.background_hex : '#0b3c5d',
-  color: user ? user.title_hex : '#d9b310',   
-  height: '12vh'
-}
     
 
 const Entry = () => {
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+
+  const entryStyling = {
+    backgroundColor: user ? user.background_hex : '#0b3c5d',
+    color: user ? user.title_hex : '#d9b310',   
+    height: '12vh'
+  }
 
   interface Data {
     title: string;

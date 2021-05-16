@@ -8,17 +8,17 @@ import Form from './Form';
 import Mood from './Mood';
 import PrivacySetting from './PrivacySetting'
 
-const { userRef } = useContext(UserContext);
-const user = userRef.current;
 
-const homeStyling = {
-  height: '600px',
-  backgroundColor: user ? user.accent_hex : 'rebeccapurple',
-  color: user ? user.text_hex : 'rebeccapurple'
-};
 
 
 const Home = () => {
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+
+  const homeStyling = {
+    height: '600px',
+    color: user ? user.text_hex : 'rebeccapurple'
+  };
 
   const [ mood, setMood ] = useState<null | number>(null);
   const [ entry, setEntry ] = useState({
