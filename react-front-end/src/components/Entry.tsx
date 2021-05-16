@@ -19,8 +19,13 @@ const Entry = () => {
   const entryStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.title_hex : '#d9b310',   
-    height: '12vh'
-  }
+    height: '100%',
+    margin: 15,
+    borderColor: !user ? user.background_hex : '#0b3c5d',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderRadius: 10
+  }  
   
   interface Data {
     title: string;
@@ -93,8 +98,8 @@ const Entry = () => {
   }
 
   return (
-    <div>
-      <h2 style={entryStyling}>{content.title}</h2>
+    <div style={entryStyling}>
+      <h2 >{content.title}</h2>
       <p>{content.date_created}</p>
       <p>{content.privacy}</p>
       {availableMood()}
