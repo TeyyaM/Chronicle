@@ -52,6 +52,13 @@ const Entries = () => {
     fontFamily: 'Patrick Hand',
     fontStyle: 'cursive',
     fontSize: '1.5em',
+    divStyling: {
+      borderStyle: 'solid',
+      borderColor: 'black',
+      borderWidth: 3,
+      borderRadius: 5,
+      margin: 10
+    }
   }
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
@@ -80,7 +87,7 @@ const Entries = () => {
   const content = entries.map((entry, index) => {
     const mood = moodImage(entry.mood);
     return ( 
-      <div key={index} style={{border: 'black', borderWidth: '3px'}}>
+      <div key={index} style={contentStyling.divStyling}>
         <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
         <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
         <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
