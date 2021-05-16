@@ -18,7 +18,7 @@ const formStyling = {
     color: 'black',
     height: 325,
     width: '90%',
-    padding: '0 10px',
+    padding: 10,
     margin: 'auto',
 };
 
