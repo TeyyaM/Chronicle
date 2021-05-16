@@ -47,8 +47,8 @@ function Navbar() {
         <div className="dropdown">
           <button className="dropbtn">Categories</button>
           <div className="dropdown-content">
- 
             <ul>
+            <Link to={`/categories/${categories.name}`}></Link>
               {searchResults.map(item => (
                 <li>{item.name}</li>
                 ))}

@@ -25,6 +25,7 @@ const Categories = () => {
 
 
       <Switch>
+        
         <Route path="/category/:id" component={Category} >
         <ul>
           {categories.map(item=> (

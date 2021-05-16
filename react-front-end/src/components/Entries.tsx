@@ -17,6 +17,9 @@ const Entries = () => {
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState<any>([]);
+
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const limit = 10;
   const mood = 'all';
@@ -34,6 +37,22 @@ const Entries = () => {
       setEntries(res.data)
     });
   }, [startDate, endDate]);
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+  useEffect(() => {
+    axios.get('/api/entries')
+    .then((res) => {
+      setSearchResults(res.data);
+      setEntries(res.data);
+    })
+  }, [] )
+  useEffect(() => {
+    const results = entries.filter(entries =>
+      entries[0].toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [entries, searchTerm]);
 
   const contentStyling = {
     height: '100vh', 
@@ -80,6 +99,15 @@ const Entries = () => {
       const mood = moodImage(entry.mood);
    return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
       <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+      {searchResults.map(item => (
+            <li>{item.title}</li>
+          ))}
+          <input
+        type="text"
+        placeholder="Search by Entry Title"
+        value={searchTerm}
+        onChange={handleChange}
+      />
       <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
       <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
       <p>{entry.content}</p>
