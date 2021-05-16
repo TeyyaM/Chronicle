@@ -1,3 +1,5 @@
+import TextField from '@material-ui/core/TextField';
+
 import { useEffect, useState, useContext, Fragment } from 'react';
 // import {useParams, useHistory} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
@@ -11,8 +13,6 @@ const Entry = () => {
 
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-
-  // console.log("%%%%", user)
   
   const entryStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
@@ -33,6 +33,7 @@ const Entry = () => {
     date_created: Date | null;
     mood: number | string| null;
   }
+
   const [ content, setContent ] = useState<Data>({
     title: "",
     content: "",
@@ -41,15 +42,21 @@ const Entry = () => {
     date_created: null,
     category_id: null
   });
+  const [ editMode, setEditMode ] = useState<boolean>(false)
 
   
   const params: Params = useParams();
 
   useEffect(() => {
-    console.log("useEffect is called")
+    // console.log("useEffect is called")
     axios.get(`/api/entries/${params.entryId}`)
       .then(res => setContent({...res.data[0]})); // Do stuff with it
   }, [params.entryId]);
+
+  // function update(content) {
+  //   axios.put(`/api/entries/${params.entryId}`, {content})
+  // }
+  // may have to update route
 
       // displays mood icon
       const moodImage = (num: number | string) => {
@@ -78,10 +85,6 @@ const Entry = () => {
         return imgs[num];
       }
 
-
-
-
-
   // const history = useHistory();
   // console.log(history);
 
@@ -95,16 +98,49 @@ const Entry = () => {
     }
   }
 
+  function titleHandler(event) {
+    setContent(prev => ({...prev, title: event.target.value}))
+  };
+
+  function contentHandler(event) {
+    setContent((prev) => ({...prev, content: event.target.value}))
+  };
+
+  let buttonMessage = editMode ? "Save" : "Edit";
+
   return (
     <Fragment>
-      <div style={entryStyling}>
-        <h2 >{content.title}</h2>
-        <p>{content.date_created}</p>
-        <p>{content.privacy}</p>
-        {availableMood()}
-        <p>{content.content}</p>
-      </div>
-      <div style={{height: 150}}></div>
+      {editMode 
+      ? (<form> <TextField 
+        id="outlined-basic" 
+        margin="normal"
+        label="Title" 
+        variant="outlined" 
+        fullWidth
+        value={content.title}
+        onInput={titleHandler}
+        />
+
+      <TextField 
+        id="outlined-basic" 
+        multiline
+        rows="10"
+        label="Whats on your mind?" 
+        variant="outlined" 
+        fullWidth
+        value={content.content}
+        onInput={contentHandler}
+        />
+        </form> )
+
+      : (<div style={entryStyling}>
+      <h2 >{content.title}</h2>
+      <p>{content.date_created}</p>
+      <p>{content.privacy}</p>
+      {availableMood()}
+      <p>{content.content}</p>
+    </div>)}
+      <button onClick={() => setEditMode(true)}>{buttonMessage}</button>
     </Fragment>
     
   );
