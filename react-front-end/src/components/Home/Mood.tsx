@@ -1,28 +1,17 @@
-import { makeStyles } from '@material-ui/core/styles';
-// import useContentData from '../../hooks/useContentData';
-
 import Box from '@material-ui/core/Box';
 import { smiley, mild, neutral, unhappy, angry } from '../emojis'
 
-const useStyles = makeStyles(() => ({
-  root: {
-    // display: 'flex',
-    border: 0,
-    borderRadius: 3,
+const moodStyling = {
+    
     height: 40,
-    margin: "auto"
-  },
-  ol: { 
+    margin: "auto",
     display:'flex', 
-    flexDirection: 'row', 
-    'list-style': 'none', 
-    width: 100
-  }
-}));
-
+    justifyContent: 'center',
+    listStyle: 'none', 
+    width: '100%'
+};
+  
 export default function Mood(props) {
-
-  const classes = useStyles();
 
   const { mood, setMood } = props;
 
@@ -42,21 +31,21 @@ export default function Mood(props) {
     { src: smiley,
       name: 'Very Happy' }
     ];
+
+  // The user can select an emoji as their mood
   const emojiList = emojiArr.map((emoji, index) => {  
     return (
       <li 
       key={index}  
       onClick={() => clickHandler(index)}
       style={mood === (index) ? {opacity: 1} : {opacity: 0.4}}>
-
         <img src={emoji.src} alt={emoji.name}/>
-
       </li>
     )})
     
   return (
-    <Box className={classes.root}>
-      <ul className={classes.ol}>
+    <Box>
+      <ul style={moodStyling}>
         {emojiList}
       </ul>
     </Box>
