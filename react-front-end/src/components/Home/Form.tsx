@@ -52,7 +52,7 @@ export default function Form(props) {
   };
  
   return (
-    <form id="entry_form" className={classes.root} noValidate autoComplete="off" onSubmit={submitHandler}>
+    <form className={classes.root} noValidate autoComplete="off" onSubmit={submitHandler}>
       <Box
         width="100%"
         display="flex" 

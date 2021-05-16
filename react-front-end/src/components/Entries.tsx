@@ -43,15 +43,13 @@ const Entries = () => {
   console.log("user%%%", user );
 
   const contentStyling = {
-    height: '100vh', 
+    height: '100%', 
     width: '100%',
     backgroundColor: user ? user.seccondary_hex : 'rebeccapurple',
     color: user ? user.text_hex : 'rebeccapurple',
-    border: '2px',
-    borderColor: 'black',
     margin: 'auto',
     padding: '10px',
-    overflow: 'scroll',
+    // overflow: 'scroll',
     fontFamily: 'Patrick Hand',
     fontStyle: 'cursive',
     fontSize: '1.5em'
