@@ -20,7 +20,7 @@ code {
 	font-family: Zilla Slab, sans-serif;
 	font-size: larger;
 	flex-direction: row;
-	height: 10em;
+	height: 4em;
 	box-shadow: #023a50;
 	display: flex;
 	justify-content: space-evenly;
@@ -29,7 +29,6 @@ code {
 	padding: 16px;
 	width: 96%;
 }
-/* Dropdown button */
 
 .dropbtn {
 	background-color: black;

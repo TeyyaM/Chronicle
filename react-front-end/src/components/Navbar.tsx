@@ -35,7 +35,7 @@ function Navbar() {
   return (
     <div className="Navbar">
 
-      <img src="images/ChronicleLogo.png" alt="logo">
+      <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%'}}>
       </img>
 
       <Link to="/"><button>Chronicle Your Day </button></Link>
