@@ -3,18 +3,13 @@
 import { useContext } from 'react';
 import { UserContext } from '../../hooks/UserContext';
 
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
+const formStyling = {
     display: 'flex',
     background: 'white',
     border: 0,
@@ -25,17 +20,12 @@ const useStyles = makeStyles((theme) => ({
     width: '90%',
     padding: '0 10px',
     margin: 'auto',
-  }
-}));
-
+  };
 
 export default function Form(props) {
   const { entry, setEntry, submitContent } = props;
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-
-  const classes = useStyles();
-
 
   function submitHandler(event) {
     event.preventDefault();
@@ -52,7 +42,7 @@ export default function Form(props) {
   };
  
   return (
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={submitHandler}>
+    <form style={formStyling} noValidate autoComplete="off" onSubmit={submitHandler}>
       <Box
         width="100%"
         display="flex" 

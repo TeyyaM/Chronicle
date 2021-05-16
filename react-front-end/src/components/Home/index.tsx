@@ -16,7 +16,7 @@ const Home = () => {
   const user = userRef.current;
 
   const homeStyling = {
-    height: '600px',
+    height: '675px',
     color: user ? user.text_hex : 'rebeccapurple'
   };
 
