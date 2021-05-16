@@ -16,6 +16,13 @@ const App = () => {
   const userRef = useRef();
   userRef.current = user;
 
+  const appStyling = {
+    backgroundImage: 'url("https://www.transparenttextures.com/patterns/notebook.png")',
+    backgroundColor: user ? user.background_hex : '#328cc1',
+    color: user ? user.text_hex : '#d9b310',
+    margin: 'auto'
+  }
+
   // Hardcoded userId for production
   // console.log('App has rerendered')
   useEffect(() => {
@@ -29,10 +36,7 @@ const App = () => {
 
   return (
     <div className="App"
-    style={{
-      backgroundColor: user ? user.background_hex : 'rebeccapurple',
-      color: user ? user.text_hex : 'rebeccapurple'
-    }}>
+    style={appStyling}>
       <UserContext.Provider value={{ userRef }}>
         <Router>
           <nav

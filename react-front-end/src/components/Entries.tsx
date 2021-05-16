@@ -31,6 +31,8 @@ const Entries = () => {
     });
   }, [startDate, endDate]);
 
+  // const url = ;
+
   const contentStyling = {
     height: '100vh', 
     width: '90%',
@@ -38,7 +40,8 @@ const Entries = () => {
     borderColor: 'black',
     margin: 'auto',
     padding: '10px',
-    backgroundColor: '#cfe8fc', 
+    // backgroundImage: 'url("https://www.transparenttextures.com/patterns/notebook.png%22)',
+    // backgroundColor: '#cfe8fc', 
     overflow: 'scroll',
     fontFamily: 'Patrick Hand',
     fontStyle: 'cursive',
