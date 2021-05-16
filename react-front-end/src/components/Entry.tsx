@@ -1,18 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 // import {useParams, useHistory} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../hooks/UserContext';
 
-import { smiley, mild, neutral, unhappy, angry } from './emojis'
+
+import { smiley, mild, neutral, unhappy, angry } from './emojis';
+
+interface Params {entryId: string};
+
+    
 
 const Entry = () => {
 
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+  
+  const entryStyling = {
+    backgroundColor: user ? user.background_hex : '#0b3c5d',
+    color: user ? user.title_hex : '#d9b310',   
+    height: '12vh'
+  }
+  
   interface Data {
     title: string;
     content: string;
     privacy: boolean;
     category_id: number | string | null;
-    date_created: string | Date;
+    date_created: Date | null;
     mood: number | string| null;
   }
   const [ content, setContent ] = useState<Data>({
@@ -20,13 +35,10 @@ const Entry = () => {
     content: "",
     mood: 0,
     privacy: true,
-    date_created: "",
+    date_created: null,
     category_id: null
   });
-  
-  interface Params {
-    entryId: string;
-  };
+
   
   const params: Params = useParams();
 
@@ -82,7 +94,7 @@ const Entry = () => {
 
   return (
     <div>
-      <h2>{content.title}</h2>
+      <h2 style={entryStyling}>{content.title}</h2>
       <p>{content.date_created}</p>
       <p>{content.privacy}</p>
       {availableMood()}

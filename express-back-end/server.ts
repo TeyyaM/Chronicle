@@ -53,42 +53,44 @@ interface IEntryParams {
   endDate?: string | null;
   mood?: null | string;
   limit?: null | string
+  categoryId?: string | null;
 }
 
-const getEntryByCategory = (attributes: { categoryId: string | null; userId: string; }, params: IEntryParams) => {
-  const { categoryId, userId } = attributes;
-  const { startDate, endDate, mood, limit } = params;
+const getEntriesByCategory = (userId: string, params: IEntryParams) => {
+
+  const { startDate, endDate, mood, limit, categoryId } = params;
   const queryParams = [userId];
   let queryStart = 'SELECT ';
   let queryMid = ' FROM entries';
   let queryEnd = ' WHERE entries.user_id = $1';
-  if (categoryId === '0') {
+  if (!categoryId) {
     queryStart += '*';
     queryEnd += ` AND category_id IS NULL`;
   } else {
     queryStart += 'entries.*, categories.name as category_name';
-    queryMid += ' JOIN categories ON entries.category_id = categories.id';
-    if (categoryId) {
+    queryMid += ' LEFT JOIN categories ON entries.category_id = categories.id';
+    if (categoryId !== 'all') {
       queryParams.push(categoryId);
-      queryEnd += ' AND category_id = $2';
+      queryEnd += ' AND entries.category_id = $2';
     } 
   }
     if (startDate) {
       queryParams.push(startDate);
-      queryEnd += ` AND date_created >= $${queryParams.length}`;
+      queryEnd += ` AND entries.date_created >= $${queryParams.length}`;
     }
     if (endDate) {
       queryParams.push(endDate);
-      queryEnd += ` AND date_created <= $${queryParams.length}`;
+      queryEnd += ` AND entries.date_created <= $${queryParams.length}`;
     }
 
-    if (mood && mood !== 'all' && mood !== 'null') {
+    if (mood && mood !== 'all') {
       queryParams.push(mood);
-      queryEnd += ` AND mood = $${queryParams.length}`;
+      queryEnd += ` AND entries.mood = $${queryParams.length}`;
     }
-    if (mood === 'null') {
-      queryEnd += ` AND mood IS NULL`;
+    if (!mood) {
+      queryEnd += ` AND entries.mood IS NULL`;
     }
+    queryEnd += ' ORDER BY entries.date_created DESC';
     if (limit) {
       queryParams.push(limit);
       queryEnd += ` LIMIT $${queryParams.length}`;
@@ -252,7 +254,7 @@ App.use(Express.static('public'));
 const userId = '1';
 
 App.get('/api/entries', (req: Request, res: Response) => {
-  getEntryByCategory({categoryId: null, userId}, req.query)
+  getEntriesByCategory(userId, req.query)
   .then((data) => res.json(data.rows));
 });
 
@@ -267,10 +269,10 @@ App.get('/api/categories', (req: Request, res: Response) => {
   .then((data) => res.json(data.rows));
 });
 
-App.get('/api/categories/:id', (req: Request, res: Response) => {
-   getEntryByCategory({categoryId: req.params.id, userId}, req.query)
-   .then((data) => res.json(data.rows));
-  });
+// App.get('/api/categories/:id', (req: Request, res: Response) => {
+//    getEntriesByCategory({categoryId: req.params.id, userId}, req.query)
+//    .then((data) => res.json(data.rows));
+//   });
 
 App.get('/api/users', (req: Request, res: Response) => {
 
