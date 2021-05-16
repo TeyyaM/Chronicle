@@ -1,14 +1,65 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 import Entry from './Entry';
 import DatePicker from './DatePicker';
+import { UserContext } from '../hooks/UserContext';
 
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
+// displays mood icon
+const moodImage = (num: number) => {
+  const imgs = {
+    1: {
+      src: angry,
+      name: 'Very Unhappy'
+    },
+    2: {
+      src: unhappy,
+      name: 'Unhappy'
+    },
+    3: {
+      src: neutral,
+      name: 'Neutral'
+    },
+    4: {
+      src: mild,
+      name: 'Happy'
+    },
+    5: {
+      src: smiley,
+      name: 'Very Happy'
+      }
+  };
+  return imgs[num];
+}
+
 const Entries = () => {
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+
+  console.log("user%%%", user );
+
+  const contentStyling = {
+    height: '100%', 
+    width: '96%',
+    backgroundColor: user ? user.seccondary_hex : 'rebeccapurple',
+    color: user ? user.text_hex : 'rebeccapurple',
+    margin: 'auto',
+    padding: '10px',
+    fontFamily: 'Patrick Hand',
+    fontStyle: 'cursive',
+    fontSize: '1.5em',
+    divStyling: {
+      borderStyle: 'solid',
+      borderColor: 'black',
+      borderWidth: 3,
+      borderRadius: 5,
+      margin: 10
+    }
+  }
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
@@ -31,60 +82,19 @@ const Entries = () => {
     });
   }, [startDate, endDate]);
 
-  // const url = ;
-
-  const contentStyling = {
-    height: '100vh', 
-    width: '90%',
-    border: '2px',
-    borderColor: 'black',
-    margin: 'auto',
-    padding: '10px',
-    // backgroundImage: 'url("https://www.transparenttextures.com/patterns/notebook.png%22)',
-    // backgroundColor: '#cfe8fc', 
-    overflow: 'scroll',
-    fontFamily: 'Patrick Hand',
-    fontStyle: 'cursive',
-    fontSize: '1.5em'
-  }
   
-    // displays mood icon
-    const moodImage = (num: number) => {
-      const imgs = {
-        1: {
-          src: angry,
-          name: 'Very Unhappy'
-        },
-        2: {
-          src: unhappy,
-          name: 'Unhappy'
-        },
-        3: {
-          src: neutral,
-          name: 'Neutral'
-        },
-        4: {
-          src: mild,
-          name: 'Happy'
-        },
-        5: {
-          src: smiley,
-          name: 'Very Happy'
-          }
-      };
-      return imgs[num];
-    }
 
   const content = entries.map((entry, index) => {
-      const mood = moodImage(entry.mood);
-   return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
-      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
-      <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
-      <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
-      <p>{entry.content}</p>
-    </div>) 
+    const mood = moodImage(entry.mood);
+    return ( 
+      <div key={index} style={contentStyling.divStyling}>
+        <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+        <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
+        <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
+        <p>{entry.content}</p>
+      </div>
+    ) 
   })
-
 
   return (
       <div style={contentStyling}>

@@ -19,12 +19,12 @@ const App = () => {
   const appStyling = {
     backgroundImage: 'url("https://www.transparenttextures.com/patterns/dust.png")',
     backgroundColor: user ? user.background_hex : '#85bade',
-    color: user ? user.text_hex : '#d9b310',
-    margin: 'auto'
+    color: user ? user.text_hex : '#d9b310', 
+    margin: 'auto',
+    // overflow: 'scroll'
   }
 
   // Hardcoded userId for production
-  // console.log('App has rerendered')
   useEffect(() => {
     axios.get('/api/users/1')
     .then((res) => {
@@ -35,8 +35,7 @@ const App = () => {
 
 
   return (
-    <div className="App"
-    style={appStyling}>
+    <div className="App" style={appStyling}>
       <UserContext.Provider value={{ userRef }}>
         <Router>
           <nav
