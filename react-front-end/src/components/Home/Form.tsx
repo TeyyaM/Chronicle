@@ -16,11 +16,11 @@ const formStyling = {
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'black',
-    height: 375,
+    height: 325,
     width: '90%',
     padding: '0 10px',
     margin: 'auto',
-  };
+};
 
 export default function Form(props) {
   const { entry, setEntry, submitContent } = props;
