@@ -44,15 +44,14 @@ const Entries = () => {
 
   const contentStyling = {
     height: '100%', 
-    width: '100%',
+    width: '96%',
     backgroundColor: user ? user.seccondary_hex : 'rebeccapurple',
     color: user ? user.text_hex : 'rebeccapurple',
     margin: 'auto',
     padding: '10px',
-    // overflow: 'scroll',
     fontFamily: 'Patrick Hand',
     fontStyle: 'cursive',
-    fontSize: '1.5em'
+    fontSize: '1.5em',
   }
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
@@ -79,13 +78,15 @@ const Entries = () => {
   
 
   const content = entries.map((entry, index) => {
-      const mood = moodImage(entry.mood);
-   return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
-      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
-      <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
-      <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
-      <p>{entry.content}</p>
-    </div>) 
+    const mood = moodImage(entry.mood);
+    return ( 
+      <div key={index} style={{border: 'black', borderWidth: '3px'}}>
+        <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+        <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
+        <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
+        <p>{entry.content}</p>
+      </div>
+    ) 
   })
 
   return (
