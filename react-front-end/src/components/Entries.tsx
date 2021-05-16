@@ -44,11 +44,14 @@ const Entries = () => {
     })
   }, [] )
   useEffect(() => {
-    const results = entries.filter(entries =>
-      entries[0].toLowerCase().includes(searchTerm)
+    if (entries.length !== 0){
+    const results = entries.filter(entry =>
+      console.log(entry.title)
+      // entries.title.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
-  }, [entries, searchTerm]);
+  }}, [entries, searchTerm]);
+
 
   // const url = ;
 
@@ -101,12 +104,7 @@ const Entries = () => {
       {searchResults.map(item => (
             <li>{item.title}</li>
           ))}
-          <input
-        type="text"
-        placeholder="Search by Entry Title"
-        value={searchTerm}
-        onChange={handleChange}
-      />
+         
       <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
       <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
       <p>{entry.content}</p>
@@ -127,6 +125,12 @@ const Entries = () => {
           name="End Date" 
           date={endDate}
           setDate={setEndDate}/>
+           <input
+        type="text"
+        placeholder="Search for an Entry Title"
+        value={searchTerm}
+        onChange={handleChange}
+      />
 
         {content}
 
