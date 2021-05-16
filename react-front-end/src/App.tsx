@@ -21,7 +21,7 @@ const App = () => {
     backgroundColor: user ? user.background_hex : '#85bade',
     color: user ? user.text_hex : '#d9b310', 
     margin: 'auto',
-    overflow: 'scroll'
+    // overflow: 'scroll'
   }
 
   // Hardcoded userId for production

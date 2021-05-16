@@ -9,7 +9,6 @@ import { UserContext } from '../hooks/UserContext';
 
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
-
 // displays mood icon
 const moodImage = (num: number) => {
 
@@ -39,24 +38,30 @@ const moodImage = (num: number) => {
 }
 
 const Entries = () => {
-
+  
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
+  console.log("user%%%", user );
   
   const contentStyling = {
-    height: '100vh', 
-    width: '90%',
-    backgroundColor: user ? user.accent_hex : 'rebeccapurple',
+    height: '100%', 
+    width: '96%',
+    backgroundColor: user ? user.seccondary_hex : 'rebeccapurple',
     color: user ? user.text_hex : 'rebeccapurple',
-    border: '2px',
-    borderColor: 'black',
     margin: 'auto',
     padding: '10px',
-    overflow: 'scroll',
     fontFamily: 'Patrick Hand',
     fontStyle: 'cursive',
-    fontSize: '1.5em'
+    fontSize: '1.5em',
+    divStyling: {
+      borderStyle: 'solid',
+      borderColor: 'black',
+      borderWidth: 3,
+      borderRadius: 5,
+      margin: 10
+    }
   }
+
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
@@ -82,13 +87,15 @@ const Entries = () => {
   
 
   const content = entries.map((entry, index) => {
-      const mood = moodImage(entry.mood);
-   return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
-      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
-      <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
-      <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
-      <p>{entry.content}</p>
-    </div>) 
+    const mood = moodImage(entry.mood);
+    return ( 
+      <div key={index} style={contentStyling.divStyling}>
+        <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+        <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
+        <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
+        <p>{entry.content}</p>
+      </div>
+    ) 
   })
 
   return (
