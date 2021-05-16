@@ -11,7 +11,7 @@ export default function PrivacySetting(props) {
   }
 
   return (
-    <div>
+    <div style={{width: '92%', margin: 'auto'}}>
       <FormControlLabel
         control={<Switch  checked={entry.privacy} onChange={handleChange} name="switch" />}
         label="Privacy"/>

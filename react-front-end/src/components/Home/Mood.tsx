@@ -2,15 +2,13 @@ import Box from '@material-ui/core/Box';
 import { smiley, mild, neutral, unhappy, angry } from '../emojis'
 
 const moodStyling = {
-    
-    height: 60,
-    padding: 0,
-    margin: 10,
-    // marginBottom: 10,
-    display:'flex', 
-    justifyContent: 'center',
-    listStyle: 'none', 
-    width: '100%'
+  height: 60,
+  padding: 0,
+  margin: 10,
+  display:'flex', 
+  justifyContent: 'center',
+  listStyle: 'none', 
+  width: '100%'
 };
   
 export default function Mood(props) {
