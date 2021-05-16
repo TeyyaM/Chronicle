@@ -17,9 +17,15 @@ const Home = () => {
   const user = userRef.current;
   
   const homeStyling = {
-    height: '600px',
-    backgroundColor: user ? user.accent_hex : 'rebeccapurple',
-    color: user ? user.text_hex : 'rebeccapurple'
+    backgroundColor: user ? user.background_hex : '#0b3c5d',
+    color: user ? user.title_hex : '#d9b310',   
+    margin: 15,
+    paddingBottom: 15,
+    borderColor: user ? user.secondary_hex : 'black',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderRadius: 10,
+    height: '100%',
   };
   const [ mood, setMood ] = useState<null | number>(null);
   const [ entry, setEntry ] = useState({
@@ -42,7 +48,6 @@ const Home = () => {
         <h1>Create An Entry</h1>
         <h2>{currentDay.toDateString()}</h2>
           <PrivacySetting entry={entry} setEntry={setEntry} />
-          
           <Mood mood={mood} setMood={setMood} />
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>

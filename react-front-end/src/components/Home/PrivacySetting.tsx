@@ -12,10 +12,10 @@ export default function PrivacySetting(props) {
 
   return (
     <div style={{width: '92%', margin: 'auto'}}>
+      <Alert style={entry.privacy ? {opacity: 0} : {opacity: 1}} severity="warning">Warning: privacy is set to public!</Alert>
       <FormControlLabel
         control={<Switch  checked={entry.privacy} onChange={handleChange} name="switch" />}
         label="Privacy"/>
-      <Alert style={entry.privacy ? {opacity: 0} : {opacity: 1}} severity="warning">Warning: privacy is set to public!</Alert>
     </div>
     
   )

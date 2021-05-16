@@ -57,7 +57,7 @@ const Entries = () => {
       borderStyle: 'solid',
       borderColor: 'black',
       borderWidth: 3,
-      borderRadius: 5,
+      borderRadius: 10,
       margin: 10
     }
   }
