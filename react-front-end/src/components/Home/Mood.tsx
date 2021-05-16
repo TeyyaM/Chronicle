@@ -3,8 +3,10 @@ import { smiley, mild, neutral, unhappy, angry } from '../emojis'
 
 const moodStyling = {
     
-    height: 40,
-    margin: "auto",
+    height: 60,
+    padding: 0,
+    margin: 10,
+    // marginBottom: 10,
     display:'flex', 
     justifyContent: 'center',
     listStyle: 'none', 
@@ -33,12 +35,15 @@ export default function Mood(props) {
     ];
 
   // The user can select an emoji as their mood
-  const emojiList = emojiArr.map((emoji, index) => {  
+  const emojiList = emojiArr.map((emoji, index) => { 
     return (
       <li 
       key={index}  
       onClick={() => clickHandler(index)}
-      style={mood === (index) ? {opacity: 1} : {opacity: 0.4}}>
+      style={mood === (index) 
+        // must refactor - brain wouldnt work at the time lol
+      ? {opacity: 1, margin: 5} 
+      : {opacity: 0.4, margin: 5}}>
         <img src={emoji.src} alt={emoji.name}/>
       </li>
     )})
