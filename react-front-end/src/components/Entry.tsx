@@ -6,12 +6,22 @@ import axios from 'axios';
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
 const Entry = () => {
-  const [ content, setContent ] = useState({
+
+  interface Data {
+    title: string;
+    content: string;
+    privacy: boolean;
+    category_id: number | string | null;
+    date_created: string | Date;
+    mood: number | string| null;
+  }
+  const [ content, setContent ] = useState<Data>({
     title: "",
     content: "",
     mood: 0,
     privacy: true,
-    date_created: ""
+    date_created: "",
+    category_id: null
   });
   
   interface Params {
@@ -27,7 +37,7 @@ const Entry = () => {
   }, [params.entryId]);
 
       // displays mood icon
-      const moodImage = (num: number) => {
+      const moodImage = (num: number | string) => {
         const imgs = {
           1: {
             src: angry,
@@ -54,13 +64,7 @@ const Entry = () => {
       }
 
 
-  // interface Data {
-  //   title: string;
-  //   content: string;
-  //   privacy: boolean;
-  //   category_id?: number;
-  //   date_created: string
-  // }
+
 
 
   // const history = useHistory();
