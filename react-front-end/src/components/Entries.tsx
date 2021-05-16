@@ -68,7 +68,8 @@ const Entries = () => {
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const limit = 10;
-  const mood = 'all';
+  const mood = 'all'; // null or 'all' or a number
+  const categoryId = 'all'; // null or 'all' or a number
   useEffect(() => {
       // get pie chart data
     axios.get('/api/entries', {
@@ -76,7 +77,8 @@ const Entries = () => {
         startDate,
         endDate,
         limit,
-        mood
+        mood,
+        categoryId
       }
     })
     .then((res) => {
