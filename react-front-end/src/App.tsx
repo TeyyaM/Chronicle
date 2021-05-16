@@ -17,8 +17,8 @@ const App = () => {
   userRef.current = user;
 
   const appStyling = {
-    backgroundImage: 'url("https://www.transparenttextures.com/patterns/notebook.png")',
-    backgroundColor: user ? user.background_hex : '#328cc1',
+    backgroundImage: 'url("https://www.transparenttextures.com/patterns/dust.png")',
+    backgroundColor: user ? user.background_hex : '#85bade',
     color: user ? user.text_hex : '#d9b310',
     margin: 'auto'
   }
