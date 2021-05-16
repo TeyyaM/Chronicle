@@ -8,11 +8,12 @@ export default function Settings() {
   // const [isLoading, setIsLoading] = useState(false);
   const { userRef } = useContext(UserContext);   
   const user = userRef.current;
-  const [background, setBackground] = useState(user ? user.background_hex : '#76c2f5');
-  const [secondary, setSecondary] = useState(user ? user.secondary_hex : '#0B3C5D');
-  const [accent, setAccent] = useState(user ? user.accent_hex : '#ebb30e');
-  const [text, setText] = useState(user ? user.text_hex : '#fafafa');
-  const [title, setTitle] = useState(user ? user.titlehex : '#1D2731');
+  const [background, setBackground] = useState('#76c2f5');
+  const [secondary, setSecondary] = useState('#0B3C5D');
+  const [accent, setAccent] = useState('#ebb30e');
+  const [text, setText] = useState('#fafafa');
+  const [title, setTitle] = useState('#1D2731');
+  console.log(user)
 
 
   return (

@@ -9,26 +9,10 @@ import { UserContext } from '../hooks/UserContext';
 
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
-const { userRef } = useContext(UserContext);
-const user = userRef.current;
-
-const contentStyling = {
-  height: '100vh', 
-  width: '90%',
-  backgroundColor: user ? user.accent_hex : 'rebeccapurple',
-  color: user ? user.text_hex : 'rebeccapurple',
-  border: '2px',
-  borderColor: 'black',
-  margin: 'auto',
-  padding: '10px',
-  overflow: 'scroll',
-  fontFamily: 'Patrick Hand',
-  fontStyle: 'cursive',
-  fontSize: '1.5em'
-}
 
 // displays mood icon
 const moodImage = (num: number) => {
+
   const imgs = {
     1: {
       src: angry,
@@ -56,6 +40,23 @@ const moodImage = (num: number) => {
 
 const Entries = () => {
 
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+  
+  const contentStyling = {
+    height: '100vh', 
+    width: '90%',
+    backgroundColor: user ? user.accent_hex : 'rebeccapurple',
+    color: user ? user.text_hex : 'rebeccapurple',
+    border: '2px',
+    borderColor: 'black',
+    margin: 'auto',
+    padding: '10px',
+    overflow: 'scroll',
+    fontFamily: 'Patrick Hand',
+    fontStyle: 'cursive',
+    fontSize: '1.5em'
+  }
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
