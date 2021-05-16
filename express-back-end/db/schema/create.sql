@@ -16,7 +16,7 @@ CREATE TABLE users (
   password VARCHAR(500) NOT NULL,
   background_hex VARCHAR(7) DEFAULT '#0B3C5D',
   secondary_hex VARCHAR(7) DEFAULT '#328CC1',
-  accent_hex VARCHAR(7) DEFAULT '#D9B310',
+  accent_hex VARCHAR(7) DEFAULT '#f5ae0a',
   title_hex VARCHAR(7) DEFAULT '#fafafa',
   text_hex VARCHAR(7) DEFAULT '#1D2731',
   prompts BOOLEAN DEFAULT TRUE,
