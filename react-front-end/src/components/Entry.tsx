@@ -27,7 +27,7 @@ const Entry = () => {
     content: string;
     privacy: boolean;
     category_id: number | string | null;
-    date_created: string | Date;
+    date_created: Date | null;
     mood: number | string| null;
   }
   const [ content, setContent ] = useState<Data>({
@@ -35,7 +35,7 @@ const Entry = () => {
     content: "",
     mood: 0,
     privacy: true,
-    date_created: "",
+    date_created: null,
     category_id: null
   });
 
