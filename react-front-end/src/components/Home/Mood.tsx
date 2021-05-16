@@ -15,7 +15,7 @@ export default function Mood(props) {
 
   const { mood, setMood } = props;
 
-  function clickHandler(index) {
+  function clickHandler(index: number) {
     setMood(index);
   }
 
@@ -34,11 +34,12 @@ export default function Mood(props) {
 
   // The user can select an emoji as their mood
   const emojiList = emojiArr.map((emoji, index) => { 
+    const emojiId = index + 1;
     return (
       <li 
-      key={index}  
-      onClick={() => clickHandler(index)}
-      style={mood === (index) 
+      key={emojiId}  
+      onClick={() => clickHandler(emojiId)}
+      style={mood === (emojiId) 
         // must refactor - brain wouldnt work at the time lol
       ? {opacity: 1, margin: 5} 
       : {opacity: 0.4, margin: 5}}>
