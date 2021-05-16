@@ -1,27 +1,25 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, Fragment } from 'react';
 // import {useParams, useHistory} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
-
-
 import { smiley, mild, neutral, unhappy, angry } from './emojis';
 
 interface Params {entryId: string};
-
-    
 
 const Entry = () => {
 
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
+
+  // console.log("%%%%", user)
   
   const entryStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.title_hex : '#d9b310',   
-    height: '100%',
+    height: '50%',
     margin: 15,
-    borderColor: !user ? user.background_hex : '#0b3c5d',
+    borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 3,
     borderRadius: 10
@@ -98,13 +96,17 @@ const Entry = () => {
   }
 
   return (
-    <div style={entryStyling}>
-      <h2 >{content.title}</h2>
-      <p>{content.date_created}</p>
-      <p>{content.privacy}</p>
-      {availableMood()}
-      <p>{content.content}</p>
-    </div>
+    <Fragment>
+      <div style={entryStyling}>
+        <h2 >{content.title}</h2>
+        <p>{content.date_created}</p>
+        <p>{content.privacy}</p>
+        {availableMood()}
+        <p>{content.content}</p>
+      </div>
+      <div style={{height: 150}}></div>
+    </Fragment>
+    
   );
 };
 
