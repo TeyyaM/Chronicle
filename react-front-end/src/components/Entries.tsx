@@ -1,14 +1,61 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 import Entry from './Entry';
 import DatePicker from './DatePicker';
+import { UserContext } from '../hooks/UserContext';
 
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
+const { userRef } = useContext(UserContext);
+const user = userRef.current;
+
+const contentStyling = {
+  height: '100vh', 
+  width: '90%',
+  backgroundColor: user ? user.accent_hex : 'rebeccapurple',
+  color: user ? user.text_hex : 'rebeccapurple',
+  border: '2px',
+  borderColor: 'black',
+  margin: 'auto',
+  padding: '10px',
+  overflow: 'scroll',
+  fontFamily: 'Patrick Hand',
+  fontStyle: 'cursive',
+  fontSize: '1.5em'
+}
+
+// displays mood icon
+const moodImage = (num: number) => {
+  const imgs = {
+    1: {
+      src: angry,
+      name: 'Very Unhappy'
+    },
+    2: {
+      src: unhappy,
+      name: 'Unhappy'
+    },
+    3: {
+      src: neutral,
+      name: 'Neutral'
+    },
+    4: {
+      src: mild,
+      name: 'Happy'
+    },
+    5: {
+      src: smiley,
+      name: 'Very Happy'
+      }
+  };
+  return imgs[num];
+}
+
 const Entries = () => {
+
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
@@ -31,49 +78,7 @@ const Entries = () => {
     });
   }, [startDate, endDate]);
 
-  // const url = ;
-
-  const contentStyling = {
-    height: '100vh', 
-    width: '90%',
-    border: '2px',
-    borderColor: 'black',
-    margin: 'auto',
-    padding: '10px',
-    // backgroundImage: 'url("https://www.transparenttextures.com/patterns/notebook.png%22)',
-    // backgroundColor: '#cfe8fc', 
-    overflow: 'scroll',
-    fontFamily: 'Patrick Hand',
-    fontStyle: 'cursive',
-    fontSize: '1.5em'
-  }
   
-    // displays mood icon
-    const moodImage = (num: number) => {
-      const imgs = {
-        1: {
-          src: angry,
-          name: 'Very Unhappy'
-        },
-        2: {
-          src: unhappy,
-          name: 'Unhappy'
-        },
-        3: {
-          src: neutral,
-          name: 'Neutral'
-        },
-        4: {
-          src: mild,
-          name: 'Happy'
-        },
-        5: {
-          src: smiley,
-          name: 'Very Happy'
-          }
-      };
-      return imgs[num];
-    }
 
   const content = entries.map((entry, index) => {
       const mood = moodImage(entry.mood);
@@ -84,7 +89,6 @@ const Entries = () => {
       <p>{entry.content}</p>
     </div>) 
   })
-
 
   return (
       <div style={contentStyling}>
