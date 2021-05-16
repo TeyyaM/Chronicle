@@ -40,7 +40,7 @@ const App = () => {
         <Router>
           <nav
             style={{
-              backgroundColor: user ? user.accent_hex : 'rebeccapurple',
+              backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
               color: user ? user.text_hex : 'rebeccapurple'
             }}>
             <Navbar />
