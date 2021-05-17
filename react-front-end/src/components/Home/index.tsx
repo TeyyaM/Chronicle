@@ -76,13 +76,12 @@ const Home = () => {
           type="text"
           placeholder="Choose a Category"
           value={searchTerm}
-          onChange={handleChange}/>
-
-          <CategorySelect 
-          searchResults={searchResults}
-          value={categoryList}
+          onChange={handleChange}
+          />
+          <CategorySelect categories={searchResults}
           setCategoryId={setCategoryId}
-          categoryId={categoryId}/>
+          onChange={handleChange} />
+
 
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>    
@@ -90,3 +89,8 @@ const Home = () => {
 };
 
 export default Home;
+// {/* <CategorySelect 
+// searchResults={searchResults}
+// value={categoryList}
+// setCategoryId={setCategoryId}
+// categoryId={categoryId}/> */}
