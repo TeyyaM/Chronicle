@@ -15,7 +15,7 @@ CREATE TABLE users (
   userName VARCHAR(255) NOT NULL,
   password VARCHAR(500) NOT NULL,
   background_hex VARCHAR(7) DEFAULT '#76c2f5',
-  secondary_hex VARCHAR(7) DEFAULT '#0B3C5D',
+  secondary_hex VARCHAR(7) DEFAULT '#041454',
   accent_hex VARCHAR(7) DEFAULT '#ebb30e',
   title_hex VARCHAR(7) DEFAULT '#fafafa',
   text_hex VARCHAR(7) DEFAULT '#1D2731',

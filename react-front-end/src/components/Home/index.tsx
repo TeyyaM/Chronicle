@@ -18,7 +18,7 @@ const Home = () => {
   
   const homeStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
-    color: user ? user.title_hex : '#d9b310',   
+    color: user ? user.texte_hex : '#d9b310',   
     margin: 15,
     paddingBottom: 15,
     borderColor: user ? user.secondary_hex : 'black',
