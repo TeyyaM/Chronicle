@@ -57,7 +57,7 @@ const Entries = () => {
     divStyling: {
       borderStyle: 'solid',
       borderColor: 'black',
-      borderWidth: 3,
+      borderWidth: 5,
       borderRadius: 10,
       margin: 10
     }
