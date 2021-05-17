@@ -176,6 +176,8 @@ const updateDatabase = (attributes, identifiers) => {
         queryParams.push(attributes.user_id);
         query += ` AND user_id = $${queryParams.length}`;
     }
+    console.log("@@@queryString", query);
+    console.log("@@@queryString", queryParams);
     return pool.query(query, queryParams);
 };
 App.use(Express.urlencoded({ extended: false }));
@@ -227,6 +229,7 @@ App.post('/api/entries', (req, res) => {
         .then((data) => res.json(data.rows));
 });
 App.post('/api/entries/:id', (req, res) => {
+    console.log("Im in the post route", req.body.params);
     updateDatabase(req.body.params, { table: 'entries', type: 'update', id: req.params.id })
         .then((data) => res.json(data.rows));
 });

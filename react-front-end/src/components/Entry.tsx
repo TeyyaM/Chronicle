@@ -15,6 +15,7 @@ interface Data {
   category_id: number | string | null;
   date_created: Date | null;
   mood: number | string | null;
+  user_id?: number | string;
 };
 
 const Entry = () => {
@@ -27,7 +28,7 @@ const Entry = () => {
     mood: 0,
     privacy: true,
     date_created: null,
-    category_id: null
+    category_id: null,
   });
   
   const entryStyling = {
@@ -35,6 +36,7 @@ const Entry = () => {
     color: user ? user.title_hex : '#d9b310',   
     height: '50%',
     margin: 15,
+    padding: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 3,
@@ -42,49 +44,48 @@ const Entry = () => {
   }  
   
   const params: Params = useParams();
+  const entryId = params.entryId;
   useEffect(() => {
-    axios.get(`/api/entries/${params.entryId}`)
-      .then(res => setContent({...res.data[0]})); // Do stuff with it
-  }, [params.entryId]);
+    axios.get(`/api/entries/${entryId}`)
+    .then(res => setContent({...res.data[0]})); // Do stuff with it
+  }, [entryId]);
+  
+  const updateEntry = () => {
+    axios.post(`/api/entries/${entryId}`, {
+      params: { title: content.title, content: content.content, mood: content.mood, category_id: content.category_id, user_id: content.user_id, privacy: content.privacy }
+    })
+      .then(res => console.log("####", res.data))
+      .catch(err => console.log("ERROR: ", err));
+  };
 
-  // function update(content) {
-  //   axios.put(`/api/entries/${params.entryId}`, {content})
-  // }
-  // may have to update route
+  const deleteEntry = () => {
+    axios.delete(`/api/entries/${entryId}`, {
+      data: {
+        user_id: user.id,
+      }
+    })
+      .then(res => console.log("####", res.data))
+      .catch(err => console.log("ERROR: ", err));
+  }
+  
 
   // displays emoji if entry has a mood
   function moodImage (num: number | string | null) {
     if (num) {
       const imgs = {
-        1: {
-          src: angry,
-          name: 'Very Unhappy'
-        },
-        2: {
-          src: unhappy,
-          name: 'Unhappy'
-        },
-        3: {
-          src: neutral,
-          name: 'Neutral'
-        },
-        4: {
-          src: mild,
-          name: 'Happy'
-        },
-        5: {
-          src: smiley,
-          name: 'Very Happy'
-          }
+        1: {src: angry, name: 'Very Unhappy'},
+        2: {src: unhappy, name: 'Unhappy'},
+        3: {src: neutral, name: 'Neutral'},
+        4: {src: mild, name: 'Happy'},
+        5: {src: smiley, name: 'Very Happy'}
       };
-        return (
+      return (
         <p><img src={imgs[num].src} alt={imgs[num].name}/></p>
-        );
+      );
     } else {
       return null;
     }}
 
-  
   function titleHandler(event) {
     setContent(prev => ({...prev, title: event.target.value}))
   };
@@ -93,7 +94,23 @@ const Entry = () => {
     setContent((prev) => ({...prev, content: event.target.value}))
   };
 
-  const buttonMessage = editMode ? "Save" : "Edit";
+  const save = (val) => {
+    if(val) {
+      return (
+        <div>
+          <button onClick={() => updateEntry()}>Save</button>
+          <button onClick={() => setEditMode(false)}>Cancel</button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <button onClick={() => setEditMode(true)}>Edit</button>
+          <button onClick={() => deleteEntry()}>Delete</button>
+        </div>
+      )
+    }
+  }
 
   return (
     <Fragment>
@@ -121,13 +138,13 @@ const Entry = () => {
         </form> )
 
       : (<div style={entryStyling}>
-      <h2 >{content.title}</h2>
-      <p>{content.date_created}</p>
+      <h1 >{content.title}</h1>
+      <h2>{content.date_created}</h2>
       <p>{content.privacy}</p>
       {moodImage(content.mood)}
       <p>{content.content}</p>
     </div>)}
-      <button onClick={() => setEditMode(true)}>{buttonMessage}</button>
+      {save(editMode)}
     </Fragment>
     
   );
