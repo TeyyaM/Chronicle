@@ -42,12 +42,10 @@ const Entries = () => {
   
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-  console.log("user%%%", user );
   
   const contentStyling = {
     height: '100%', 
     width: '96%',
-    // backgroundColor: 'black',
     color: user ? user.text_hex : 'rebeccapurple',
     margin: 'auto',
     padding: '10px',
@@ -61,6 +59,13 @@ const Entries = () => {
       borderWidth: 5,
       borderRadius: 10,
       margin: 10
+    },
+    headerStyling: {
+      display: 'flex',
+      'flex-direction': 'row',
+      'justify-content': 'center',
+      'align-items': 'flex-end'
+  
     }
   }
 
@@ -127,27 +132,34 @@ const Entries = () => {
   return (
       <div style={contentStyling}>
         <h2>Entries</h2>
-        <DatePicker 
-          id="date-picker-start-date" 
-          name="Start Date"
-          date={startDate}
-          setDate={setStartDate} />
-        <DatePicker 
-          id="date-picker-end-date" 
-          name="End Date" 
-          date={endDate}
-          setDate={setEndDate}/>
-        <Mood mood={mood} setMood={setMood} reset="all"/>
-        <input
-          type="text"
-          placeholder="Choose a Category"
-          value={searchTerm}
-          onChange={searchChange}
-        />
-        <CategorySelect categories={searchResults}
-           setCategoryId={setCategoryId}
-           onChange={searchChange}
-           all={true} />
+        <div style={contentStyling.headerStyling}>
+          <div>
+            <DatePicker 
+              id="date-picker-start-date" 
+              name="Start Date"
+              date={startDate}
+              setDate={setStartDate} />
+            <DatePicker 
+              id="date-picker-end-date" 
+              name="End Date" 
+              date={endDate}
+              setDate={setEndDate}/>
+          </div>
+            <Mood mood={mood} setMood={setMood} reset="all"/>
+          <div>
+            <input
+              type="text"
+              placeholder="Choose a Category"
+              value={searchTerm}
+              onChange={searchChange}
+            />
+            <CategorySelect categories={searchResults}
+              setCategoryId={setCategoryId}
+              onChange={searchChange}
+              all={true} />
+          </div>          
+        </div>
+        
         {content}
 
         <Switch>
