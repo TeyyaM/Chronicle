@@ -1,4 +1,5 @@
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import { useEffect, useState, useContext } from 'react';
 import {useParams, Redirect} from 'react-router-dom';
@@ -103,15 +104,15 @@ const Entry = () => {
     if(val) {
       return (
         <div>
-          <button onClick={() => updateEntry()}>Save</button>
-          <button onClick={() => setEditMode(false)}>Cancel</button>
+          <Button variant="contained" color="primary" onClick={() => updateEntry()}>Save</Button>
+          <Button variant="contained" color="primary" onClick={() => setEditMode(false)}>Cancel</Button>
         </div>
       )
     } else {
       return (
         <div>
-          <button onClick={() => setEditMode(true)}>Edit</button>
-          <button onClick={() => deleteEntry()}>Delete</button>
+          <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>Edit</Button>
+          <Button variant="contained" color="primary" onClick={() => deleteEntry()}>Delete</Button>
         </div>
       )
     }
