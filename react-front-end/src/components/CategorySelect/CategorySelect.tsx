@@ -18,13 +18,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 const CategorySelect = (props) => {
-  const { categories, setCategoryId } = props;
+  const { categories, setCategoryId, all } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-  const options = [['Select a category', 0], ['No Category', null],
+  let options;
+   all 
+   ? options = [['Select a category', 0], ['All Entries', 'all'], ['No Category', null],
    ...categories.map(category => [category.name, category.id])]
+   : options = [['Select a category', 0], ['No Category', null],
+   ...categories.map(category => [category.name, category.id])];
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
