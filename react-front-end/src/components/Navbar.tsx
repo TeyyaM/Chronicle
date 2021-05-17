@@ -13,7 +13,6 @@ function Navbar() {
       <Link to="/entries"><button>Entries</button></Link>
       <Link to="/settings"><button>Settings</button></Link>
       <Link to="/graphs"><button>Graphs</button></Link>
-      <Link to="/categories"><button>Categories</button></Link>
       
       <Link to="/login"><button>Login</button></Link>
       <Link to="/si-up"><button>Sign up</button></Link>

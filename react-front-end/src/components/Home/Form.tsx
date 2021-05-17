@@ -47,7 +47,8 @@ export default function Form(props) {
         width="100%"
         display="flex"
         flexDirection="column"
-        bgcolor="background.paper">
+        bgcolor="#ff98006b"
+        padding="10px">
 
         <TextField
           id="outlined-basic"
