@@ -13,10 +13,12 @@ const moodStyling = {
   
 export default function Mood(props) {
 
-  const { mood, setMood } = props;
+  const { mood, setMood, reset } = props;
 
   function clickHandler(index: number) {
-    setMood(index);
+    mood !== index 
+    ? setMood(index) 
+    : setMood(reset);
   }
 
   const emojiArr = [

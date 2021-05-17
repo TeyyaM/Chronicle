@@ -1,9 +1,7 @@
 // to resolve error "Expected an assignment or function call and instead saw an expression"
 /* eslint-disable */
-import axios from 'axios';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../../hooks/UserContext';
-import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
@@ -42,27 +40,6 @@ export default function Form(props) {
   function contentHandler(event) {
     setEntry((prev) => ({ ...prev, content: event.target.value }))
   };
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState<any>([]);
-  const [categories, setCategories] = React.useState<any>([]);
-
-  const handleChange = event => {
-    setSearchTerm(event.target.value);
-  };
-  useEffect(() => {
-    axios.get('/api/categories')
-      .then((res) => {
-        // console.log(res.data)
-        setSearchResults(res.data);
-        setCategories(res.data);
-      })
-  }, [])
-  useEffect(() => {
-    const results = categories.filter(categories =>
-      categories.name.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [categories, searchTerm]);
 
   return (
     <form style={formStyling} noValidate autoComplete="off" onSubmit={submitHandler}>
@@ -82,7 +59,10 @@ export default function Form(props) {
           onInput={titleHandler}
         />
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> be25fa54e962637a338800881e853faf1e0c76de
         <TextField
           id="outlined-basic"
           multiline
