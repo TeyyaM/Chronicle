@@ -67,6 +67,7 @@ const Entries = () => {
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
+
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const [mood, setMood] = useState<null | number | 'all'>('all');
   const limit = 10;
@@ -86,8 +87,6 @@ const Entries = () => {
       setEntries(res.data)
     });
   }, [startDate, endDate, mood, categoryId]);
-
-  
 
   const content = entries.map((entry, index) => {
     const mood = moodImage(entry.mood);
