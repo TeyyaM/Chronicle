@@ -80,9 +80,8 @@ const Home = () => {
           value={searchTerm}
           onChange={handleChange}
         />
-          <CategorySelect searchResults={searchResults}
-           setCategoryId={setCategoryId}
-            categoryId={categoryId}/>
+          <CategorySelect categories={searchResults}
+           setCategoryId={setCategoryId} />
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>
     

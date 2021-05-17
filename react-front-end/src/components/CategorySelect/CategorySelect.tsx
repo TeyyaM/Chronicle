@@ -1,22 +1,79 @@
-import CategoryItem from './CategoryItem';
+import React from 'react';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      backgroundColor: theme.palette.background.paper,
+    },
+  }),
+);
+
+
+
 
 const CategorySelect = (props) => {
-  const { searchResults, setCategoryId, categoryId } = props;
+  const { categories, setCategoryId } = props;
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const options = [['Select a category', 0], ['No Category', null],
+   ...categories.map(category => [category.name, category.id])]
+
+  const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number, id: number | string) => {
+    setCategoryId(id)
+    setSelectedIndex(index);
+    setAnchorEl(null);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <div className="dropdown">
-    <button className="dropbtn">Categories</button>
-    <div className="dropdown-content">
-      <ul>
-        {searchResults.map(category => (
-          <CategoryItem name={category.name}
-          id={category.id}
-          categoryId={categoryId}
-          setCategoryId={setCategoryId} />
+    <div className={classes.root}>
+      <List component="nav" aria-label="Categories">
+        <ListItem
+          button
+          aria-haspopup="true"
+          aria-controls="lock-menu"
+          aria-label="Category"
+          onClick={handleClickListItem}
+        >
+          <ListItemText primary="Category" 
+          secondary={options.length ? options[selectedIndex][0] : ""} />
+        </ListItem>
+      </List>
+      <Menu
+        id="lock-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        {options.map((option, index) => (
+          <MenuItem
+            key={option[1]}
+            disabled={index === 0}
+            selected={index === selectedIndex}
+            onClick={(event) => handleMenuItemClick(event, index, option[1])}
+          >
+            {option[0]}
+          </MenuItem>
         ))}
-      </ul>
+      </Menu>
     </div>
-    </div>
-  );
+  )
 };
 
 export default CategorySelect;
