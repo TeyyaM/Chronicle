@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 
@@ -48,7 +47,7 @@ const Entries = () => {
   const contentStyling = {
     height: '100%', 
     width: '96%',
-    backgroundColor: user ? user.seccondary_hex : 'rebeccapurple',
+    // backgroundColor: 'black',
     color: user ? user.text_hex : 'rebeccapurple',
     margin: 'auto',
     padding: '10px',
@@ -56,6 +55,7 @@ const Entries = () => {
     fontStyle: 'cursive',
     fontSize: '1.5em',
     divStyling: {
+      backgroundColor: user ? user.background_hex : '#85bade',
       borderStyle: 'solid',
       borderColor: 'black',
       borderWidth: 5,

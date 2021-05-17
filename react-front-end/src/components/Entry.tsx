@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 
-import { useEffect, useState, useContext, Fragment } from 'react';
-import {useParams} from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import {useParams, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
 import { smiley, mild, neutral, unhappy, angry } from './emojis';
@@ -50,7 +50,7 @@ const Entry = () => {
   }, [entryId]);
   
   const updateEntry = () => {
-    axios.post(`/api/entries/${entryId}`, {
+    return axios.post(`/api/entries/${entryId}`, {
       params: { title: content.title, content: content.content, mood: content.mood, category_id: content.category_id, user_id: content.user_id, privacy: content.privacy }
     })
     .then(res => console.log("DATA: ", res.data))
@@ -58,14 +58,17 @@ const Entry = () => {
   };
 
   const deleteEntry = () => {
-    axios.delete(`/api/entries/${entryId}`, {
+    return axios.delete(`/api/entries/${entryId}`, {
       data: {
         user_id: user.id,
       }
     })
-      .then(res => console.log("DATA: ", res.data))
-      .catch(err => console.log("ERROR: ", err));
-  }
+      .then(res => {
+        console.log("DATA: ", res.data)
+        console.log("IM in delete")
+        return <Redirect to="/entries" />})
+        .catch(err => console.log("ERROR: ", err));
+      }
   
 
   // displays emoji if entry has a mood
@@ -93,7 +96,7 @@ const Entry = () => {
     setContent((prev) => ({...prev, content: event.target.value}))
   };
 
-  const save = (val) => {
+  const action = (val) => {
     if(val) {
       return (
         <div>
@@ -112,7 +115,7 @@ const Entry = () => {
   }
 
   return (
-    <Fragment>
+    <div style={{height: 600}}>
       {editMode 
       ? (<div style={entryStyling}>
       <form><TextField 
@@ -144,8 +147,8 @@ const Entry = () => {
       {moodImage(content.mood)}
       <p>{content.content}</p>
     </div>)}
-      {save(editMode)}
-    </Fragment>
+      {action(editMode)}
+    </div>
     
   );
 };

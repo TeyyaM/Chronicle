@@ -17,17 +17,15 @@ const App = () => {
   userRef.current = user;
 
   const appStyling = {
-    backgroundColor: user ? user.accent_hex : '#85bade',
+    backgroundColor: user ? user.accent_hex : '#d9b310', 
     color: user ? user.text_hex : '#d9b310', 
   }
 
   // Hardcoded userId for production
   useEffect(() => {
     axios.get('/api/users/1')
-    .then((res) => {
-      setUser(res.data[0])
-        // console.log(userRef.current)
-      })
+    .then((res) => setUser(res.data[0]))
+    .catch(err => console.log('ERROR: ', err))
     }, [])
 
 
@@ -51,7 +49,7 @@ const App = () => {
             <Route path="/graphs" component={Graphs} />
             <Route path="/" component={Home} />
               
-            <Redirect to='/' />
+            <Redirect to="/" />
           </Switch>
         </Router >
       </UserContext.Provider>
