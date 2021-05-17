@@ -8,6 +8,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import CategorySelect from '../CategorySelect';
 
 
 
@@ -82,16 +83,8 @@ export default function Form(props) {
           onInput={titleHandler}
         />
 
-        <div className="dropdown">
-          <button className="dropbtn">Categories</button>
-          <div className="dropdown-content">
-            <ul>
-              {searchResults.map(item => (
-                <li>{item.name}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <CategorySelect searchResults={searchResults}/>
+        
         <input
           type="text"
           placeholder="Choose a Category"
