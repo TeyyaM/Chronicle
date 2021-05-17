@@ -17,7 +17,6 @@ const App = () => {
   userRef.current = user;
 
   const appStyling = {
-    backgroundColor: user ? user.accent_hex : '#85bade',
     color: user ? user.text_hex : '#d9b310', 
   }
 
@@ -51,7 +50,7 @@ const App = () => {
             <Route path="/graphs" component={Graphs} />
             <Route path="/" component={Home} />
               
-            <Redirect to='/' />
+            <Redirect to="/" />
           </Switch>
         </Router >
       </UserContext.Provider>

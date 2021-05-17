@@ -39,7 +39,6 @@ const Home = () => {
   useEffect(() => {
     axios.get('/api/categories')
       .then((res) => {
-        console.log("DATA", res.data)
         setSearchResults(res.data);
         setCategoryList(res.data);
       })
@@ -66,7 +65,7 @@ const Home = () => {
   
   return (
       <div style={homeStyling}>
-        <h1>Create An Entry ❉ {currentDay.toDateString()}</h1>
+        <h1>Create An Entry ❉ <em>{currentDay.toDateString()}</em></h1>
 
           <PrivacySetting entry={entry} setEntry={setEntry} />
 
