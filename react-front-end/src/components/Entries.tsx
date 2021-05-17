@@ -1,7 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
+import { Link, Route, Switch as RouteSwitch } from 'react-router-dom';
 import axios from 'axios';
 
-import { Link, Route, Switch } from 'react-router-dom';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+
 import Entry from './Entry';
 import Mood from './Home/Mood';
 import DatePicker from './DatePicker';
@@ -39,7 +42,6 @@ const moodImage = (num: number) => {
 }
 
 const Entries = () => {
-  
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
   
@@ -62,7 +64,7 @@ const Entries = () => {
     }
   }
 
-
+  const [showContent, setShowContent] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
@@ -109,6 +111,9 @@ const Entries = () => {
     setCategoryList(results);
   };
 
+  // shows or hides the content for each entry
+  const toggleContent = () => showContent ? setShowContent(false) : setShowContent(true);
+
   const content = entries.map((entry, index) => {
     const mood = moodImage(entry.mood);
     return ( 
@@ -117,7 +122,7 @@ const Entries = () => {
         <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
         <p>{entry.date ? entry.date : null}</p>
         <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
-        <p>{entry.content}</p>
+        <p>{showContent ? entry.content : null}</p>
       </div>
     ) 
   })
@@ -125,35 +130,44 @@ const Entries = () => {
   return (
       <div style={contentStyling}>
         <h2>Entries</h2>
+
+        <FormControlLabel
+        control={<Switch  checked={showContent} onChange={toggleContent} name="switch" color="primary" />}
+        label="Show Content"/>
+
         <DatePicker 
           id="date-picker-start-date" 
           name="Start Date"
           date={startDate}
           setDate={setStartDate} />
+
         <DatePicker 
           id="date-picker-end-date" 
           name="End Date" 
           date={endDate}
           setDate={setEndDate}/>
+
         <Mood mood={mood} setMood={setMood} reset="all"/>
+
         <CategorySelect categories={searchResults}
            setCategoryId={setCategoryId}
            onChange={searchChange}
            all={true} />
+
         <input
           style={{height: "20px", width: "148px"}}
           type="text"
           placeholder="Narrow Down Categories"
           value={searchTerm}
-          onChange={searchChange}
-        />
+          onChange={searchChange}/>
+        
         {content}
 
-        <Switch>
+        <RouteSwitch>
           <Route path="/entries/:entryId" component={Entry} />
           <Route path="/entries">
           </Route>
-        </Switch>
+        </RouteSwitch>
       </div>        
   )  
 };
