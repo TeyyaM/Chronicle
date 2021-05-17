@@ -59,10 +59,6 @@ export default function Form(props) {
           onInput={titleHandler}
         />
 
-<<<<<<< HEAD
-
-=======
->>>>>>> be25fa54e962637a338800881e853faf1e0c76de
         <TextField
           id="outlined-basic"
           multiline
