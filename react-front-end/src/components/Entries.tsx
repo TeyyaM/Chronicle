@@ -81,7 +81,7 @@ const Entries = () => {
   
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const [mood, setMood] = useState<null | number | 'all'>('all');
-  const limit = 10;
+  const limit = 30;
   // const categoryId = 'all'; // null or 'all' or a number
   useEffect(() => {
       // get pie chart data
@@ -132,34 +132,28 @@ const Entries = () => {
   return (
       <div style={contentStyling}>
         <h2>Entries</h2>
-        <div style={contentStyling.headerStyling}>
-          <div>
-            <DatePicker 
-              id="date-picker-start-date" 
-              name="Start Date"
-              date={startDate}
-              setDate={setStartDate} />
-            <DatePicker 
-              id="date-picker-end-date" 
-              name="End Date" 
-              date={endDate}
-              setDate={setEndDate}/>
-          </div>
-            <Mood mood={mood} setMood={setMood} reset="all"/>
-          <div>
-            <input
-              type="text"
-              placeholder="Choose a Category"
-              value={searchTerm}
-              onChange={searchChange}
-            />
-            <CategorySelect categories={searchResults}
-              setCategoryId={setCategoryId}
-              onChange={searchChange}
-              all={true} />
-          </div>          
-        </div>
-        
+        <DatePicker 
+          id="date-picker-start-date" 
+          name="Start Date"
+          date={startDate}
+          setDate={setStartDate} />
+        <DatePicker 
+          id="date-picker-end-date" 
+          name="End Date" 
+          date={endDate}
+          setDate={setEndDate}/>
+        <Mood mood={mood} setMood={setMood} reset="all"/>
+        <CategorySelect categories={searchResults}
+           setCategoryId={setCategoryId}
+           onChange={searchChange}
+           all={true} />
+        <input
+          style={{height: "20px", width: "148px"}}
+          type="text"
+          placeholder="Narrow Down Categories"
+          value={searchTerm}
+          onChange={searchChange}
+        />
         {content}
 
         <Switch>
