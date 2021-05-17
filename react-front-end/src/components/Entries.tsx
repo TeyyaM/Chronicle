@@ -88,15 +88,6 @@ const Entries = () => {
   }, [startDate, endDate]);
 
   const content = entries.map((entry, index) => {
-<<<<<<< HEAD
-      const mood = moodImage(entry.mood);
-   return ( <div key={index} style={{border: 'black', borderWidth: '3px'}}>
-      <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
-      <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
-      <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
-      <p>{entry.content}</p>
-    </div>) 
-=======
     const mood = moodImage(entry.mood);
     return ( 
       <div key={index} style={contentStyling.divStyling}>
@@ -107,7 +98,6 @@ const Entries = () => {
         <p>{entry.content}</p>
       </div>
     ) 
->>>>>>> 03eb6134ab87e23568819387c8a4eade21472271
   })
 
   return (
