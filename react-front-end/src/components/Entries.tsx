@@ -66,8 +66,6 @@ const Entries = () => {
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState<any>([]);
 
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const limit = 10;
@@ -88,27 +86,6 @@ const Entries = () => {
       setEntries(res.data)
     });
   }, [startDate, endDate]);
-  const handleChange = event => {
-    setSearchTerm(event.target.value);
-  };
-  useEffect(() => {
-    axios.get('/api/entries')
-    .then((res) => {
-      setSearchResults(res.data);
-      setEntries(res.data);
-    })
-  }, [] )
-  useEffect(() => {
-    if (Entry.length >= 1){
-    const results = entries.filter(entry =>
-      // console.log(entry.title)
-      entry.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }}, [entries, searchTerm]);
-
-
-  
 
   const content = entries.map((entry, index) => {
       const mood = moodImage(entry.mood);
@@ -133,16 +110,6 @@ const Entries = () => {
           name="End Date" 
           date={endDate}
           setDate={setEndDate}/>
-           <input
-        type="text"
-        placeholder="Search for an Entry Title"
-        value={searchTerm}
-        onChange={handleChange}
-      />
-      <ul> {searchResults.map(entry => (
-        [entry.title]
-      ))}
-      </ul>
 
         {content}
 
