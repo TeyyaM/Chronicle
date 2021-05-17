@@ -48,8 +48,8 @@ function Navbar() {
           <button className="dropbtn">Categories</button>
           <div className="dropdown-content">
             <ul>
-              {searchResults.map(item => (
-                <li>{item.name}</li>
+              {searchResults.map((item, index) => (
+                <li key={index}>{item.name}</li>
                 ))}
             </ul>
           </div>
