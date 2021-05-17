@@ -48,9 +48,9 @@ function Navbar() {
           <button className="dropbtn">Categories</button>
           <div className="dropdown-content">
             <ul>
-            <Link to={`/categories/${categories.name}`}></Link>
+            <Link to={`/categories/${categories.id}`}>{categories.name}</Link><br/>
               {searchResults.map(item => (
-                <li>{item.name}</li>
+               <li> {item.name}</li>
                 ))}
             </ul>
           </div>
@@ -61,7 +61,8 @@ function Navbar() {
         value={searchTerm}
         onChange={handleChange}
       />
-      <Link to="/login"><button>Login or Sign up</button></Link>
+      <Link to="/login"><button>Login</button></Link>
+      <Link to="/sign-up"><button>Sign up</button></Link>
     </div>
   );
 }
