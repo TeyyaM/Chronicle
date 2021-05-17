@@ -12,7 +12,7 @@ export default function Settings() {
   const [secondary, setSecondary] = useState('#0B3C5D');
   const [accent, setAccent] = useState('#ebb30e');
   const [text, setText] = useState('#fafafa');
-  const [title, setTitle] = useState('#1D2731');
+  const [form, setForm] = useState('#1D2731');
 
   useEffect (() => {
     if (user) {
@@ -20,7 +20,7 @@ export default function Settings() {
       setSecondary(user.secondary_hex);
       setAccent(user.accent_hex);
       setText(user.text_hex);
-      setTitle(user.title_hex);
+      setForm(user.form_hex);
     }
     // there's never a user id without a user
     // eslint-disable-next-line
@@ -40,9 +40,9 @@ export default function Settings() {
       <ColorPicker color={text}
         setColor={setText}
         name="Text" />
-      <ColorPicker color={title}
-        setColor={setTitle} 
-        name="Title" />
+      <ColorPicker color={form}
+        setColor={setForm} 
+        name="Form" />
     </div>
   );
 }

@@ -16,9 +16,10 @@ const formStyling = {
   borderRadius: 3,
   boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   color: 'black',
-  height: 325,
+  height: 347,
   width: '90%',
   padding: 10,
+  paddingTop: 0,
   margin: 'auto',
 };
 
@@ -45,10 +46,11 @@ export default function Form(props) {
     <form style={formStyling} noValidate autoComplete="off" onSubmit={submitHandler}>
       <Box
         width="100%"
+        height="200%"
         display="flex"
         flexDirection="column"
-        bgcolor="#ff98006b"
-        padding="10px">
+        bgcolor={user ? user.title_hex : '#fffbc8'}
+        padding="0px" >
 
         <TextField
           id="outlined-basic"

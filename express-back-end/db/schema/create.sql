@@ -17,7 +17,7 @@ CREATE TABLE users (
   background_hex VARCHAR(7) DEFAULT '#76c2f5',
   secondary_hex VARCHAR(7) DEFAULT '#041454',
   accent_hex VARCHAR(7) DEFAULT '#ebb30e',
-  title_hex VARCHAR(7) DEFAULT '#fafafa',
+  form_hex VARCHAR(7) DEFAULT '#fffcdf',
   text_hex VARCHAR(7) DEFAULT '#1D2731',
   prompts BOOLEAN DEFAULT TRUE,
   private BOOLEAN DEFAULT TRUE,

@@ -16,12 +16,13 @@ export default function TextButton(props) {
   const { color, text } = props;
   
   const handleButtonClick = (event) => {
-    props.save();
+    props.onClick();
     
   };
   return (
     <div className={classes.root}>
       <Button color={color}
+      variant="contained"
       onClick={handleButtonClick}>
         {text}
       </Button>
