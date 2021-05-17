@@ -1,7 +1,7 @@
 .App {
 	text-align: center;
-	height: 100%;
-	background-image: url("https://www.transparenttextures.com/patterns/dust.png");  
+	min-height: 100%;
+	background-image: url("https://www.transparenttextures.com/patterns/dust.png");
 	margin: auto;
 }
 
@@ -49,4 +49,3 @@ form {
 	border: 5px black;
 	box-shadow: #282c34;
 }
-

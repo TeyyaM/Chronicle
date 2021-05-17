@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       backgroundColor: theme.palette.background.paper,
+      width: '155px',
+      margin: 'auto',
     },
   }),
 );

@@ -76,7 +76,7 @@ const Entries = () => {
   
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const [mood, setMood] = useState<null | number | 'all'>('all');
-  const limit = 10;
+  const limit = 30;
   // const categoryId = 'all'; // null or 'all' or a number
   useEffect(() => {
       // get pie chart data
@@ -138,16 +138,17 @@ const Entries = () => {
           date={endDate}
           setDate={setEndDate}/>
         <Mood mood={mood} setMood={setMood} reset="all"/>
-        <input
-          type="text"
-          placeholder="Choose a Category"
-          value={searchTerm}
-          onChange={searchChange}
-        />
         <CategorySelect categories={searchResults}
            setCategoryId={setCategoryId}
            onChange={searchChange}
            all={true} />
+        <input
+          style={{height: "20px", width: "148px"}}
+          type="text"
+          placeholder="Narrow Down Categories"
+          value={searchTerm}
+          onChange={searchChange}
+        />
         {content}
 
         <Switch>

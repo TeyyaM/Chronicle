@@ -69,20 +69,20 @@ const Home = () => {
       <div style={homeStyling}>
         <h1>Create An Entry ❉ <em>{currentDay.toDateString()}</em></h1>
 
-          <PrivacySetting entry={entry} setEntry={setEntry} />
+        <PrivacySetting entry={entry} setEntry={setEntry} />
 
-          <Mood mood={mood} setMood={setMood} reset={null} />
+        <Mood mood={mood} setMood={setMood} reset={null} />
 
-          <input
-          type="text"
-          placeholder="Choose a Category"
-          value={searchTerm}
-          onChange={handleChange}
-          />
-          <CategorySelect categories={searchResults}
+        <CategorySelect categories={searchResults}
           setCategoryId={setCategoryId}
           onChange={handleChange} />
-
+        <input
+          style={{height: "20px", width: '148px'}} 
+          type="text"
+          placeholder="Narrow Down Categories"
+          value={searchTerm}
+          onChange={handleChange}
+        />
 
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>    
