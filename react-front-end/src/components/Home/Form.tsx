@@ -45,14 +45,14 @@ export default function Form(props) {
     <form style={formStyling} noValidate autoComplete="off" onSubmit={submitHandler}>
       <Box
         width="100%"
-        height="100%"
+        height="90%"
         display="flex"
         flexDirection="column"
         bgcolor={user ? user.form_hex : '#fffbc8'} >
 
         <TextField
           id="outlined-basic"
-          margin="normal"
+          // margin="normal"
           label="Title"
           variant="outlined"
           fullWidth
@@ -62,6 +62,7 @@ export default function Form(props) {
 
         <TextField
           id="outlined-basic"
+          margin="normal"
           multiline
           rows="10"
           label="Whats on your mind?"

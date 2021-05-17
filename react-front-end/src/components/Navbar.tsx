@@ -9,17 +9,25 @@ function Navbar() {
 // 4em navbar 
   const Button = styled.button`
   background: ${ user ? user.background_hex : 'white' };
-  color: ${ user ? user.secondary_hex : 'darkgrey' };
+  color: ${ user ? user.text_hex : 'darkgrey' };
   border: none;
+  font-size: 1em;
   text-decoration: none;
-  height: 2em;
-  box-shadow: 0px 0px 5px 5px #888888;
-`;
+  height: 3em;
+  padding-right: 1em;
+  padding-left: 1em;
+  border-radius: 4px;
+  :hover {
+    color: ${ user ? user.text_hex : 'darkgrey' };
+    background: ${ user ? user.accent_hex : 'yellow' };
+    box-shadow: 0px 0px 1px 1px ${user ? user.accent_hex : 'yellow'};
+  }
+  `;
 
   return (
     <div className="Navbar">
 
-      <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%'}}>
+      <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%', marginTop: '0.8em'}}>
       </img>
 
       <Link to="/"><Button>Chronicle Your Day </Button></Link>
@@ -27,7 +35,6 @@ function Navbar() {
       <Link to="/entries"><Button>Entries</Button></Link>
       <Link to="/settings"><Button>Settings</Button></Link>
       <Link to="/graphs"><Button>Graphs</Button></Link>
-      <Link to="/categories"><Button>Categories</Button></Link>
       {!user ? 
       <><Link to="/login"><Button>Login</Button></Link>
       <Link to="/si-up"><Button>Sign up</Button></Link></>
