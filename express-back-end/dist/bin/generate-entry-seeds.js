@@ -32,9 +32,17 @@ const createFakeEntries = (category) => {
         mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 2);
         mood = varyMood(mood, 80, hoursAgo, maxTimeAgo / 4);
     }
+    let paragraph = faker.lorem.paragraph();
+    const length = Math.ceil(Math.random() * 8) + 10;
+    for (let i = 0; i < length; i++) {
+        paragraph += faker.lorem.paragraph();
+        if (Math.ceil(Math.random() * 2) > 1) {
+            paragraph += '\n';
+        }
+    }
     return (`
   ('${faker.lorem.sentence()}',
-  '${faker.lorem.paragraph()}',
+  '${paragraph}',
   ${mood},
   NOW() -  interval '${hoursAgo} hours',
   NOW() -  interval '${hoursAgo} hours',

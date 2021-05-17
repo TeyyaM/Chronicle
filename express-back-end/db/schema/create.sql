@@ -15,7 +15,7 @@ CREATE TABLE users (
   userName VARCHAR(255) NOT NULL,
   password VARCHAR(500) NOT NULL,
   background_hex VARCHAR(7) DEFAULT '#76c2f5',
-  secondary_hex VARCHAR(7) DEFAULT '#0B3C5D',
+  secondary_hex VARCHAR(7) DEFAULT '#041454',
   accent_hex VARCHAR(7) DEFAULT '#ebb30e',
   title_hex VARCHAR(7) DEFAULT '#fafafa',
   text_hex VARCHAR(7) DEFAULT '#1D2731',
@@ -35,7 +35,7 @@ CREATE TABLE categories (
 CREATE TABLE entries (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
-  content VARCHAR(8000) NOT NULL,
+  content VARCHAR(12000) NOT NULL,
   mood INTEGER,
   privacy BOOLEAN DEFAULT TRUE,
   date_created TIMESTAMP DEFAULT NOW(),

@@ -1,9 +1,29 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import LineGraph from './graphs/LineGraph';
 import PieGraph from './graphs/PieGraph';
 import DatePicker from './DatePicker';
+import { UserContext } from '../hooks/UserContext';
+
+
 export default function Graphs() {
+  
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+  userRef.current = user;
+  const homeStyling = {
+    backgroundColor: user ? user.background_hex : '#0b3c5d',
+    color: user ? user.text_hex : '#d9b310',   
+    margin: '10%, 10%, 10%, 10%',
+    paddingBottom: 15,
+    borderColor: user ? user.secondary_hex : 'black',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderRadius: 10,
+    height: '90%',
+    width: '90%',
+
+  };
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
@@ -56,7 +76,7 @@ export default function Graphs() {
     });
   }, [startDate, endDate])
   return (
-  <>
+  <table style={homeStyling}>
   <PieGraph data={pieData} startDate={startDate} endDate={endDate} />
   <DatePicker 
     id="date-picker-start-date" 
@@ -69,6 +89,6 @@ export default function Graphs() {
     date={endDate}
     setDate={setEndDate}/>
   <LineGraph data={lineData} startDate={startDate} endDate={endDate} />
-  </>
+  </table>
   );
 }

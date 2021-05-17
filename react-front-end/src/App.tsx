@@ -17,7 +17,7 @@ const App = () => {
   userRef.current = user;
 
   const appStyling = {
-    backgroundColor: user ? user.background_hex : '#85bade',
+    backgroundColor: user ? user.accent_hex : '#85bade',
     color: user ? user.text_hex : '#d9b310', 
   }
 
@@ -33,12 +33,12 @@ const App = () => {
 
   return (
     <div className="App" style={appStyling}>
-      <UserContext.Provider value={{ userRef }}>
+      <UserContext.Provider value={{ userRef, setUser }}>
         <Router>
           <nav
             style={{
               backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
-              color: user ? user.text_hex : 'rebeccapurple'
+              color: user ? user.text_hex : 'rebeccapurple',
             }}>
             <Navbar />
           </nav>
