@@ -1,10 +1,22 @@
+import { useEffect } from 'react';
 
 const CategoryItem = (props) => {
-  const { name, id, setCategory} = props;
-  console.log(name, id, setCategory);
+  const { name, id, setCategoryId, categoryId} = props;
+
+  const changeCategory = () => {
+    categoryId !== id 
+    ? setCategoryId(id)
+    : setCategoryId(null);
+    
+    console.log('I\'m the category id!!!!', categoryId);
+  }
+   
+  useEffect (() => {
+    
+  }, [categoryId])
   return (
     <li>
-        hello it's me
+      <button onClick={changeCategory}>{name}</button>
     </li>
   );
 };

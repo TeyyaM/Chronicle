@@ -1,14 +1,17 @@
 import CategoryItem from './CategoryItem';
 
 const CategorySelect = (props) => {
-  const { searchResults, setCategory } = props;
+  const { searchResults, setCategoryId, categoryId } = props;
   return (
     <div className="dropdown">
     <button className="dropbtn">Categories</button>
     <div className="dropdown-content">
       <ul>
         {searchResults.map(category => (
-          <CategoryItem name={category.name} id={category.id} setCategory={setCategory} />
+          <CategoryItem name={category.name}
+          id={category.id}
+          categoryId={categoryId}
+          setCategoryId={setCategoryId} />
         ))}
       </ul>
     </div>

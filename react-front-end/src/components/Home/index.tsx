@@ -38,9 +38,8 @@ const Home = () => {
   });
 
   useEffect(() => {
-    axios.get('/api/categoryList')
+    axios.get('/api/categories')
       .then((res) => {
-        // console.log(res.data)
         setSearchResults(res.data);
         setCategoryList(res.data);
       })
@@ -60,7 +59,7 @@ const Home = () => {
   
   const submitContent = (userId: string | number) => {
 
-    axios.post('api/entries', {...entry, userId, mood, category_id: categoryId}) 
+    axios.post('api/entries', {...entry, userId, mood, category: categoryId}) 
       .then(res => console.log("POST", res.data))
       .catch(err => console.log("ERROR", err));
   }
@@ -81,7 +80,9 @@ const Home = () => {
           value={searchTerm}
           onChange={handleChange}
         />
-          <CategorySelect searchResults={searchResults} setCategory={setCategoryId}/>
+          <CategorySelect searchResults={searchResults}
+           setCategoryId={setCategoryId}
+            categoryId={categoryId}/>
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>
     
