@@ -1,6 +1,6 @@
 import TextField from '@material-ui/core/TextField';
 
-import { useEffect, useState, useContext, Fragment } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {useParams, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
@@ -96,7 +96,7 @@ const Entry = () => {
     setContent((prev) => ({...prev, content: event.target.value}))
   };
 
-  const save = (val) => {
+  const action = (val) => {
     if(val) {
       return (
         <div>
@@ -115,7 +115,7 @@ const Entry = () => {
   }
 
   return (
-    <Fragment>
+    <div style={{height: 600}}>
       {editMode 
       ? (<div style={entryStyling}>
       <form><TextField 
@@ -147,8 +147,8 @@ const Entry = () => {
       {moodImage(content.mood)}
       <p>{content.content}</p>
     </div>)}
-      {save(editMode)}
-    </Fragment>
+      {action(editMode)}
+    </div>
     
   );
 };

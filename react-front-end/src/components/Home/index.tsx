@@ -19,13 +19,15 @@ const Home = () => {
   const homeStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.texte_hex : '#d9b310',   
-    margin: 15,
+    marginTop: 15,
+    marginRight: 15,
+    marginLeft: 15,
     paddingBottom: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 5,
     borderRadius: 10,
-    height: '100%',
+    height: '700px',
   };
   const [searchResults, setSearchResults] = useState<any>([]);
   const [categoryList, setCategoryList] = useState<any>([]);
