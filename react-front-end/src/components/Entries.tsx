@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 import Entry from './Entry';
+import Mood from './Home/Mood';
 import DatePicker from './DatePicker';
 import { UserContext } from '../hooks/UserContext';
 
@@ -67,8 +68,8 @@ const Entries = () => {
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
   // const [categoryId, setCategoryId] = useState<null | number>(null);
+  const [mood, setMood] = useState<null | number | 'all'>('all');
   const limit = 10;
-  const mood = 'all'; // null or 'all' or a number
   const categoryId = 'all'; // null or 'all' or a number
   useEffect(() => {
       // get pie chart data
@@ -84,7 +85,7 @@ const Entries = () => {
     .then((res) => {
       setEntries(res.data)
     });
-  }, [startDate, endDate]);
+  }, [startDate, endDate, mood, categoryId]);
 
   
 
@@ -114,7 +115,7 @@ const Entries = () => {
           name="End Date" 
           date={endDate}
           setDate={setEndDate}/>
-
+        <Mood mood={mood} setMood={setMood} reset="all"/>
         {content}
 
         <Switch>

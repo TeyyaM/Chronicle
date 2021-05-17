@@ -48,7 +48,7 @@ const Home = () => {
         <h1>Create An Entry</h1>
         <h2>{currentDay.toDateString()}</h2>
           <PrivacySetting entry={entry} setEntry={setEntry} />
-          <Mood mood={mood} setMood={setMood} />
+          <Mood mood={mood} setMood={setMood} reset={null} />
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>
     
