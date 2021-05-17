@@ -27,7 +27,7 @@ const Home = () => {
     borderStyle: 'solid',
     borderWidth: 5,
     borderRadius: 10,
-    height: '700px',
+    height: '100%',
   };
   const [searchResults, setSearchResults] = useState<any>([]);
   const [categoryList, setCategoryList] = useState<any>([]);

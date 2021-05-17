@@ -33,7 +33,7 @@ const Entry = () => {
   const entryStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.title_hex : '#d9b310',   
-    height: '50%',
+    height: 'fit-content',
     margin: 15,
     padding: 15,
     borderColor: user ? user.secondary_hex : 'black',

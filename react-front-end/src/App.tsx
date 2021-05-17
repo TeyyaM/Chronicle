@@ -19,6 +19,7 @@ const App = () => {
   const appStyling = {
     backgroundColor: user ? user.accent_hex : '#d9b310', 
     color: user ? user.text_hex : '#d9b310', 
+    minHeight: '100vh'
   }
 
   // Hardcoded userId for production
