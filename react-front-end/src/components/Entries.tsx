@@ -58,7 +58,7 @@ const Entries = () => {
     divStyling: {
       borderStyle: 'solid',
       borderColor: 'black',
-      borderWidth: 3,
+      borderWidth: 5,
       borderRadius: 10,
       margin: 10
     }
@@ -101,15 +101,14 @@ const Entries = () => {
         setCategoryList(res.data);
       })
   }, [])
-  useEffect(() => {
+
+  const searchChange = event => {
+    setSearchTerm(event.target.value);
     const results = categoryList.filter(categoryList =>
       categoryList.name.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
-  }, [categoryList, searchTerm]);
-
-  const searchChange = event => {
-    setSearchTerm(event.target.value);
+    setCategoryList(results);
   };
 
   const content = entries.map((entry, index) => {
@@ -147,6 +146,7 @@ const Entries = () => {
         />
         <CategorySelect categories={searchResults}
            setCategoryId={setCategoryId}
+           onChange={searchChange}
            all={true} />
         {content}
 

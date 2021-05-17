@@ -1,7 +1,6 @@
 import TextField from '@material-ui/core/TextField';
 
 import { useEffect, useState, useContext, Fragment } from 'react';
-// import {useParams, useHistory} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
@@ -39,7 +38,7 @@ const Entry = () => {
     padding: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
-    borderWidth: 3,
+    borderWidth: 5,
     borderRadius: 10
   }  
   
@@ -54,8 +53,8 @@ const Entry = () => {
     axios.post(`/api/entries/${entryId}`, {
       params: { title: content.title, content: content.content, mood: content.mood, category_id: content.category_id, user_id: content.user_id, privacy: content.privacy }
     })
-      .then(res => console.log("####", res.data))
-      .catch(err => console.log("ERROR: ", err));
+    .then(res => console.log("DATA: ", res.data))
+    .catch(err => console.log("ERROR: ", err));
   };
 
   const deleteEntry = () => {
@@ -64,7 +63,7 @@ const Entry = () => {
         user_id: user.id,
       }
     })
-      .then(res => console.log("####", res.data))
+      .then(res => console.log("DATA: ", res.data))
       .catch(err => console.log("ERROR: ", err));
   }
   
@@ -115,7 +114,8 @@ const Entry = () => {
   return (
     <Fragment>
       {editMode 
-      ? (<form> <TextField 
+      ? (<div style={entryStyling}>
+      <form><TextField 
         id="outlined-basic" 
         margin="normal"
         label="Title" 
@@ -134,8 +134,8 @@ const Entry = () => {
         fullWidth
         value={content.content}
         onInput={contentHandler}
-        />
-        </form> )
+        /></form>
+        </div> )
 
       : (<div style={entryStyling}>
       <h1 >{content.title}</h1>
