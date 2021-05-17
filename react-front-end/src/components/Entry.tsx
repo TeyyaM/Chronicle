@@ -42,7 +42,11 @@ const history = useHistory();
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    
+    buttonStyling: {
+
+    }
   }  
   
   const params: Params = useParams();
@@ -106,14 +110,14 @@ const history = useHistory();
       return (
         <div>
           <Button variant="contained" color="primary" onClick={() => updateEntry()}>Save</Button>
-          <Button variant="contained" color="primary" onClick={() => setEditMode(false)}>Cancel</Button>
+          <Button variant="contained" color="secondary" onClick={() => setEditMode(false)}>Cancel</Button>
         </div>
       )
     } else {
       return (
         <div>
           <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>Edit</Button>
-          <Button variant="contained" color="primary" onClick={() => deleteEntry()}>Delete</Button>
+          <Button variant="contained" color="secondary" onClick={() => deleteEntry()}>Delete</Button>
         </div>
       )
     }

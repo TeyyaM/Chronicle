@@ -111,9 +111,10 @@ const Entries = () => {
     setCategoryList(results);
   };
 
-  // shows or hides the content for each entry
+  // Shows or hides the content for each entry
   const toggleContent = () => showContent ? setShowContent(false) : setShowContent(true);
 
+  // Displays the entries from the database
   const content = entries.map((entry, index) => {
     const mood = moodImage(entry.mood);
     return ( 
