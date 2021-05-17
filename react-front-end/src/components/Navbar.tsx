@@ -1,13 +1,4 @@
-// import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import React from 'react';
-
-// import Categories from './Categories';
-// import ReactDOM from 'react-dom';
-// import { useEffect } from 'react';
-// import Category from './Category';
-
-
 
 function Navbar() {
 
