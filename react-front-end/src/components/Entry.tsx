@@ -15,6 +15,7 @@ interface Data {
   date_created: Date | null;
   mood: number | string | null;
   user_id?: number | string;
+  date?: Date | string;
 };
 
 const Entry = () => {
@@ -144,7 +145,7 @@ const Entry = () => {
 
       : (<div style={entryStyling}>
       <h1 >{content.title}</h1>
-      <h2>{content.date_created}</h2>
+      <h2>{content.date}</h2>
       <p>{content.privacy}</p>
       {moodImage(content.mood)}
       <p>{content.content}</p>
