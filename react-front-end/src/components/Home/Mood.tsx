@@ -4,7 +4,7 @@ import { smiley, mild, neutral, unhappy, angry } from '../emojis'
 const moodStyling = {
   height: 60,
   padding: 0,
-  margin: 10,
+  margin: 0,
   display:'flex', 
   justifyContent: 'center',
   listStyle: 'none', 

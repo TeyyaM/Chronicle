@@ -1,15 +1,13 @@
-import { useEffect, useState, useContext } from 'react';
+import TextField from '@material-ui/core/TextField';
+
+import { useEffect, useState, useContext, Fragment } from 'react';
 // import {useParams, useHistory} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
-
-
 import { smiley, mild, neutral, unhappy, angry } from './emojis';
 
 interface Params {entryId: string};
-
-    
 
 const Entry = () => {
 
@@ -19,8 +17,13 @@ const Entry = () => {
   const entryStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.title_hex : '#d9b310',   
-    height: '12vh'
-  }
+    height: '50%',
+    margin: 15,
+    borderColor: user ? user.secondary_hex : 'black',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderRadius: 10
+  }  
   
   interface Data {
     title: string;
@@ -30,6 +33,7 @@ const Entry = () => {
     date_created: Date | null;
     mood: number | string| null;
   }
+
   const [ content, setContent ] = useState<Data>({
     title: "",
     content: "",
@@ -38,15 +42,21 @@ const Entry = () => {
     date_created: null,
     category_id: null
   });
+  const [ editMode, setEditMode ] = useState<boolean>(false)
 
   
   const params: Params = useParams();
 
   useEffect(() => {
-    console.log("useEffect is called")
+    // console.log("useEffect is called")
     axios.get(`/api/entries/${params.entryId}`)
       .then(res => setContent({...res.data[0]})); // Do stuff with it
   }, [params.entryId]);
+
+  // function update(content) {
+  //   axios.put(`/api/entries/${params.entryId}`, {content})
+  // }
+  // may have to update route
 
       // displays mood icon
       const moodImage = (num: number | string) => {
@@ -75,10 +85,6 @@ const Entry = () => {
         return imgs[num];
       }
 
-
-
-
-
   // const history = useHistory();
   // console.log(history);
 
@@ -92,14 +98,51 @@ const Entry = () => {
     }
   }
 
+  function titleHandler(event) {
+    setContent(prev => ({...prev, title: event.target.value}))
+  };
+
+  function contentHandler(event) {
+    setContent((prev) => ({...prev, content: event.target.value}))
+  };
+
+  let buttonMessage = editMode ? "Save" : "Edit";
+
   return (
-    <div>
-      <h2 style={entryStyling}>{content.title}</h2>
+    <Fragment>
+      {editMode 
+      ? (<form> <TextField 
+        id="outlined-basic" 
+        margin="normal"
+        label="Title" 
+        variant="outlined" 
+        fullWidth
+        value={content.title}
+        onInput={titleHandler}
+        />
+
+      <TextField 
+        id="outlined-basic" 
+        multiline
+        rows="10"
+        label="Whats on your mind?" 
+        variant="outlined" 
+        fullWidth
+        value={content.content}
+        onInput={contentHandler}
+        />
+        </form> )
+
+      : (<div style={entryStyling}>
+      <h2 >{content.title}</h2>
       <p>{content.date_created}</p>
       <p>{content.privacy}</p>
       {availableMood()}
       <p>{content.content}</p>
-    </div>
+    </div>)}
+      <button onClick={() => setEditMode(true)}>{buttonMessage}</button>
+    </Fragment>
+    
   );
 };
 

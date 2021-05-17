@@ -17,11 +17,8 @@ const App = () => {
   userRef.current = user;
 
   const appStyling = {
-    backgroundImage: 'url("https://www.transparenttextures.com/patterns/dust.png")',
     backgroundColor: user ? user.background_hex : '#85bade',
     color: user ? user.text_hex : '#d9b310', 
-    margin: 'auto',
-    // overflow: 'scroll'
   }
 
   // Hardcoded userId for production
@@ -55,7 +52,6 @@ const App = () => {
             <Route path="/" component={Home} />
               
             <Redirect to='/' />
-            {/* </Route> */}
           </Switch>
         </Router >
       </UserContext.Provider>
