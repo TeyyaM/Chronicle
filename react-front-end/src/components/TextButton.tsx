@@ -22,7 +22,7 @@ export default function TextButton(props) {
   return (
     <div className={classes.root}>
       <Button color={color}
-      variant="contained"
+      // variant="contained"
       onClick={handleButtonClick}>
         {text}
       </Button>
