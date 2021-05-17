@@ -1,36 +1,6 @@
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-import React from 'react';
-
-// import Categories from './Categories';
-// import ReactDOM from 'react-dom';
-import { useEffect } from 'react';
-
-
-
 
 function Navbar() {
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState<any>([]);
-  const [categories, setCategories] = React.useState<any>([]);
-
-  const handleChange = event => {
-    setSearchTerm(event.target.value);
-  };
-  useEffect(() => {
-    axios.get('/api/categories')
-      .then((res) => {
-        // console.log(res.data)
-        setSearchResults(res.data);
-        setCategories(res.data);
-      })
-  }, [])
-  useEffect(() => {
-    const results = categories.filter(categories =>
-      categories.name.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [categories, searchTerm]);
 
   return (
     <div className="Navbar">
@@ -43,24 +13,10 @@ function Navbar() {
       <Link to="/entries"><button>Entries</button></Link>
       <Link to="/settings"><button>Settings</button></Link>
       <Link to="/graphs"><button>Graphs</button></Link>
-      <Link to="/categories">
-        <div className="dropdown">
-          <button className="dropbtn">Categories</button>
-          <div className="dropdown-content">
-            <ul>
-              {searchResults.map((item, index) => (
-                <li key={index}>{item.name}</li>
-                ))}
-            </ul>
-          </div>
-        </div></Link>
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={handleChange}
-      />
-      <Link to="/login"><button>Login or Sign up</button></Link>
+      <Link to="/categories"><button>Categories</button></Link>
+      
+      <Link to="/login"><button>Login</button></Link>
+      <Link to="/si-up"><button>Sign up</button></Link>
     </div>
   );
 }

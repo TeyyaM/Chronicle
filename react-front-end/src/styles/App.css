@@ -2,7 +2,7 @@
 	text-align: center;
 	height: 100%;
 	background-image: url("https://www.transparenttextures.com/patterns/dust.png");  
-	margin: auto
+	margin: auto;
 }
 
 .App-logo {
@@ -19,7 +19,7 @@
 	align-items: center;
 	justify-content: center;
 	font-size: calc(10px + 2vmin);
-	color: white;
+	/* color: white; */
 }
 
 .App-link {
@@ -50,3 +50,9 @@ form {
 	border: 5px black;
 	box-shadow: #282c34;
 }
+
+/* nav {
+	margin-top: 5em;
+	margin-bottom: 4.3em;
+	width: 100%;
+} */

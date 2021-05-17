@@ -60,7 +60,7 @@ const getEntriesByCategory = (userId: string, params: IEntryParams) => {
 
   const { startDate, endDate, mood, limit, categoryId } = params;
   const queryParams = [userId];
-  let queryStart = 'SELECT ';
+  let queryStart = `SELECT TO_CHAR(entries.date_created, 'YYYY-MM-DD') as date, `;
   let queryMid = ' FROM entries';
   let queryEnd = ' WHERE entries.user_id = $1';
   if (!categoryId) {
@@ -102,7 +102,7 @@ const getEntriesByCategory = (userId: string, params: IEntryParams) => {
 
 const getEntryByEntryId = (attributes: { entryId: string; userId: string; }) => {
   const { entryId, userId } = attributes;
-  const query = `SELECT * FROM entries
+  const query = `SELECT *, TO_CHAR(date_created, 'YYYY-MM-DD') as date FROM entries
   WHERE user_id = $1 AND id = $2;`;
   const queryParams = [userId, entryId];
   return pool.query(query, queryParams);
@@ -270,11 +270,6 @@ App.get('/api/categories', (req: Request, res: Response) => {
   .then((data) => res.json(data.rows));
 });
 
-// App.get('/api/categories/:id', (req: Request, res: Response) => {
-//    getEntriesByCategory({categoryId: req.params.id, userId}, req.query)
-//    .then((data) => res.json(data.rows));
-//   });
-
 App.get('/api/users', (req: Request, res: Response) => {
 
   getUsers()
@@ -312,6 +307,10 @@ App.post('/api/entries', (req: Request, res: Response) => {
 });
 App.post('/api/entries/:id', (req: Request, res: Response) => {
   updateDatabase(req.body.params, { table: 'entries', type: 'update', id: req.params.id })
+  .then((data) => res.json(data.rows));
+});
+App.post('/api/users/:id', (req: Request, res: Response) => {
+  updateDatabase(req.body.params, { table: 'users', type: 'update', id: req.params.id })
   .then((data) => res.json(data.rows));
 });
 App.delete('/api/entries/:id', (req: Request, res: Response) => {

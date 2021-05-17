@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../hooks/UserContext';
 import axios from 'axios';
+// import categoryId from './Category'
+// import CssBaseline from '@material-ui/core/CssBaseline'
+import Category from './Category';
 
 
 const Categories = () => {
@@ -15,20 +18,24 @@ const Categories = () => {
         setCategories(res.data);
       })
   }, [])
+
   return (
     <div>
       <h2>Categories</h2>
 
 
-      <div>
-        <Link to="/category/:id"><ul>
+      <Switch>
+        
+        <Route path="/category/:id" component={Category} >
+        <ul>
           {categories.map(item=> (
             <li>{item.name}</li>
-          ))}
+            ))}
             </ul>
-            </Link>
+            </Route>
+            </Switch>
       </div>
-    </div>
+
   );
 };
 
