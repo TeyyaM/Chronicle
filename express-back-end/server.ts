@@ -232,6 +232,7 @@ const updateDatabase = (attributes: IEntry | IUser | ICategory, identifiers: { t
     if (table === 'entries') {
       query += ', date_updated = NOW()'
     }
+    
   }
 
   queryParams.push(id)
