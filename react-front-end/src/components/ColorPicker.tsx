@@ -2,6 +2,7 @@ import axios from 'axios';
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import { useContext } from 'react'; 
 import { UserContext } from '../hooks/UserContext';  
+import SaveButton from './SaveButton';
 
 const ColorPicker = (props: { color: string; setColor: (color: string) => void; name: string;}) => {
   const { color, setColor, name } = props
@@ -11,7 +12,7 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
 
   const saveColor = (event: any) => {
     event.preventDefault();
-    saveToDatabase(color);
+    saveToDatabase();
 
   };
 
@@ -20,7 +21,7 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
     setUser({...user, [convertedName]: event});
   };
 
-  const saveToDatabase = (color: string) => {
+  const saveToDatabase = () => {
     axios.post(`/api/users/${user.id}`, {
       params: {
       [convertedName]: color
@@ -31,11 +32,11 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   return (
     <form onSubmit={saveColor}>
   <label>
-    {name} Hex Value:
       <HexColorPicker color={color} onChange={changeColor} />
+    {name} Hex Value:
       <HexColorInput color={color} onChange={changeColor} name={name}/>
   </label>
-  <input type="submit" name="save-color"value="Save" />
+  <SaveButton save={saveColor} />
 </form>
   );
 };
