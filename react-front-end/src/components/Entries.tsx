@@ -94,6 +94,7 @@ const Entries = () => {
       <div key={index} style={contentStyling.divStyling}>
         <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
         <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
+        <p>{entry.date ? entry.date : null}</p>
         <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
         <p>{entry.content}</p>
       </div>

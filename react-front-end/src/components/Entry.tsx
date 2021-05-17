@@ -32,6 +32,7 @@ const Entry = () => {
     category_id: number | string | null;
     date_created: Date | null;
     mood: number | string| null;
+    date?: Date | null;
   }
 
   const [ content, setContent ] = useState<Data>({
@@ -134,8 +135,8 @@ const Entry = () => {
         </form> )
 
       : (<div style={entryStyling}>
-      <h2 >{content.title}</h2>
-      <p>{content.date_created}</p>
+      <h1>{content.title}</h1>
+      <h2>{content.date}</h2>
       <p>{content.privacy}</p>
       {availableMood()}
       <p>{content.content}</p>
