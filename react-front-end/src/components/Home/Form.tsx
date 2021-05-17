@@ -2,6 +2,7 @@
 /* eslint-disable */
 import { useContext } from 'react';
 import { UserContext } from '../../hooks/UserContext';
+import { useHistory } from 'react-router-dom';
 
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
@@ -23,14 +24,15 @@ const formStyling = {
 };
 
 export default function Form(props) {
+  const history = useHistory();
   const { entry, setEntry, submitContent } = props;
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
 
   function submitHandler(event) {
     event.preventDefault();
-    console.log("form was submitted");
     submitContent(user.id);
+    return history.push('/entries');
   }
 
   function titleHandler(event) {

@@ -79,7 +79,7 @@ const Home = () => {
         <input
           style={{height: "20px", width: '148px'}} 
           type="text"
-          placeholder="Narrow Down Categories"
+          placeholder="Filter Categories"
           value={searchTerm}
           onChange={handleChange}
         />

@@ -59,13 +59,6 @@ const Entries = () => {
       borderWidth: 5,
       borderRadius: 10,
       margin: 10
-    },
-    headerStyling: {
-      display: 'flex',
-      'flex-direction': 'row',
-      'justify-content': 'center',
-      'align-items': 'flex-end'
-  
     }
   }
 

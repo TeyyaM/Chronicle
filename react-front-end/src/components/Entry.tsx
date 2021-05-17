@@ -1,7 +1,8 @@
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import { useEffect, useState, useContext } from 'react';
-import {useParams, Redirect} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
 import { smiley, mild, neutral, unhappy, angry } from './emojis';
@@ -19,6 +20,7 @@ interface Data {
 };
 
 const Entry = () => {
+const history = useHistory();
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
   const [ editMode, setEditMode ] = useState<boolean>(false)
@@ -55,8 +57,8 @@ const Entry = () => {
       params: { title: content.title, content: content.content, mood: content.mood, category_id: content.category_id, user_id: content.user_id, privacy: content.privacy }
     })
     .then(res => {
-      console.log("DATA: ", res.data)
-      return <Redirect to="/entries" />})
+      console.log("DATA: ", res.data);
+    })
     .catch(err => console.log("ERROR: ", err));
   };
 
@@ -68,8 +70,8 @@ const Entry = () => {
     })
       .then(res => {
         console.log("DATA: ", res.data)
-        console.log("IM in delete")
-        return <Redirect to="/entries" />})
+        return history.push('/entries');
+      })
         .catch(err => console.log("ERROR: ", err));
       }
   
@@ -103,15 +105,15 @@ const Entry = () => {
     if(val) {
       return (
         <div>
-          <button onClick={() => updateEntry()}>Save</button>
-          <button onClick={() => setEditMode(false)}>Cancel</button>
+          <Button variant="contained" color="primary" onClick={() => updateEntry()}>Save</Button>
+          <Button variant="contained" color="primary" onClick={() => setEditMode(false)}>Cancel</Button>
         </div>
       )
     } else {
       return (
         <div>
-          <button onClick={() => setEditMode(true)}>Edit</button>
-          <button onClick={() => deleteEntry()}>Delete</button>
+          <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>Edit</Button>
+          <Button variant="contained" color="primary" onClick={() => deleteEntry()}>Delete</Button>
         </div>
       )
     }
