@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 // import { makeStyles } from '@material-ui/core/styles';
 import { UserContext } from '../../hooks/UserContext';
@@ -7,6 +7,7 @@ import { UserContext } from '../../hooks/UserContext';
 import Form from './Form';
 import Mood from './Mood';
 import PrivacySetting from './PrivacySetting'
+import CategorySelect from '../CategorySelect/CategorySelect';
 
 
 
@@ -27,14 +28,39 @@ const Home = () => {
     borderRadius: 10,
     height: '100%',
   };
+  const [searchResults, setSearchResults] = useState<any>([]);
+  const [categoryList, setCategoryList] = useState<any>([]);
+  const [categoryId, setCategoryId] = useState<null | number>(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [ mood, setMood ] = useState<null | number>(null);
   const [ entry, setEntry ] = useState({
     title: "", content: "", privacy: true, category: null
   });
+
+  useEffect(() => {
+    axios.get('/api/categoryList')
+      .then((res) => {
+        // console.log(res.data)
+        setSearchResults(res.data);
+        setCategoryList(res.data);
+      })
+  }, [])
+  useEffect(() => {
+    const results = categoryList.filter(categoryList =>
+      categoryList.name.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [categoryList, searchTerm]);
+
+
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+  
   
   const submitContent = (userId: string | number) => {
 
-    axios.post('api/entries', {...entry, userId, mood}) 
+    axios.post('api/entries', {...entry, userId, mood, category_id: categoryId}) 
       .then(res => console.log("POST", res.data))
       .catch(err => console.log("ERROR", err));
   }
@@ -49,6 +75,13 @@ const Home = () => {
         <h2>{currentDay.toDateString()}</h2>
           <PrivacySetting entry={entry} setEntry={setEntry} />
           <Mood mood={mood} setMood={setMood} reset={null} />
+          <input
+          type="text"
+          placeholder="Choose a Category"
+          value={searchTerm}
+          onChange={handleChange}
+        />
+          <CategorySelect searchResults={searchResults} setCategory={setCategoryId}/>
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>
     
