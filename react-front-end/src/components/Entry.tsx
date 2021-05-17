@@ -53,7 +53,9 @@ const Entry = () => {
     return axios.post(`/api/entries/${entryId}`, {
       params: { title: content.title, content: content.content, mood: content.mood, category_id: content.category_id, user_id: content.user_id, privacy: content.privacy }
     })
-    .then(res => console.log("DATA: ", res.data))
+    .then(res => {
+      console.log("DATA: ", res.data)
+      return <Redirect to="/entries" />})
     .catch(err => console.log("ERROR: ", err));
   };
 

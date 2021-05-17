@@ -42,12 +42,10 @@ const Entries = () => {
   
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-  console.log("user%%%", user );
   
   const contentStyling = {
     height: '100%', 
     width: '96%',
-    // backgroundColor: 'black',
     color: user ? user.text_hex : 'rebeccapurple',
     margin: 'auto',
     padding: '10px',
@@ -61,6 +59,13 @@ const Entries = () => {
       borderWidth: 5,
       borderRadius: 10,
       margin: 10
+    },
+    headerStyling: {
+      display: 'flex',
+      'flex-direction': 'row',
+      'justify-content': 'center',
+      'align-items': 'flex-end'
+  
     }
   }
 
