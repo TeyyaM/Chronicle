@@ -6,6 +6,7 @@ import Entry from './Entry';
 import Mood from './Home/Mood';
 import DatePicker from './DatePicker';
 import { UserContext } from '../hooks/UserContext';
+import CategorySelect from './CategorySelect/CategorySelect';
 
 import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
@@ -67,11 +68,16 @@ const Entries = () => {
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [entries, setEntries] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
+  const [searchResults, setSearchResults] = useState<any>([]);
+  const [categoryList, setCategoryList] = useState<any>([]);
+  const [categoryId, setCategoryId] = useState<null | number | 'all'>('all');
+  const [searchTerm, setSearchTerm] = useState("");
 
+  
   // const [categoryId, setCategoryId] = useState<null | number>(null);
   const [mood, setMood] = useState<null | number | 'all'>('all');
   const limit = 10;
-  const categoryId = 'all'; // null or 'all' or a number
+  // const categoryId = 'all'; // null or 'all' or a number
   useEffect(() => {
       // get pie chart data
     axios.get('/api/entries', {
@@ -87,6 +93,23 @@ const Entries = () => {
       setEntries(res.data)
     });
   }, [startDate, endDate, mood, categoryId]);
+
+  useEffect(() => {
+    axios.get('/api/categories')
+      .then((res) => {
+        setSearchResults(res.data);
+        setCategoryList(res.data);
+      })
+  }, [])
+
+  const searchChange = event => {
+    setSearchTerm(event.target.value);
+    const results = categoryList.filter(categoryList =>
+      categoryList.name.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+    setCategoryList(results);
+  };
 
   const content = entries.map((entry, index) => {
     const mood = moodImage(entry.mood);
@@ -115,6 +138,16 @@ const Entries = () => {
           date={endDate}
           setDate={setEndDate}/>
         <Mood mood={mood} setMood={setMood} reset="all"/>
+        <input
+          type="text"
+          placeholder="Choose a Category"
+          value={searchTerm}
+          onChange={searchChange}
+        />
+        <CategorySelect categories={searchResults}
+           setCategoryId={setCategoryId}
+           onChange={searchChange}
+           all={true} />
         {content}
 
         <Switch>

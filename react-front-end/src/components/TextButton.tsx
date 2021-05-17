@@ -11,13 +11,20 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function TextButtons(props) {
+export default function TextButton(props) {
   const classes = useStyles();
   const { color, text } = props;
-
+  
+  const handleButtonClick = (event) => {
+    props.save();
+    
+  };
   return (
     <div className={classes.root}>
-      <Button color={color}>{text}</Button>
+      <Button color={color}
+      onClick={handleButtonClick}>
+        {text}
+      </Button>
     </div>
   );
 }
