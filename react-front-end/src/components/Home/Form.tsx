@@ -82,22 +82,6 @@ export default function Form(props) {
           onInput={titleHandler}
         />
 
-        <div className="dropdown">
-          <button className="dropbtn">Categories</button>
-          <div className="dropdown-content">
-            <ul>
-              {searchResults.map(item => (
-                <li>{item.name}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <input
-          type="text"
-          placeholder="Choose a Category"
-          value={searchTerm}
-          onChange={handleChange}
-        />
 
         <TextField
           id="outlined-basic"
