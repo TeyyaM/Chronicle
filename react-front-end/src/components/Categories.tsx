@@ -2,8 +2,6 @@ import { Switch, Route } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../hooks/UserContext';
 import axios from 'axios';
-// import categoryId from './Category'
-// import CssBaseline from '@material-ui/core/CssBaseline'
 import Category from './Category';
 
 
