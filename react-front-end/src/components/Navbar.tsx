@@ -1,31 +1,44 @@
 import { Link } from 'react-router-dom';
-import TextButton from './TextButton';
 import { useContext } from 'react';
 import { UserContext } from '../hooks/UserContext';
+import styled from 'styled-components'
 
 function Navbar() {
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
+// 4em navbar 
+  const Button = styled.button`
+  background: ${ user ? user.background_hex : 'white' };
+  color: ${ user ? user.text_hex : 'darkgrey' };
+  border: none;
+  font-size: 1em;
+  text-decoration: none;
+  height: 3em;
+  padding-right: 1em;
+  padding-left: 1em;
+  border-radius: 4px;
+  :hover {
+    color: ${ user ? user.text_hex : 'darkgrey' };
+    background: ${ user ? user.accent_hex : 'yellow' };
+    box-shadow: 0px 0px 1px 1px ${user ? user.accent_hex : 'yellow'};
+  }
+  `;
+
   return (
     <div className="Navbar">
 
-      <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%'}}>
+      <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%', marginTop: '0.8em'}}>
       </img>
-      <TextButton onClick={console.log('I was clicked')}
-        text="hi"
-        color="link" />
-        {/* color={user ? user.background_hex : 'red'} /> */}
 
-      <Link to="/"><button>Chronicle Your Day </button></Link>
+      <Link to="/"><Button>Chronicle Your Day </Button></Link>
 
-      <Link to="/entries"><button>Entries</button></Link>
-      <Link to="/settings"><button>Settings</button></Link>
-      <Link to="/graphs"><button>Graphs</button></Link>
-      <Link to="/categories"><button>Categories</button></Link>
+      <Link to="/entries"><Button>Entries</Button></Link>
+      <Link to="/settings"><Button>Settings</Button></Link>
+      <Link to="/graphs"><Button>Graphs</Button></Link>
       {!user ? 
-      <><Link to="/login"><button>Login</button></Link>
-      <Link to="/si-up"><button>Sign up</button></Link></>
-      : <Link to="/logout"><button>Logout</button></Link>}
+      <><Link to="/login"><Button>Login</Button></Link>
+      <Link to="/si-up"><Button>Sign up</Button></Link></>
+      : <Link to="/logout"><Button>Logout</Button></Link>}
       
     </div>
   );

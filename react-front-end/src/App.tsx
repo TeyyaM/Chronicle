@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import './styles/App.css';
 import Home from './components/Home/index';
-import Categories from './components/Categories';
 import Entries from './components/Entries';
 import Entry from './components/Entry'
 import Navbar from './components/Navbar';
@@ -43,7 +42,6 @@ const App = () => {
           </nav>
 
           <Switch>
-            <Route path="/categories" component={Categories} />
             <Route path="/entries/:entryId" component={Entry} />
             <Route path="/entries" component={Entries} />
             <Route path="/settings" component={Settings} />

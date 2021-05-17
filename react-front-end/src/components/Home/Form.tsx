@@ -20,7 +20,6 @@ const formStyling = {
   height: 347,
   width: '90%',
   padding: 10,
-  paddingTop: 0,
   margin: 'auto',
 };
 
@@ -48,15 +47,14 @@ export default function Form(props) {
     <form style={formStyling} noValidate autoComplete="off" onSubmit={submitHandler}>
       <Box
         width="100%"
-        height="200%"
+        height="90%"
         display="flex"
         flexDirection="column"
-        bgcolor={user ? user.title_hex : '#fffbc8'}
-        padding="0px" >
+        bgcolor={user ? user.form_hex : '#fffbc8'} >
 
         <TextField
           id="outlined-basic"
-          margin="normal"
+          // margin="normal"
           label="Title"
           variant="outlined"
           fullWidth
@@ -66,6 +64,7 @@ export default function Form(props) {
 
         <TextField
           id="outlined-basic"
+          margin="normal"
           multiline
           rows="10"
           label="Whats on your mind?"
