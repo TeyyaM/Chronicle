@@ -44,7 +44,6 @@ const Entries = () => {
       marginTop: 15,
       paddingTop: 10,
       paddingBottom: 10,
-      fontFamily: 'Alfa Slab One', 
       fontStyle: 'cursive',
       letterSpacing: '0.1em',
       backgroundColor: user ? user.secondary_hex : 'rebeccapurple', 
@@ -135,7 +134,7 @@ const Entries = () => {
 
   return (
       <div style={contentStyling}>
-        <h1 style={contentStyling.headingStyle}><u>Entries</u></h1>
+        <h1 style={contentStyling.headingStyle}><b>Entries</b></h1>
 
         <FormControlLabel
         control={<Switch  checked={showContent} onChange={toggleContent} name="switch" color="primary" />}

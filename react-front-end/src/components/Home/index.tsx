@@ -22,12 +22,12 @@ const Home = () => {
     marginTop: 15,
     marginRight: 15,
     marginLeft: 15,
-    paddingBottom: 15,
+    paddingBottom: 250,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 5,
     borderRadius: 10,
-    height: '100%',
+    height: '300%',
   };
   const [searchResults, setSearchResults] = useState<any>([]);
   const [categoryList, setCategoryList] = useState<any>([]);

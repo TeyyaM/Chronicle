@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       width: '155px',
       margin: 'auto',
+      borderRadius: '4px'
     },
   }),
 );
