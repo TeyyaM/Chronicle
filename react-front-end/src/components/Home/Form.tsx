@@ -8,8 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
-
-
 const formStyling = {
   display: 'flex',
   background: 'white',
@@ -50,17 +48,15 @@ export default function Form(props) {
         height="90%"
         display="flex"
         flexDirection="column"
-        bgcolor={user ? user.form_hex : '#fffbc8'} >
+        bgcolor={user ? user.form_hex : '#fffbc8'}>
 
         <TextField
           id="outlined-basic"
-          // margin="normal"
           label="Title"
           variant="outlined"
           fullWidth
           value={entry.title}
-          onInput={titleHandler}
-        />
+          onInput={titleHandler}/>
 
         <TextField
           id="outlined-basic"
@@ -71,8 +67,7 @@ export default function Form(props) {
           variant="outlined"
           fullWidth
           value={entry.content}
-          onInput={contentHandler}
-        />
+          onInput={contentHandler}/>
 
         <Button
           variant="contained"
