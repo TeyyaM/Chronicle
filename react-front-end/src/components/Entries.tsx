@@ -34,7 +34,7 @@ const Entries = () => {
     height: '100%', 
     width: '96%',
     // color: user ? user.text_hex : 'rebeccapurple',
-    color: 'white',
+    color: user ? user.text_hex : 'white',
     margin: 'auto',
     padding: '10px',
     fontFamily: 'Patrick Hand',
@@ -52,6 +52,7 @@ const Entries = () => {
     },
     titleStyling: {
       backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
+      color: user ? user.background_hex : 'white',
       marginTop: 0,
       paddingTop: 28,
       paddingBottom: 28,

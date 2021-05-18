@@ -6,13 +6,13 @@ import {useParams, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
 import { smiley, mild, neutral, unhappy, angry } from './emojis';
+import CategorySelect from './CategorySelect/CategorySelect';
 
 interface Params {entryId: string};
 interface Data {
   title: string;
   content: string;
   privacy: boolean;
-  category_id: number | string | null;
   date_created: Date | null;
   mood: number | string | null;
   user_id?: number | string;
@@ -30,9 +30,21 @@ const history = useHistory();
     mood: 0,
     privacy: true,
     date_created: null,
-    category_id: null,
   });
-  
+  const [searchResults, setSearchResults] = useState<any>([]);
+  const [categoryList, setCategoryList] = useState<any>([]);
+  const [categoryId, setCategoryId] = useState<null | number>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    axios.get('/api/categories')
+      .then((res) => {
+        setSearchResults(res.data);
+        setCategoryList(res.data);
+      })
+      .catch(err => console.log("ERROR: ", err));
+  }, [])
+
   const entryStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.title_hex : '#d9b310',   
@@ -45,7 +57,7 @@ const history = useHistory();
     borderRadius: 10,
     
     titleStyling: {
-      color: 'white',
+      color: user ? user.background_hex : 'white',
       backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
       marginTop: 0,
       paddingTop: 28,
@@ -68,7 +80,7 @@ const history = useHistory();
   
   const updateEntry = () => {
     return axios.post(`/api/entries/${entryId}`, {
-      params: { title: content.title, content: content.content, mood: content.mood, category_id: content.category_id, user_id: content.user_id, privacy: content.privacy }
+      params: { title: content.title, content: content.content, mood: content.mood, category_id: categoryId, user_id: content.user_id, privacy: content.privacy }
     })
     .then(res => {
       console.log("DATA: ", res.data);
@@ -115,8 +127,17 @@ const history = useHistory();
     setContent((prev) => ({...prev, content: event.target.value}))
   };
 
-  const action = (val) => {
-    if(val) {
+  const handleSearchChange = event => {
+    setSearchTerm(event.target.value);
+    const results = categoryList.filter(categoryList =>
+      categoryList.name.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+    setCategoryList(results);
+  };
+
+  const action = (edit) => {
+    if(edit) {
       return (
         <Fragment>
           <Button variant="contained" color="primary" onClick={() => updateEntry()}>Save</Button>
@@ -140,6 +161,16 @@ const history = useHistory();
       </div>
       {editMode 
       ? (<div style={entryStyling}>
+        <CategorySelect categories={searchResults}
+          setCategoryId={setCategoryId}
+          onChange={handleSearchChange} />
+        <input
+          style={{height: "20px", width: '148px', marginBottom: 10}} 
+          type="text"
+          placeholder="Filter Categories"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
           <form><TextField 
             id="outlined-basic" 
             margin="normal"

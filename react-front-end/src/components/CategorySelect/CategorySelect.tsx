@@ -25,7 +25,7 @@ const CategorySelect = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-  let options;
+  let options: string[][] & number[][] | null[][];
    all 
    ? options = [['Select a category', 0], ['All Entries', 'all'], ['No Category', null],
    ...categories.map(category => [category.name, category.id])]

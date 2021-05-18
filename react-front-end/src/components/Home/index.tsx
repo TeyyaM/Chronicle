@@ -47,7 +47,7 @@ const Home = () => {
       .catch(err => console.log("ERROR: ", err));
   }, [])
 
-  const handleChange = event => {
+  const handleSearchChange = event => {
     setSearchTerm(event.target.value);
     const results = categoryList.filter(categoryList =>
       categoryList.name.toLowerCase().includes(searchTerm)
@@ -75,13 +75,13 @@ const Home = () => {
 
         <CategorySelect categories={searchResults}
           setCategoryId={setCategoryId}
-          onChange={handleChange} />
+          onChange={handleSearchChange} />
         <input
           style={{height: "20px", width: '148px', marginBottom: 10}} 
           type="text"
           placeholder="Filter Categories"
           value={searchTerm}
-          onChange={handleChange}
+          onChange={handleSearchChange}
         />
 
           <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
