@@ -124,7 +124,6 @@ const Entries = () => {
     const mood = moodImage(entry.mood);
     return ( 
       <article key={index} style={contentStyling.divStyling}>
-        {/* <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/> */}
         <h3 style={contentStyling.titleStyling} onClick={() => history.push(`/entries/${entry.id}`)}>{entry.title}</h3>
         <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
         <p>{entry.date ? entry.date : null}</p>
