@@ -2,14 +2,10 @@ import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../hooks/UserContext';
 
-
 import Form from './Form';
 import Mood from './Mood';
 import PrivacySetting from './PrivacySetting'
 import CategorySelect from '../CategorySelect/CategorySelect';
-
-
-
 
 const Home = () => {
   
@@ -81,10 +77,9 @@ const Home = () => {
           type="text"
           placeholder="Filter Categories"
           value={searchTerm}
-          onChange={handleChange}
-        />
+          onChange={handleChange}/>
 
-          <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
+        <Form entry={entry} setEntry={setEntry} submitContent={submitContent}/>
       </div>    
   );
 };

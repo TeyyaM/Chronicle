@@ -7,8 +7,6 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	padding: 0;
-	/* background-color: #6fe4e8; */
-	/* background-image: url("https://www.transparenttextures.com/patterns/scribble-light.png"); */
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
 		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
 		sans-serif;
@@ -34,7 +32,6 @@ code {
 	box-shadow: #023a50;
 	display: flex;
 	justify-content: space-between;
-	/* background-image: url(http://www.transparenttextures.com/patterns/brick-wall.png); */
 	top: 0;
 	padding-top: 16px;
 	padding-bottom: 16px;

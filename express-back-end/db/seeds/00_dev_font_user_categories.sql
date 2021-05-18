@@ -10,4 +10,3 @@ VALUES ('Camping', 1),
         ('Special', 1),
         ('Friends', 1),
         ('Mad', 1);
-

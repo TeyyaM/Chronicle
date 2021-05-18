@@ -28,6 +28,7 @@ export default function Graphs() {
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [pieData, setPieData] = useState<any>([{mood: 'Neutral', entries: 1}]);
   const [lineData, setLineData] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
+
   useEffect(() => {
     // get pie chart data
   axios.get('/api/graph', {

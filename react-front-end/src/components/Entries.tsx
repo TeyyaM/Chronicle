@@ -79,6 +79,7 @@ const Entries = () => {
 
   const [mood, setMood] = useState<null | number | 'all'>('all');
   const limit = 30;
+  
   useEffect(() => {
       // get pie chart data
     axios.get('/api/entries', {
@@ -90,9 +91,8 @@ const Entries = () => {
         categoryId
       }
     })
-    .then((res) => {
-      setEntries(res.data)
-    });
+    .then((res) => setEntries(res.data));
+    
   }, [startDate, endDate, mood, categoryId]);
 
   useEffect(() => {
@@ -105,6 +105,7 @@ const Entries = () => {
 
   const searchChange = event => {
     setSearchTerm(event.target.value);
+
     const results = categoryList.filter(categoryList =>
       categoryList.name.toLowerCase().includes(searchTerm));
     setSearchResults(results);
@@ -130,7 +131,7 @@ const Entries = () => {
 
   return (
       <div style={contentStyling}>
-        <h1 style={contentStyling.headingStyle}><u>Entries</u></h1>
+        <h1 style={contentStyling.headingStyle}>Entries</h1>
 
         <FormControlLabel
         control={<Switch  checked={showContent} onChange={toggleContent} name="switch" color="primary" />}

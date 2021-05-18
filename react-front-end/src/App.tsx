@@ -33,11 +33,10 @@ const App = () => {
     <div className="App" style={appStyling}>
       <UserContext.Provider value={{ userRef, setUser }}>
         <Router>
-          <nav
-            style={{
+          <nav style={{
               backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
-              color: user ? user.text_hex : 'rebeccapurple',
-            }}>
+              color: user ? user.text_hex : 'rebeccapurple'}}>
+            
             <Navbar />
           </nav>
 

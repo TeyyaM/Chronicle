@@ -34,12 +34,12 @@ export default function Mood(props) {
     const emojiId = index + 1;
     return (
       <li 
-      key={emojiId}  
-      onClick={() => clickHandler(emojiId)}
-      style={mood === (emojiId) 
-      ? {opacity: 1, margin: 5} 
-      : {opacity: 0.4, margin: 5}}>
-        <img src={emoji.src} alt={emoji.name}/>
+        key={emojiId}  
+        onClick={() => clickHandler(emojiId)}
+        style={mood === (emojiId) 
+        ? {opacity: 1, margin: 5} 
+        : {opacity: 0.4, margin: 5}}>
+      <img src={emoji.src} alt={emoji.name}/>
       </li>
     )})
     
@@ -49,7 +49,5 @@ export default function Mood(props) {
         {emojiList}
       </ul>
     </Box>
-    
   )
 }
-

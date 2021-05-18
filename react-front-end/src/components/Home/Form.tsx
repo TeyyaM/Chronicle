@@ -59,8 +59,7 @@ export default function Form(props) {
           variant="outlined"
           fullWidth
           value={entry.title}
-          onInput={titleHandler}
-        />
+          onInput={titleHandler}/>
 
         <TextField
           id="outlined-basic"
@@ -71,8 +70,7 @@ export default function Form(props) {
           variant="outlined"
           fullWidth
           value={entry.content}
-          onInput={contentHandler}
-        />
+          onInput={contentHandler}/>
 
         <Button
           variant="contained"
@@ -85,4 +83,3 @@ export default function Form(props) {
 
   );
 }
-

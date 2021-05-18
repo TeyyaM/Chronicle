@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-
-
 const CategorySelect = (props) => {
   const { categories, setCategoryId, all } = props;
   const classes = useStyles();
@@ -53,9 +50,8 @@ const CategorySelect = (props) => {
           aria-haspopup="true"
           aria-controls="lock-menu"
           aria-label="Category"
-          onClick={handleClickListItem}
-        >
-          <ListItemText primary="Select Category" 
+          onClick={handleClickListItem}>
+          <ListItemText primary="Category" 
           secondary={options.length ? options[selectedIndex][0] : ""} />
         </ListItem>
       </List>
@@ -64,15 +60,13 @@ const CategorySelect = (props) => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+        onClose={handleClose}>
         {options.map((option, index) => (
           <MenuItem
             key={option[1]}
             disabled={index === 0}
             selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index, option[1])}
-          >
+            onClick={(event) => handleMenuItemClick(event, index, option[1])}>
             {option[0]}
           </MenuItem>
         ))}

@@ -2,9 +2,7 @@ import ColorPicker from './ColorPicker';
 import { useState, useContext, useEffect } from 'react'; 
 import { UserContext } from '../hooks/UserContext';  
 
-
 export default function Settings() {
-
   const { userRef } = useContext(UserContext);   
   const user = userRef.current;
   const [background, setBackground] = useState('#76c2f5');

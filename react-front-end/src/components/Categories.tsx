@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Category from './Category';
 
-
 const Categories = () => {
   const [categories, setCategories] = useState<any>([]);
   useEffect(() => {

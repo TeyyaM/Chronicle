@@ -22,25 +22,21 @@ function Navbar() {
     color: ${ user ? user.text_hex : 'darkgrey' };
     background: ${ user ? user.accent_hex : 'yellow' };
     box-shadow: 0px 0px 1px 1px ${user ? user.accent_hex : 'yellow'};
-  }
-  `;
+  }`;
 
   return (
-    <div className='Navbar'>
+    <div className="Navbar">
+      <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%', marginTop: '0.8em'}}>
+      </img>
 
-      <img src="images/ChronicleLogo.png" 
-        alt="logo" 
-        style={{height:'190%', marginTop: '1.6em'}}/>
-      <div className='Navbar-Buttons'>
-        <Link to="/"><Button>Chronicle Your Day </Button></Link>
-        <Link to="/entries"><Button>Entries</Button></Link>
-        <Link to="/settings"><Button>Settings</Button></Link>
-        <Link to="/graphs"><Button>Graphs</Button></Link>
-        {!user ? 
-        <><Link to="/login"><Button>Login</Button></Link>
+      <Link to="/"><Button>Chronicle Your Day </Button></Link>
+      <Link to="/entries"><Button>Entries</Button></Link>
+      <Link to="/settings"><Button>Settings</Button></Link>
+      <Link to="/graphs"><Button>Graphs</Button></Link>
+      {!user 
+        ? <><Link to="/login"><Button>Login</Button></Link>
         <Link to="/si-up"><Button>Sign up</Button></Link></>
         : <Link to="/logout"><Button>Logout</Button></Link>}
-      </div>
     </div>
   );
 }

@@ -79,7 +79,7 @@ const history = useHistory();
         console.log("DATA: ", res.data)
         return history.push('/entries');
       })
-        .catch(err => console.log("ERROR: ", err));
+      .catch(err => console.log("ERROR: ", err));
   }
   
 
@@ -132,30 +132,30 @@ const history = useHistory();
         {action(editMode)}
       </div>
       {editMode 
-      ? (<div style={entryStyling}>
-          <form><TextField 
-            id="outlined-basic" 
-            margin="normal"
-            label="Title" 
-            variant="outlined" 
-            fullWidth
-            value={content.title}
-            onInput={titleHandler}
-            />
+        ? (<div style={entryStyling}>
+          <form>
+            <TextField 
+              id="outlined-basic" 
+              margin="normal"
+              label="Title" 
+              variant="outlined" 
+              fullWidth
+              value={content.title}
+              onInput={titleHandler}/>
 
-          <TextField 
-            id="outlined-basic" 
-            multiline
-            rows="10"
-            label="Whats on your mind?" 
-            variant="outlined" 
-            fullWidth
-            value={content.content}
-            onInput={contentHandler}
-            /></form>
+            <TextField 
+              id="outlined-basic" 
+              multiline
+              rows="10"
+              label="Whats on your mind?" 
+              variant="outlined" 
+              fullWidth
+              value={content.content}
+              onInput={contentHandler}/>
+          </form>
         </div> )
 
-      : (<div style={entryStyling}>
+        : (<div style={entryStyling}>
           <h1 style={entryStyling.titleStyling}>{content.title}</h1>
           <h2>{content.date}</h2>
           <p>{content.privacy}</p>
