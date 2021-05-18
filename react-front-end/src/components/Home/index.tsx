@@ -77,7 +77,7 @@ const Home = () => {
           setCategoryId={setCategoryId}
           onChange={handleChange} />
         <input
-          style={{height: "20px", width: '148px'}} 
+          style={{height: "20px", width: '148px', marginBottom: 10}} 
           type="text"
           placeholder="Filter Categories"
           value={searchTerm}
