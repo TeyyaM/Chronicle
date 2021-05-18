@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link, Route, Switch as RouteSwitch } from 'react-router-dom';
+import { Route, Switch as RouteSwitch } from 'react-router-dom';
 import axios from 'axios';
-
+// useHistory   Link
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -15,28 +15,12 @@ import { smiley, mild, neutral, unhappy, angry } from './emojis'
 
 // displays mood icon
 const moodImage = (num: number) => {
-
   const imgs = {
-    1: {
-      src: angry,
-      name: 'Very Unhappy'
-    },
-    2: {
-      src: unhappy,
-      name: 'Unhappy'
-    },
-    3: {
-      src: neutral,
-      name: 'Neutral'
-    },
-    4: {
-      src: mild,
-      name: 'Happy'
-    },
-    5: {
-      src: smiley,
-      name: 'Very Happy'
-      }
+    1: {src: angry, name: 'Very Unhappy'},
+    2: {src: unhappy, name: 'Unhappy'},
+    3: {src: neutral, name: 'Neutral'},
+    4: {src: mild, name: 'Happy'},
+    5: {src: smiley, name: 'Very Happy'}
   };
   return imgs[num];
 }
@@ -48,20 +32,40 @@ const Entries = () => {
   const contentStyling = {
     height: '100%', 
     width: '96%',
-    color: user ? user.text_hex : 'rebeccapurple',
+    // color: user ? user.text_hex : 'rebeccapurple',
+    color: 'white',
     margin: 'auto',
     padding: '10px',
     fontFamily: 'Patrick Hand',
     fontStyle: 'cursive',
     fontSize: '1.5em',
+    headingStyle: {
+      marginTop: 15,
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontFamily: 'Alfa Slab One', 
+      fontStyle: 'cursive',
+      letterSpacing: '0.1em',
+      backgroundColor: user ? user.secondary_hex : 'rebeccapurple', 
+      color: user ? user.accent_hex : 'rebeccapurple',
+      borderRadius: 75,
+    },
+    titleStyling: {
+      backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
+      marginTop: 0,
+      paddingTop: 28,
+      paddingBottom: 28,
+      borderBottomLeftRadius: 50,
+      borderBottomRightRadius: 50,
+    },
     divStyling: {
       backgroundColor: user ? user.background_hex : '#85bade',
       borderStyle: 'solid',
-      borderColor: 'black',
-      borderWidth: 5,
+      borderColor: user ? user.secondary_hex : 'rebeccapurple',
+      borderWidth: 10,
       borderRadius: 10,
       margin: 10
-    }
+    },
   }
 
   const [showContent, setShowContent] = useState<boolean>(false);
@@ -118,19 +122,20 @@ const Entries = () => {
   const content = entries.map((entry, index) => {
     const mood = moodImage(entry.mood);
     return ( 
-      <div key={index} style={contentStyling.divStyling}>
-        <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/>
+      <article key={index} style={contentStyling.divStyling}>
+        {/* <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/> */}
+        <h3 style={contentStyling.titleStyling}>{entry.title}</h3>
         <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
         <p>{entry.date ? entry.date : null}</p>
         <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
         <p>{showContent ? entry.content : null}</p>
-      </div>
+      </article>
     ) 
   })
 
   return (
       <div style={contentStyling}>
-        <h2>Entries</h2>
+        <h1 style={contentStyling.headingStyle}><u>Entries</u></h1>
 
         <FormControlLabel
         control={<Switch  checked={showContent} onChange={toggleContent} name="switch" color="primary" />}
