@@ -135,7 +135,7 @@ const Entries = () => {
 
   return (
       <div style={contentStyling}>
-        <h1 style={contentStyling.headingStyle}><b>Entries</b></h1>
+        <h1 style={contentStyling.headingStyle}><b>{user.username}'s Entries</b></h1>
 
         <FormControlLabel
         control={<Switch  checked={showContent} onChange={toggleContent} name="switch" color="primary" />}
