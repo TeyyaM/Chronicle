@@ -2,17 +2,11 @@ import 'date-fns';
 import { Dispatch, SetStateAction } from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider,KeyboardDatePicker } from '@material-ui/pickers';
 
 export default function DatePicker(props: {name: string, id: string, date: null | Date, setDate: Dispatch<SetStateAction<null | Date>>}) {
  
-  const handleDateChange = (date: Date | null) => {
-
-    props.setDate(date);
-  };
+  const handleDateChange = (date: Date | null) => props.setDate(date);
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -24,10 +18,7 @@ export default function DatePicker(props: {name: string, id: string, date: null 
           format="MM/dd/yyyy"
           value={props.date}
           onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
+          KeyboardButtonProps={{'aria-label': 'change date',}}/>
       </Grid>
     </MuiPickersUtilsProvider>
   );

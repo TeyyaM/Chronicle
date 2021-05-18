@@ -1,14 +1,9 @@
 import { Switch, Route } from 'react-router-dom';
-import { useContext, useState, useEffect } from 'react';
-import { UserContext } from '../hooks/UserContext';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Category from './Category';
 
-
 const Categories = () => {
-  const { userRef } = useContext(UserContext);
-  const user = userRef.current;
-  console.log('from categories', user);
   const [categories, setCategories] = useState<any>([]);
   useEffect(() => {
     axios.get('/api/categories')
@@ -21,18 +16,14 @@ const Categories = () => {
     <div>
       <h2>Categories</h2>
 
-
-      <Switch>
-        
+      <Switch>  
         <Route path="/category/:id" component={Category} >
         <ul>
-          {categories.map(item=> (
-            <li>{item.name}</li>
-            ))}
-            </ul>
-            </Route>
-            </Switch>
-      </div>
+          {categories.map(item=> (<li>{item.name}</li>))}
+        </ul>
+        </Route>
+      </Switch>
+    </div>
 
   );
 };

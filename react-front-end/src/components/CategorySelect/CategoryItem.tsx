@@ -8,13 +8,10 @@ const CategoryItem = (props) => {
   const user = userRef.current;
   const [color, setColor] = useState<string>('black')
 
-
   const changeCategory = () => {
     categoryId !== id 
     ? setCategoryId(id)
     : setCategoryId(null);
-    
-    console.log('I\'m the category id!!!!', categoryId);
   };
    
   useEffect (() => {

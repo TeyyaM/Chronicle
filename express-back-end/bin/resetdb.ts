@@ -46,4 +46,3 @@ try {
   console.error(chalk.red(`Failed due to error: ${err}`));
   client.end();
 }
-

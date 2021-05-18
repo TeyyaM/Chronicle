@@ -6,7 +6,7 @@ import styled from 'styled-components'
 function Navbar() {
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-// 4em navbar 
+
   const Button = styled.button`
   background: ${ user ? user.background_hex : 'white' };
   color: ${ user ? user.text_hex : 'darkgrey' };
@@ -21,25 +21,21 @@ function Navbar() {
     color: ${ user ? user.text_hex : 'darkgrey' };
     background: ${ user ? user.accent_hex : 'yellow' };
     box-shadow: 0px 0px 1px 1px ${user ? user.accent_hex : 'yellow'};
-  }
-  `;
+  }`;
 
   return (
     <div className="Navbar">
-
       <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%', marginTop: '0.8em'}}>
       </img>
 
       <Link to="/"><Button>Chronicle Your Day </Button></Link>
-
       <Link to="/entries"><Button>Entries</Button></Link>
       <Link to="/settings"><Button>Settings</Button></Link>
       <Link to="/graphs"><Button>Graphs</Button></Link>
-      {!user ? 
-      <><Link to="/login"><Button>Login</Button></Link>
-      <Link to="/si-up"><Button>Sign up</Button></Link></>
-      : <Link to="/logout"><Button>Logout</Button></Link>}
-      
+      {!user 
+        ? <><Link to="/login"><Button>Login</Button></Link>
+        <Link to="/si-up"><Button>Sign up</Button></Link></>
+        : <Link to="/logout"><Button>Logout</Button></Link>}
     </div>
   );
 }

@@ -26,12 +26,11 @@ export default function PieGraph(props: {data: [{mood: number | string, entires:
     palette="Bright"
     title="Your Cumulative Mood Over Time"
     onPointClick={(event) => {toggleVisibility(event.target)}}
-    onLegendClick={(event) => {legendClickHandler(event)}}
-  >
+    onLegendClick={(event) => {legendClickHandler(event)}}>
+
     <Series
       argumentField="mood"
-      valueField="entries"
-    >
+      valueField="entries">
       <Label visible={true}>
       </Label>
     </Series>

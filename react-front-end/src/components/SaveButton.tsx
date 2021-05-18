@@ -13,9 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     buttonSuccess: {
       backgroundColor: green[500],
-      '&:hover': {
-        backgroundColor: green[700],
-      },
+      '&:hover': {backgroundColor: green[700]},
     },
     buttonProgress: {
       color: green[500],
@@ -34,9 +32,7 @@ export default function CircularIntegration(props: { save: (event: any) => void;
   const [success, setSuccess] = React.useState(false);
   const timer = React.useRef<number>();
 
-  const buttonClassname = clsx({
-    [classes.buttonSuccess]: success,
-  });
+  const buttonClassname = clsx({[classes.buttonSuccess]: success,});
 
   React.useEffect(() => {
     return () => {
@@ -65,8 +61,7 @@ export default function CircularIntegration(props: { save: (event: any) => void;
           color="secondary"
           className={buttonClassname}
           disabled={loading}
-          onClick={handleButtonClick}
-        >
+          onClick={handleButtonClick}>
           Save
         </Button>
         {loading && <CircularProgress size={24} className={classes.buttonProgress} />}

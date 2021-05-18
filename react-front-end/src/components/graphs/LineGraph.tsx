@@ -46,9 +46,9 @@ export default function LineGraph(props: { data: [{mood: number, date: string }]
     <Label>null</Label>
     </ValueAxis>
     <Legend
-            verticalAlignment="top"
-            horizontalAlignment="right"
-          />
+      verticalAlignment="top"
+      horizontalAlignment="right"
+    />
     <CommonPaneSettings>
       <Border visible={true} />
     </CommonPaneSettings>

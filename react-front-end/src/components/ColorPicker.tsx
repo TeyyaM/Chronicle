@@ -4,9 +4,7 @@ import { useContext } from 'react';
 import { UserContext } from '../hooks/UserContext';  
 import SaveButton from './SaveButton';
 
-
 const ColorPicker = (props: { color: string; setColor: (color: string) => void; name: string;}) => {
-
   const { color, setColor, name } = props
   const { userRef, setUser } = useContext(UserContext);   
   const user = userRef.current;
@@ -45,13 +43,13 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
 
   return (
     <form style={homeStyling} onSubmit={saveColor}>
-  <label>
+      <label>
       <HexColorPicker color={color} onChange={changeColor} />
-    {name} Hex Value: #
+      {name} Hex Value: #
       <HexColorInput color={color} onChange={changeColor} name={name}/>
-  </label>
-  <SaveButton save={saveColor} />
-</form>
+      </label>
+    <SaveButton save={saveColor} />
+    </form>
   );
 };
 export default ColorPicker;

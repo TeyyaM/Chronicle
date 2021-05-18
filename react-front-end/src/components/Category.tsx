@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-
 const Category = () => {
   interface Params {
     categoryId: string;
@@ -11,7 +10,7 @@ const Category = () => {
 
   useEffect(() => {
     axios.get(`/api/categories/${params.categoryId}`)
-      .then(res => console.log(res.data)); // Do stuff with it
+      .then(res => console.log(res.data));
   }, [params.categoryId]);
 
   return (

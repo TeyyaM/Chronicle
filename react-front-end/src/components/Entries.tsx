@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { Route, Switch as RouteSwitch, useHistory } from 'react-router-dom';
 import axios from 'axios';
-// useHistory   Link
+
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -33,8 +33,7 @@ const Entries = () => {
   const contentStyling = {
     height: '100%', 
     width: '96%',
-    // color: user ? user.text_hex : 'rebeccapurple',
-    color: 'white',
+    color: user ? user.text_hex : 'rebeccapurple',
     margin: 'auto',
     padding: '10px',
     fontFamily: 'Patrick Hand',
@@ -78,11 +77,9 @@ const Entries = () => {
   const [categoryId, setCategoryId] = useState<null | number | 'all'>('all');
   const [searchTerm, setSearchTerm] = useState("");
 
-  
-  // const [categoryId, setCategoryId] = useState<null | number>(null);
   const [mood, setMood] = useState<null | number | 'all'>('all');
   const limit = 30;
-  // const categoryId = 'all'; // null or 'all' or a number
+
   useEffect(() => {
       // get pie chart data
     axios.get('/api/entries', {
@@ -94,9 +91,8 @@ const Entries = () => {
         categoryId
       }
     })
-    .then((res) => {
-      setEntries(res.data)
-    });
+    .then((res) => setEntries(res.data));
+    
   }, [startDate, endDate, mood, categoryId]);
 
   useEffect(() => {
@@ -109,9 +105,10 @@ const Entries = () => {
 
   const searchChange = event => {
     setSearchTerm(event.target.value);
+
     const results = categoryList.filter(categoryList =>
-      categoryList.name.toLowerCase().includes(searchTerm)
-    );
+      categoryList.name.toLowerCase().includes(searchTerm));
+
     setSearchResults(results);
     setCategoryList(results);
   };
