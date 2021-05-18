@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Route, Switch as RouteSwitch } from 'react-router-dom';
+import { Route, Switch as RouteSwitch, useHistory } from 'react-router-dom';
 import axios from 'axios';
 // useHistory   Link
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -26,6 +26,7 @@ const moodImage = (num: number) => {
 }
 
 const Entries = () => {
+  const history = useHistory();
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
   
@@ -124,7 +125,7 @@ const Entries = () => {
     return ( 
       <article key={index} style={contentStyling.divStyling}>
         {/* <Link to={`/entries/${entry.id}`}>{entry.title}</Link><br/> */}
-        <h3 style={contentStyling.titleStyling}>{entry.title}</h3>
+        <h3 style={contentStyling.titleStyling} onClick={() => history.push(`/entries/${entry.id}`)}>{entry.title}</h3>
         <p>{entry.category_name ? `Category: ${entry.category_name}` : null}</p>
         <p>{entry.date ? entry.date : null}</p>
         <p>{entry.mood ? <img src={mood.src} alt={mood.name} /> : null}</p>
