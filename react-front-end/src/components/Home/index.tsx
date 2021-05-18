@@ -58,7 +58,7 @@ const Home = () => {
   
   const submitContent = (userId: string | number) => {
     axios.post('api/entries', {...entry, userId, mood, category: categoryId}) 
-      .then(res => console.log("POST", res.data))
+      .then(res => console.log("DATA: ", res.data))
       .catch(err => console.log("ERROR", err));
   }
 
@@ -90,8 +90,3 @@ const Home = () => {
 };
 
 export default Home;
-// {/* <CategorySelect 
-// searchResults={searchResults}
-// value={categoryList}
-// setCategoryId={setCategoryId}
-// categoryId={categoryId}/> */}

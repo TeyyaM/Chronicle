@@ -63,17 +63,16 @@ export default function CircularIntegration(props: { color: string, save: (event
 
   return (
     <div className={classes.root}>
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
-          className={buttonClassname}
-          disabled={loading}
-          onClick={handleButtonClick}
-        >
-          Save
-        </Button>
-        {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+      <Button
+        type="submit"
+        variant="contained"
+        color="secondary"
+        className={buttonClassname}
+        disabled={loading}
+        onClick={handleButtonClick}>
+        Save
+      </Button>
+    {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
     </div>
   );
 }

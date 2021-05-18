@@ -14,7 +14,6 @@ const CategoryItem = (props) => {
     ? setCategoryId(id)
     : setCategoryId(null);
     
-    console.log('I\'m the category id!!!!', categoryId);
   };
    
   useEffect (() => {

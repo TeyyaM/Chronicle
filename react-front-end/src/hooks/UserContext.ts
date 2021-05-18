@@ -17,16 +17,3 @@ export type IUser = {
   title_script?: string;
 }
 export const UserContext = createContext<any>(null);
-
-
-// for accessing the user
-// import { useContext } from 'react';
-// import { UserContext, IUser } from './UserContext';
-// in the functional component:
-//  const { user } = useContext(UserContext);
-
-// for setting the user
-// import {useContext} from 'react';
-// import { UserContext, IUser } from './UserContext';
-// in the functional component:
-//  const {setUser} = useContext(UserContext);

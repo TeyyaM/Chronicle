@@ -23,7 +23,6 @@ const generateEntries = () => {
         fakeEntries += createFakeEntries(1);
         (i < desiredFakeEntries - 1) ? fakeEntries += ',' : fakeEntries += ';';
     }
-    console.log(fakeEntries);
     fs.writeFileSync('./db/seeds/01_dev_entries.sql', fakeEntries, { encoding: "utf8" });
 };
 generateEntries();

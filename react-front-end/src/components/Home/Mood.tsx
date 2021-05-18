@@ -22,16 +22,11 @@ export default function Mood(props) {
   }
 
   const emojiArr = [
-    { src: angry,
-    name: 'Very Unhappy' },
-    { src: unhappy,
-      name: 'Unhappy' },
-    { src: neutral,
-      name: 'Neutral' },
-    { src: mild,
-      name: 'Happy' },
-    { src: smiley,
-      name: 'Very Happy' }
+    { src: angry, name: 'Very Unhappy' },
+    { src: unhappy, name: 'Unhappy' },
+    { src: neutral, name: 'Neutral' },
+    { src: mild, name: 'Happy' },
+    { src: smiley, name: 'Very Happy' }
     ];
 
   // The user can select an emoji as their mood
@@ -42,7 +37,6 @@ export default function Mood(props) {
       key={emojiId}  
       onClick={() => clickHandler(emojiId)}
       style={mood === (emojiId) 
-        // must refactor - brain wouldnt work at the time lol
       ? {opacity: 1, margin: 5} 
       : {opacity: 0.4, margin: 5}}>
         <img src={emoji.src} alt={emoji.name}/>

@@ -5,8 +5,6 @@ import PieGraph from './graphs/PieGraph';
 import DatePicker from './DatePicker';
 import { UserContext } from '../hooks/UserContext';
 
-
-
 export default function Graphs() {
   
   const { userRef } = useContext(UserContext);
@@ -24,7 +22,6 @@ export default function Graphs() {
     height: '90%',
     width: '90%',
     text: 'bold',
-
   };
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
@@ -40,20 +37,20 @@ export default function Graphs() {
       endDate
     }
   })
-  .then((res) => {
-    const moodNames = {
-      1: 'Very Unhappy',
-      2: 'Unhappy',
-      3: 'Neutral',
-      4: 'Happy',
-      5: 'Very Happy'
-    };
-    const stringifiedMood = res.data.map((count: {mood: number | string, entries: string}) => {
-      count.mood = moodNames[count.mood]
-      return count;
-    })
-    setPieData(stringifiedMood)
-  });
+    .then((res) => {
+      const moodNames = {
+        1: 'Very Unhappy',
+        2: 'Unhappy',
+        3: 'Neutral',
+        4: 'Happy',
+        5: 'Very Happy'
+      };
+      const stringifiedMood = res.data.map((count: {mood: number | string, entries: string}) => {
+        count.mood = moodNames[count.mood]
+        return count;
+      })
+      setPieData(stringifiedMood)
+    });
 
   // get line graph data
   axios.get('/api/graph', {
@@ -73,24 +70,24 @@ export default function Graphs() {
         ? data[i].best_fit = ((data[i].mood + data[i + 1].mood) / 2)
         : data[i].best_fit = ((data[i - 1].mood + data[i].mood) / 2 )
       }
-      console.log('line', data)
       setLineData(data)
     });
   }, [startDate, endDate])
+
   return (
   <table style={graphStyling}>
-  <PieGraph data={pieData} startDate={startDate} endDate={endDate} />
-  <DatePicker 
-    id="date-picker-start-date" 
-    name="Start Date"
-    date={startDate}
-    setDate={setStartDate} />
-  <DatePicker 
-    id="date-picker-end-date" 
-    name="End Date" 
-    date={endDate}
-    setDate={setEndDate}/>
-  <LineGraph data={lineData} startDate={startDate} endDate={endDate} />
+    <PieGraph data={pieData} startDate={startDate} endDate={endDate} />
+    <DatePicker 
+      id="date-picker-start-date" 
+      name="Start Date"
+      date={startDate}
+      setDate={setStartDate} />
+    <DatePicker 
+      id="date-picker-end-date" 
+      name="End Date" 
+      date={endDate}
+      setDate={setEndDate}/>
+    <LineGraph data={lineData} startDate={startDate} endDate={endDate} />
   </table>
   );
 }

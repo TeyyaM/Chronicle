@@ -38,7 +38,6 @@ const history = useHistory();
     color: user ? user.title_hex : '#d9b310',   
     height: 'fit-content',
     margin: 15,
-    // padding: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 10,
@@ -70,24 +69,18 @@ const history = useHistory();
     return axios.post(`/api/entries/${entryId}`, {
       params: { title: content.title, content: content.content, mood: content.mood, category_id: content.category_id, user_id: content.user_id, privacy: content.privacy }
     })
-    .then(res => {
-      console.log("DATA: ", res.data);
-    })
+    .then(res => console.log("DATA: ", res.data))
     .catch(err => console.log("ERROR: ", err));
   };
 
   const deleteEntry = () => {
-    return axios.delete(`/api/entries/${entryId}`, {
-      data: {
-        user_id: user.id,
-      }
-    })
+    return axios.delete(`/api/entries/${entryId}`, {data: {user_id: user.id}})
       .then(res => {
         console.log("DATA: ", res.data)
         return history.push('/entries');
       })
         .catch(err => console.log("ERROR: ", err));
-      }
+  }
   
 
   // displays emoji if entry has a mood
@@ -168,11 +161,8 @@ const history = useHistory();
           <p>{content.privacy}</p>
           {moodImage(content.mood)}
           <p style={{padding: '2%'}}>{content.content}</p>
-        </div>)}
-
-      
-    </div>
-    
+        </div>)} 
+    </div>  
   );
 };
 

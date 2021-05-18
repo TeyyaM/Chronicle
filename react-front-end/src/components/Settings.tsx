@@ -4,8 +4,7 @@ import { UserContext } from '../hooks/UserContext';
 
 
 export default function Settings() {
-  // const history = useHistory();
-  // const [isLoading, setIsLoading] = useState(false);
+
   const { userRef } = useContext(UserContext);   
   const user = userRef.current;
   const [background, setBackground] = useState('#76c2f5');
@@ -29,26 +28,27 @@ export default function Settings() {
   return (
     <div className="Settings">
       <div>
-        
-      <ColorPicker color={background} 
-        setColor={setBackground}
-        name="Background" />
-      <ColorPicker color={secondary}
-        setColor={setSecondary} 
-        name="Secondary" />
+        <ColorPicker color={background} 
+          setColor={setBackground}
+          name="Background" />
+        <ColorPicker color={secondary}
+          setColor={setSecondary} 
+          name="Secondary" />
       </div>
+
       <div>
-      <ColorPicker color={accent}
-        setColor={setAccent}
-        name="Accent" />
-      <ColorPicker color={text}
-        setColor={setText}
-        name="Text" />
+        <ColorPicker color={accent}
+          setColor={setAccent}
+          name="Accent" />
+        <ColorPicker color={text}
+          setColor={setText}
+          name="Text" />
       </div>
+
       <div>
-      <ColorPicker color={form}
-        setColor={setForm} 
-        name="Form" />
+        <ColorPicker color={form}
+          setColor={setForm} 
+          name="Form" />
       </div>
     </div>
   );
