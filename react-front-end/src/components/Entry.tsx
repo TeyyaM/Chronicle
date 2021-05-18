@@ -38,11 +38,21 @@ const history = useHistory();
     color: user ? user.title_hex : '#d9b310',   
     height: 'fit-content',
     margin: 15,
-    padding: 15,
+    // padding: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
-    borderWidth: 5,
+    borderWidth: 10,
     borderRadius: 10,
+    
+    titleStyling: {
+      color: 'white',
+      backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
+      marginTop: 0,
+      paddingTop: 28,
+      paddingBottom: 28,
+      borderBottomLeftRadius: 40,
+      borderBottomRightRadius: 40,
+    },
     
     buttonStyling: {
       margin: '1%'
@@ -154,11 +164,11 @@ const history = useHistory();
         </div> )
 
       : (<div style={entryStyling}>
-          <h1 >{content.title}</h1>
+          <h1 style={entryStyling.titleStyling}>{content.title}</h1>
           <h2>{content.date}</h2>
           <p>{content.privacy}</p>
           {moodImage(content.mood)}
-          <p>{content.content}</p>
+          <p style={{padding: '2%'}}>{content.content}</p>
         </div>)}
 
       
