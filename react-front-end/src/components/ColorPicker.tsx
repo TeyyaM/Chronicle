@@ -18,6 +18,7 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
     margin: 15,
     paddingBottom: 15,
     paddingTop: 15,
+    width: '40%',
 
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',

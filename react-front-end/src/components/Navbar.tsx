@@ -6,7 +6,6 @@ import styled from 'styled-components'
 function Navbar() {
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-// 4em navbar 
   const Button = styled.button`
   background: ${ user ? user.background_hex : 'white' };
   color: ${ user ? user.text_hex : 'darkgrey' };

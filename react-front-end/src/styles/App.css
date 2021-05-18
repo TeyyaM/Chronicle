@@ -48,3 +48,17 @@ form {
 	border: 5px black;
 	box-shadow: #282c34;
 }
+
+.Settings {
+	display: flex;
+	margin-top: 30px;
+	flex-flow: column wrap;
+	flex-grow: 1;
+	justify-content: space-evenly;
+}
+.Settings > div {
+	display: flex;
+	flex-flow: row nowrap;
+	flex-grow: 1;
+	justify-content: space-evenly;
+}

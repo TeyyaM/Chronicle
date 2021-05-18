@@ -55,7 +55,7 @@ const CategorySelect = (props) => {
           aria-label="Category"
           onClick={handleClickListItem}
         >
-          <ListItemText primary="Category" 
+          <ListItemText primary="Select Category" 
           secondary={options.length ? options[selectedIndex][0] : ""} />
         </ListItem>
       </List>
