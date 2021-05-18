@@ -16,6 +16,7 @@ function Navbar() {
   padding-right: 1em;
   padding-left: 1em;
   border-radius: 4px;
+  margin-left: 1em;
   :hover {
     color: ${ user ? user.text_hex : 'darkgrey' };
     background: ${ user ? user.accent_hex : 'yellow' };
@@ -24,20 +25,21 @@ function Navbar() {
   `;
 
   return (
-    <div className="Navbar">
+    <div className='Navbar'>
 
-      <img src="images/ChronicleLogo.png" alt="logo" style={{height:'140%', marginTop: '0.8em'}}>
-      </img>
-
-      <Link to="/"><Button>Chronicle Your Day </Button></Link>
-      <Link to="/entries"><Button>Entries</Button></Link>
-      <Link to="/settings"><Button>Settings</Button></Link>
-      <Link to="/graphs"><Button>Graphs</Button></Link>
-      {!user ? 
-      <><Link to="/login"><Button>Login</Button></Link>
-      <Link to="/si-up"><Button>Sign up</Button></Link></>
-      : <Link to="/logout"><Button>Logout</Button></Link>}
-      
+      <img src="images/ChronicleLogo.png" 
+        alt="logo" 
+        style={{height:'190%', marginTop: '1.6em'}}/>
+      <div className='Navbar-Buttons'>
+        <Link to="/"><Button>Chronicle Your Day </Button></Link>
+        <Link to="/entries"><Button>Entries</Button></Link>
+        <Link to="/settings"><Button>Settings</Button></Link>
+        <Link to="/graphs"><Button>Graphs</Button></Link>
+        {!user ? 
+        <><Link to="/login"><Button>Login</Button></Link>
+        <Link to="/si-up"><Button>Sign up</Button></Link></>
+        : <Link to="/logout"><Button>Logout</Button></Link>}
+      </div>
     </div>
   );
 }
