@@ -1,46 +1,57 @@
-# React + Express No-Fluff Boilerplate
+# Chronicle
 
-A boilerplate project for anyone interested in making a project that uses React and Express.
+A private journaling web app designed to help you keep track of your mood over time and store your entires for you to look back upon.
 
-This repository is a bootleg of @NimaBoscarino's [React Rails Boilerplate](https://github.com/NimaBoscarino/react-rails-boilerplate). It uses the same React app, but replaces the Rails server with an Express server.
+Created by [Tessa](https://github.com/TeyyaM), [Josiah](https://github.com/J-pilon) and [Sam](https://github.com/brackish888).
 
-Note! This boilerplate has _no fluff_! That means that there's nothing set up for you to do authentication stuff, there's no Redux stuff, and there's no React Router stuff. On the Express end, there is no session storage or database connection.
+This was designed and implemented as a way to showcase the skills that were learned in the [Lighthouse Labs Web Development](https://github.com/lighthouse-labs) bootcamp and is considered our final project of the course. 
 
-The main important bit is that the React project has `proxy` set to `localhost:8080` in the `package.json` file, and that the Express app listens to port 8080 in `server.js`. Take a look!
+Within this project we used many tools introduced to us such as:
+  - React
+  - *Typescript*
+  - Express
+  - Jest
+  - HTML
+  - Css and SaSS
+  - Cypress
+  - Axios
+  - Node
+  - PostgreSQL
 
-You can (and perhaps should) rename the directories `express-back-end` and `react-front-end` if you want-- The name doesn't matter.
+*In a way to simulate realworld experiences we decided to use Typescript as our main programming language, one that we had not covered in the course*
 
-## Running the projects
+We started the project with a _no fluff_ React/Express boilerplate supplied by @garrettgsb and can be found [here.](https://github.com/garrettgsb/react-express-boilerplate)
 
-You need **TWO** terminal windows/tabs for this (or some other plan for running two Node processes).
+## Features
+  - Home page Journaling form
+    - Write, post, save and edit journal entries
+    - Give each entry a Category (or none) to help you keep track of certain memories
+    - Give your post a mood to track your progress over time
+  - Customize your journaling experience!
+    - change your background, secondary, accent, text and form colours
+  - Reference your past entries by Category or by Date
+    - Graph your mood overtime with a dynamic date picker that lets you pick the intervals that you want to graph.
 
-In one terminal, `cd` into `react-front-end`. Run `npm install` or `yarn` to install the dependencies. Then run `npm start` or `yarn start`, and go to `localhost:3000` in your browser.
+## Getting started! 
 
-In the other terminal, `cd` into `express-back-end`. Run `npm install` or `yarn` to install the dependencies, then `npm start` or `yarn start` to launch the server.
+Fork this repository, then clone your fork onto your machine.
 
-In the browser, you can click on the button and see the data get loaded.
+You will need **TWO** terminal windows/tabs to run this (or some other plan for running two Node processes).
 
-If this doesn't work, please message me!
+In one terminal, `cd` into `react-front-end`. Run `npm install` to install the dependencies. Then run `npm start` and go to `localhost:3000` in your browser.
 
-## Next steps
+In the other terminal, `cd` into `express-back-end`. Run `npm install` to install the dependencies, then `npm run db:reset` to do the inital seeding of the server. 
+In this same folder create a `.env` file with these secrets:
+DB_HOST=localhost
+DB_USER=development
+DB_PASS=development
+DB_NAME=chronicle_development
+DB_PORT=5432
+Then you can run `npm run go` to start the backend server.
+(this will run on localhost:8080)
 
-From here, you can start working on your project!
-
-As soon as the dependencies are installed, your Express server can serve JSON and static assets (like images) in response to API calls from the React app. You can get started on developing your React app, routing plan, etc. right away! Any request that isn't handled by React is passed on to the Express server. That means that you can call a route like `/api/users` from React using `fetch`, `axios`, or something else, and Express will receive it as though they originated from the same app. For routing, best practice is to namespace all of your data routes to `/api`, so that they don't clash with other routing schemes, like React Router.
-
-At some point, you'll likely want to install and configure a database driver for Postgres or MongoDB-- Refer to past projects for hints on how to do this.
-
-And don't forget to update the README!
-
-## Example Projects
-
-You might want to look at examples of projects that have used this boilerplate for hints on how to extend it. Here are a few:
-
-* [Later Cart](https://github.com/bonitac/later-cart)
-* [Buddi.io](https://github.com/Danny-Tran/buddi.io)
-
-If you'd like your project added to the list, please shoot me a message.
-
-## Contact
-
-Please contact me on Slack (@garrettgsb) or Nima at `nima@lighthouselabs.com` if you have any questions, requests, or feedback, or post an issue to this repo. If you are using the boilerplate, I'd love to hear from you as well!
+## Dependencies
+  - react 17.0.2
+  - typescript 4.2.4
+  - node 14.16.0
+  - npm 6.14.11

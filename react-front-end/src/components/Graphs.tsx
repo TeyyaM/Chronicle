@@ -6,15 +6,16 @@ import DatePicker from './DatePicker';
 import { UserContext } from '../hooks/UserContext';
 
 
+
 export default function Graphs() {
   
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
   userRef.current = user;
-  const homeStyling = {
+  const graphStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.text_hex : '#d9b310',   
-    margin: '10%, 10%, 10%, 10%',
+    margin: 'auto',
     paddingBottom: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
@@ -22,6 +23,7 @@ export default function Graphs() {
     borderRadius: 10,
     height: '90%',
     width: '90%',
+    text: 'bold',
 
   };
 
@@ -76,7 +78,7 @@ export default function Graphs() {
     });
   }, [startDate, endDate])
   return (
-  <table style={homeStyling}>
+  <table style={graphStyling}>
   <PieGraph data={pieData} startDate={startDate} endDate={endDate} />
   <DatePicker 
     id="date-picker-start-date" 
