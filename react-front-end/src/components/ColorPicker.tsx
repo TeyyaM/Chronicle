@@ -17,6 +17,9 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
     color: user ? user.text_hex : '#d9b310',   
     margin: 15,
     paddingBottom: 15,
+    paddingTop: 15,
+    width: '40%',
+
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 3,
@@ -33,6 +36,7 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   const changeColor = (event: any) => {
     setColor(event)
     setUser({...user, [convertedName]: event});
+
   };
 
   const saveToDatabase = () => {
@@ -45,12 +49,14 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
 
   return (
     <form style={homeStyling} onSubmit={saveColor}>
-  <label>
       <HexColorPicker color={color} onChange={changeColor} />
-    {name} Hex Value: #
-      <HexColorInput color={color} onChange={changeColor} name={name}/>
+  <label>
+    {name} Hex Value:
   </label>
-  <SaveButton save={saveColor} />
+      <span>
+      # <HexColorInput color={color} onChange={changeColor} name={name}/>
+      </span>
+  <SaveButton save={saveColor} color={color} />
 </form>
   );
 };

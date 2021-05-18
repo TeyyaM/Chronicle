@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function CircularIntegration(props: { save: (event: any) => void; }) {
+export default function CircularIntegration(props: { color: string, save: (event: any) => void; }) {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -38,7 +38,11 @@ export default function CircularIntegration(props: { save: (event: any) => void;
     [classes.buttonSuccess]: success,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setSuccess(false);
+  }, [props.color]);
+
+  useEffect(() => {
     return () => {
       clearTimeout(timer.current);
     };

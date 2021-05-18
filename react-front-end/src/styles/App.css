@@ -39,3 +39,32 @@ form {
 	border: 5px black;
 	box-shadow: #282c34;
 }
+
+.Settings {
+	display: flex;
+	margin-top: 30px;
+	flex-flow: column wrap;
+	flex-grow: 1;
+	justify-content: space-evenly;
+}
+.Settings > div {
+	display: flex;
+	flex-flow: row nowrap;
+	flex-grow: 1;
+	justify-content: space-evenly;
+}
+.Settings > div form {
+	display: flex;
+	flex-flow: column wrap;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+}
+.Settings > div form > label {
+	display: flex;
+	flex-flow: column wrap;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.4em;
+}
