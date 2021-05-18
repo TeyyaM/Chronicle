@@ -18,6 +18,13 @@ interface Data {
   user_id?: number | string;
   date?: Date | string;
 };
+interface Emojis {
+  1: {src: string, name: string},
+  2: {src: string, name: string},
+  3: {src: string, name: string},
+  4: {src: string, name: string},
+  5: {src: string, name: string},
+}
 
 const Entry = () => {
   const history = useHistory();
@@ -76,6 +83,7 @@ const Entry = () => {
   }, [entryId]);
   
   const updateEntry = () => {
+    console.log("CONTENT ", content);
     return axios.post(`/api/entries/${entryId}`, {
       params: { title: content.title, content: content.content, mood: content.mood, category_id: categoryId, user_id: content.user_id, privacy: content.privacy }
     })
@@ -96,14 +104,6 @@ const Entry = () => {
         .catch(err => console.log("ERROR: ", err));
       }
 
-      interface Emojis {
-        1: {src: string, name: string},
-        2: {src: string, name: string},
-        3: {src: string, name: string},
-        4: {src: string, name: string},
-        5: {src: string, name: string},
-      }
-
     // emojis for the users mood
     const imgs: Emojis = {
       1: {src: angry, name: 'Very Unhappy'},
@@ -114,27 +114,21 @@ const Entry = () => {
     };
   
   // displays emoji if entry has a mood
-  function moodImage (num: number | string | null, imgObj: Emojis,  editStatus: boolean): JSX.Element | null | any[] {
+  function moodImage (num: number | string | null, imgObj: Emojis,  editStatus: boolean): JSX.Element | JSX.Element[] | null {
     if (num && !editStatus) {
     return <p><img src={imgObj[num].src} alt={imgObj[num].name}/></p>;
 
     } else if (editStatus) {
-      const arr = []
-      // const imgArr = imgObject.map(img, index => {(
-      //   <li key={index} onClick={() => setContent({...content, })}>
-      //     <img src={emoji.src} alt={emoji.name}/>
-      //   </li>)})
-      //   return imgArr;
+
+      const arr: JSX.Element[] = []
       for (const [key, value] of Object.entries(imgObj)) {
-        // console.log(`Key:${key} - value: ${value.name}`);
-        // console.log("Value: ", value);
-        arr.push(<p><img src={value.src} alt={value.name} key={key}/></p>);
+        arr.push(<p key={key} onClick={() => setContent({...content, mood: (key + 1)})}>
+                  <img src={value.src} alt={value.name}/>
+                </p>);
       }
       return arr;
 
-    } else {
-      return null;
-    }   
+    } else { return null;}   
   }
 
   function titleHandler(event) {
@@ -175,8 +169,12 @@ const Entry = () => {
   return (
     <div style={{height: '100%'}}>
       <div style={entryStyling.buttonStyling}>
-      {moodImage(content.mood, imgs, editMode)}
+
+      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+        {moodImage(content.mood, imgs, editMode)}
+      </div>     
         {action(editMode)}
+
       </div>
       {editMode 
       ? (<div style={entryStyling}>
@@ -216,7 +214,6 @@ const Entry = () => {
           <h1 style={entryStyling.titleStyling}>{content.title}</h1>
           <h2>{content.date}</h2>
           <p>{content.privacy}</p>
-          {/* {moodImage(content.mood, imgs, editMode)} */}
           <p style={{padding: '2%'}}>{content.content}</p>
         </div>)} 
         
