@@ -24,6 +24,7 @@ export default function Graphs() {
     height: '90%',
     width: '90%',
     text: 'bold',
+    marginTop: '20px',
 
   };
 
@@ -73,7 +74,6 @@ export default function Graphs() {
         ? data[i].best_fit = ((data[i].mood + data[i + 1].mood) / 2)
         : data[i].best_fit = ((data[i - 1].mood + data[i].mood) / 2 )
       }
-      console.log('line', data)
       setLineData(data)
     });
   }, [startDate, endDate])
