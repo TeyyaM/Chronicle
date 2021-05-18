@@ -56,7 +56,6 @@ const history = useHistory();
     
     buttonStyling: {
       margin: '1%'
-
     }
   }  
   
