@@ -30,7 +30,6 @@ function Navbar() {
       </img>
 
       <Link to="/"><Button>Chronicle Your Day </Button></Link>
-
       <Link to="/entries"><Button>Entries</Button></Link>
       <Link to="/settings"><Button>Settings</Button></Link>
       <Link to="/graphs"><Button>Graphs</Button></Link>

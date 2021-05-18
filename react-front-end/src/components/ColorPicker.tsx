@@ -51,9 +51,11 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
     <form style={homeStyling} onSubmit={saveColor}>
       <HexColorPicker color={color} onChange={changeColor} />
   <label>
-    {name} Hex Value: #
-      <HexColorInput color={color} onChange={changeColor} name={name}/>
+    {name} Hex Value:
   </label>
+      <span>
+      # <HexColorInput color={color} onChange={changeColor} name={name}/>
+      </span>
   <SaveButton save={saveColor} color={color} />
 </form>
   );
