@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, Fragment } from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
@@ -38,14 +38,24 @@ const history = useHistory();
     color: user ? user.title_hex : '#d9b310',   
     height: 'fit-content',
     margin: 15,
-    padding: 15,
+    // padding: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
-    borderWidth: 5,
+    borderWidth: 10,
     borderRadius: 10,
     
+    titleStyling: {
+      color: 'white',
+      backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
+      marginTop: 0,
+      paddingTop: 28,
+      paddingBottom: 28,
+      borderBottomLeftRadius: 40,
+      borderBottomRightRadius: 40,
+    },
+    
     buttonStyling: {
-
+      margin: '1%'
     }
   }  
   
@@ -108,55 +118,59 @@ const history = useHistory();
   const action = (val) => {
     if(val) {
       return (
-        <div>
+        <Fragment>
           <Button variant="contained" color="primary" onClick={() => updateEntry()}>Save</Button>
           <Button variant="contained" color="secondary" onClick={() => setEditMode(false)}>Cancel</Button>
-        </div>
+        </Fragment>
       )
     } else {
       return (
-        <div>
+        <Fragment>
           <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>Edit</Button>
           <Button variant="contained" color="secondary" onClick={() => deleteEntry()}>Delete</Button>
-        </div>
+        </Fragment>
       )
     }
   }
 
   return (
-    <div style={{height: 600}}>
+    <div style={{height: '100%'}}>
+      <div style={entryStyling.buttonStyling}>
+        {action(editMode)}
+      </div>
       {editMode 
       ? (<div style={entryStyling}>
-      <form><TextField 
-        id="outlined-basic" 
-        margin="normal"
-        label="Title" 
-        variant="outlined" 
-        fullWidth
-        value={content.title}
-        onInput={titleHandler}
-        />
+          <form><TextField 
+            id="outlined-basic" 
+            margin="normal"
+            label="Title" 
+            variant="outlined" 
+            fullWidth
+            value={content.title}
+            onInput={titleHandler}
+            />
 
-      <TextField 
-        id="outlined-basic" 
-        multiline
-        rows="10"
-        label="Whats on your mind?" 
-        variant="outlined" 
-        fullWidth
-        value={content.content}
-        onInput={contentHandler}
-        /></form>
+          <TextField 
+            id="outlined-basic" 
+            multiline
+            rows="10"
+            label="Whats on your mind?" 
+            variant="outlined" 
+            fullWidth
+            value={content.content}
+            onInput={contentHandler}
+            /></form>
         </div> )
 
       : (<div style={entryStyling}>
-      <h1 >{content.title}</h1>
-      <h2>{content.date}</h2>
-      <p>{content.privacy}</p>
-      {moodImage(content.mood)}
-      <p>{content.content}</p>
-    </div>)}
-      {action(editMode)}
+          <h1 style={entryStyling.titleStyling}>{content.title}</h1>
+          <h2>{content.date}</h2>
+          <p>{content.privacy}</p>
+          {moodImage(content.mood)}
+          <p style={{padding: '2%'}}>{content.content}</p>
+        </div>)}
+
+      
     </div>
     
   );
