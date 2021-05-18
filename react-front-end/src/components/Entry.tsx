@@ -20,7 +20,7 @@ interface Data {
 };
 
 const Entry = () => {
-const history = useHistory();
+  const history = useHistory();
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
   const [ editMode, setEditMode ] = useState<boolean>(false)
@@ -50,12 +50,10 @@ const history = useHistory();
     color: user ? user.title_hex : '#d9b310',   
     height: 'fit-content',
     margin: 15,
-    // padding: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 10,
-    borderRadius: 10,
-    
+    borderRadius: 10,    
     titleStyling: {
       color: user ? user.background_hex : 'white',
       backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
@@ -64,8 +62,7 @@ const history = useHistory();
       paddingBottom: 28,
       borderBottomLeftRadius: 40,
       borderBottomRightRadius: 40,
-    },
-    
+    },  
     buttonStyling: {
       margin: '1%'
     }
@@ -82,9 +79,7 @@ const history = useHistory();
     return axios.post(`/api/entries/${entryId}`, {
       params: { title: content.title, content: content.content, mood: content.mood, category_id: categoryId, user_id: content.user_id, privacy: content.privacy }
     })
-    .then(res => {
-      console.log("DATA: ", res.data);
-    })
+    .then(res => {console.log("DATA: ", res.data)})
     .catch(err => console.log("ERROR: ", err));
   };
 
@@ -100,24 +95,47 @@ const history = useHistory();
       })
         .catch(err => console.log("ERROR: ", err));
       }
-  
 
+      interface Emojis {
+        1: {src: string, name: string},
+        2: {src: string, name: string},
+        3: {src: string, name: string},
+        4: {src: string, name: string},
+        5: {src: string, name: string},
+      }
+
+    // emojis for the users mood
+    const imgs: Emojis = {
+      1: {src: angry, name: 'Very Unhappy'},
+      2: {src: unhappy, name: 'Unhappy'},
+      3: {src: neutral, name: 'Neutral'},
+      4: {src: mild, name: 'Happy'},
+      5: {src: smiley, name: 'Very Happy'}
+    };
+  
   // displays emoji if entry has a mood
-  function moodImage (num: number | string | null) {
-    if (num) {
-      const imgs = {
-        1: {src: angry, name: 'Very Unhappy'},
-        2: {src: unhappy, name: 'Unhappy'},
-        3: {src: neutral, name: 'Neutral'},
-        4: {src: mild, name: 'Happy'},
-        5: {src: smiley, name: 'Very Happy'}
-      };
-      return (
-        <p><img src={imgs[num].src} alt={imgs[num].name}/></p>
-      );
+  function moodImage (num: number | string | null, imgObj: Emojis,  editStatus: boolean): JSX.Element | null | any[] {
+    if (num && !editStatus) {
+    return <p><img src={imgObj[num].src} alt={imgObj[num].name}/></p>;
+
+    } else if (editStatus) {
+      const arr = []
+      // const imgArr = imgObject.map(img, index => {(
+      //   <li key={index} onClick={() => setContent({...content, })}>
+      //     <img src={emoji.src} alt={emoji.name}/>
+      //   </li>)})
+      //   return imgArr;
+      for (const [key, value] of Object.entries(imgObj)) {
+        // console.log(`Key:${key} - value: ${value.name}`);
+        // console.log("Value: ", value);
+        arr.push(<p><img src={value.src} alt={value.name} key={key}/></p>);
+      }
+      return arr;
+
     } else {
       return null;
-    }}
+    }   
+  }
 
   function titleHandler(event) {
     setContent(prev => ({...prev, title: event.target.value}))
@@ -157,6 +175,7 @@ const history = useHistory();
   return (
     <div style={{height: '100%'}}>
       <div style={entryStyling.buttonStyling}>
+      {moodImage(content.mood, imgs, editMode)}
         {action(editMode)}
       </div>
       {editMode 
@@ -181,29 +200,27 @@ const history = useHistory();
             onInput={titleHandler}
             />
 
-          <TextField 
-            id="outlined-basic" 
-            multiline
-            rows="10"
-            label="Whats on your mind?" 
-            variant="outlined" 
-            fullWidth
-            value={content.content}
-            onInput={contentHandler}
-            /></form>
+            <TextField 
+              id="outlined-basic" 
+              multiline
+              rows="10"
+              label="Whats on your mind?" 
+              variant="outlined" 
+              fullWidth
+              value={content.content}
+              onInput={contentHandler}/>
+          </form>
         </div> )
 
       : (<div style={entryStyling}>
           <h1 style={entryStyling.titleStyling}>{content.title}</h1>
           <h2>{content.date}</h2>
           <p>{content.privacy}</p>
-          {moodImage(content.mood)}
+          {/* {moodImage(content.mood, imgs, editMode)} */}
           <p style={{padding: '2%'}}>{content.content}</p>
-        </div>)}
-
-      
+        </div>)} 
+        
     </div>
-    
   );
 };
 

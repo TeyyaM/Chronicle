@@ -2,14 +2,10 @@ import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../hooks/UserContext';
 
-
 import Form from './Form';
 import Mood from './Mood';
 import PrivacySetting from './PrivacySetting'
 import CategorySelect from '../CategorySelect/CategorySelect';
-
-
-
 
 const Home = () => {
   
@@ -29,6 +25,7 @@ const Home = () => {
     borderRadius: 10,
     height: '300%',
   };
+
   const [searchResults, setSearchResults] = useState<any>([]);
   const [categoryList, setCategoryList] = useState<any>([]);
   const [categoryId, setCategoryId] = useState<null | number>(null);
@@ -68,11 +65,8 @@ const Home = () => {
   return (
       <div style={homeStyling}>
         <h1>Create An Entry ❉ <em>{currentDay.toDateString()}</em></h1>
-
         <PrivacySetting entry={entry} setEntry={setEntry} />
-
         <Mood mood={mood} setMood={setMood} reset={null} />
-
         <CategorySelect categories={searchResults}
           setCategoryId={setCategoryId}
           onChange={handleSearchChange} />
