@@ -60,7 +60,7 @@ const Entry = () => {
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
     borderWidth: 10,
-    borderRadius: 10,    
+    borderRadius: 10,  
     titleStyling: {
       color: user ? user.background_hex : 'white',
       backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
@@ -173,11 +173,8 @@ const Entry = () => {
       <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
         {moodImage(content.mood, imgs, editMode)}
       </div>     
-        {action(editMode)}
-
-      </div>
-      {editMode 
-      ? (<div style={entryStyling}>
+      {editMode
+        ? <div>
         <CategorySelect categories={searchResults}
           setCategoryId={setCategoryId}
           onChange={handleSearchChange} />
@@ -188,27 +185,36 @@ const Entry = () => {
           value={searchTerm}
           onChange={handleSearchChange}
         />
-          <form><TextField 
-            id="outlined-basic" 
-            margin="normal"
-            label="Title" 
-            variant="outlined" 
-            fullWidth
-            value={content.title}
-            onInput={titleHandler}
-            />
+      </div>
+      : <></>}
+        {action(editMode)}
+
+      </div>
+      {editMode 
+      ? (
+      <div style={entryStyling}>
+        <h1 style={entryStyling.titleStyling}>Edit Your Entry</h1>
+          <form>
+            <TextField 
+              id="outlined-basic" 
+              margin="normal"
+              label="Title" 
+              variant="outlined" 
+              fullWidth
+              value={content.title}
+              onInput={titleHandler} />
 
             <TextField 
               id="outlined-basic" 
               multiline
-              rows="10"
+              rows="20"
               label="Whats on your mind?" 
               variant="outlined" 
               fullWidth
               value={content.content}
-              onInput={contentHandler}/>
+              onInput={contentHandler} />
           </form>
-        </div> )
+        </div>)
 
       : (<div style={entryStyling}>
           <h1 style={entryStyling.titleStyling}>{content.title}</h1>

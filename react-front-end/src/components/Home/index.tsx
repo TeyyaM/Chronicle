@@ -84,8 +84,3 @@ const Home = () => {
 };
 
 export default Home;
-// {/* <CategorySelect 
-// searchResults={searchResults}
-// value={categoryList}
-// setCategoryId={setCategoryId}
-// categoryId={categoryId}/> */}
