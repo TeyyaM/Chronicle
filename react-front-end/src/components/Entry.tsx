@@ -7,6 +7,7 @@ import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
 import { smiley, mild, neutral, unhappy, angry } from './emojis';
 import CategorySelect from './CategorySelect/CategorySelect';
+import Mood from './Home/Mood';
 
 interface Params {entryId: string};
 interface Data {
@@ -17,6 +18,7 @@ interface Data {
   mood: number | string | null;
   user_id?: number | string;
   date?: Date | string;
+  category_name?: string | null;
 };
 interface Emojis {
   1: {src: string, name: string},
@@ -37,11 +39,13 @@ const Entry = () => {
     mood: 0,
     privacy: true,
     date_created: null,
+    category_name: null
   });
   const [searchResults, setSearchResults] = useState<any>([]);
   const [categoryList, setCategoryList] = useState<any>([]);
   const [categoryId, setCategoryId] = useState<null | number>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [mood, setMood] = useState<null | number>(null);
 
   useEffect(() => {
     axios.get('/api/categories')
@@ -79,15 +83,22 @@ const Entry = () => {
   const entryId = params.entryId;
   useEffect(() => {
     axios.get(`/api/entries/${entryId}`)
-    .then(res => setContent({...res.data[0]})); // Do stuff with it
+    .then(res => {
+      console.log(res.data[0])
+      setContent({...res.data[0]});
+      setMood(res.data[0].mood);
+      setCategoryId(res.data[0].category_id)
+    }); // Do stuff with it
+
   }, [entryId]);
   
   const updateEntry = () => {
     console.log("CONTENT ", content);
     return axios.post(`/api/entries/${entryId}`, {
-      params: { title: content.title, content: content.content, mood: content.mood, category_id: categoryId, user_id: content.user_id, privacy: content.privacy }
+      params: { title: content.title, content: content.content, mood, category_id: categoryId, user_id: content.user_id, privacy: content.privacy }
     })
-    .then(res => {console.log("DATA: ", res.data)})
+    .then(res => {console.log("DATA: ", res.data)
+    return setEditMode(false)})
     .catch(err => console.log("ERROR: ", err));
   };
 
@@ -104,32 +115,7 @@ const Entry = () => {
         .catch(err => console.log("ERROR: ", err));
       }
 
-    // emojis for the users mood
-    const imgs: Emojis = {
-      1: {src: angry, name: 'Very Unhappy'},
-      2: {src: unhappy, name: 'Unhappy'},
-      3: {src: neutral, name: 'Neutral'},
-      4: {src: mild, name: 'Happy'},
-      5: {src: smiley, name: 'Very Happy'}
-    };
-  
   // displays emoji if entry has a mood
-  function moodImage (num: number | string | null, imgObj: Emojis,  editStatus: boolean): JSX.Element | JSX.Element[] | null {
-    if (num && !editStatus) {
-    return <p><img src={imgObj[num].src} alt={imgObj[num].name}/></p>;
-
-    } else if (editStatus) {
-
-      const arr: JSX.Element[] = []
-      for (const [key, value] of Object.entries(imgObj)) {
-        arr.push(<p key={key} onClick={() => setContent({...content, mood: (key + 1)})}>
-                  <img src={value.src} alt={value.name}/>
-                </p>);
-      }
-      return arr;
-
-    } else { return null;}   
-  }
 
   function titleHandler(event) {
     setContent(prev => ({...prev, title: event.target.value}))
@@ -165,16 +151,26 @@ const Entry = () => {
       )
     }
   }
-
+  const moodImage = (mood: number | null) => {
+    const imgs: Emojis = {
+      1: {src: angry, name: 'Very Unhappy'},
+      2: {src: unhappy, name: 'Unhappy'},
+      3: {src: neutral, name: 'Neutral'},
+      4: {src: mild, name: 'Happy'},
+      5: {src: smiley, name: 'Very Happy'}
+    };
+    return (mood ? imgs[mood] : null);
+  }
+  const entryMood = moodImage(mood);
   return (
     <div style={{height: '100%'}}>
       <div style={entryStyling.buttonStyling}>
 
-      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-        {moodImage(content.mood, imgs, editMode)}
-      </div>     
       {editMode
-        ? <div>
+        ? 
+        <>
+        <Mood mood={mood} setMood={setMood} /> 
+        <div>
         <CategorySelect categories={searchResults}
           setCategoryId={setCategoryId}
           onChange={handleSearchChange} />
@@ -186,6 +182,7 @@ const Entry = () => {
           onChange={handleSearchChange}
         />
       </div>
+      </>
       : <></>}
         {action(editMode)}
 
@@ -218,7 +215,9 @@ const Entry = () => {
 
       : (<div style={entryStyling}>
           <h1 style={entryStyling.titleStyling}>{content.title}</h1>
+          <p>{content.category_name ? `Category: ${content.category_name}` : null}</p>
           <h2>{content.date}</h2>
+          <p>{mood ? <img src={entryMood.src} alt={entryMood.name} /> : null}</p>
           <p>{content.privacy}</p>
           <p style={{padding: '2%'}}>{content.content}</p>
         </div>)} 

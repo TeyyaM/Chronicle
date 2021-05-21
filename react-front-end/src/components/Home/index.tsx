@@ -59,8 +59,7 @@ const Home = () => {
       .catch(err => console.log("ERROR", err));
   }
 
-  const timeElapsed: number = Date.now();
-  const currentDay = new Date(timeElapsed);
+  const currentDay = new Date(Date.now());
   
   return (
       <div style={homeStyling}>
