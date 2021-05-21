@@ -77,7 +77,7 @@ const generateEntries = () => {
     // Create half the entries with categories, the other half without
     (i < desiredFakeEntries / 2) 
     // Math.ceil to ensure category is never 0
-    ? fakeEntries += createFakeEntries(Math.ceil(Math.random() * 5))
+    ? fakeEntries += createFakeEntries(Math.ceil(Math.random() * 6))
     : fakeEntries += createFakeEntries(null);
     // Add a comma or semi-colon (if last) for syntax
     (i < desiredFakeEntries - 1) ? fakeEntries += ',' : fakeEntries += ';'

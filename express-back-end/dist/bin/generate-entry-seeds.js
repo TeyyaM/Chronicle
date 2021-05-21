@@ -62,7 +62,7 @@ const generateEntries = () => {
     const desiredFakeEntries = 600;
     for (let i = 0; i < desiredFakeEntries; i++) {
         (i < desiredFakeEntries / 2)
-            ? fakeEntries += createFakeEntries(Math.ceil(Math.random() * 5))
+            ? fakeEntries += createFakeEntries(Math.ceil(Math.random() * 6))
             : fakeEntries += createFakeEntries(null);
         (i < desiredFakeEntries - 1) ? fakeEntries += ',' : fakeEntries += ';';
     }
