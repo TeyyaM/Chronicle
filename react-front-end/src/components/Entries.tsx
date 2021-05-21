@@ -133,7 +133,7 @@ const Entries = () => {
     ) 
   })
 
-  return (
+  return (user ? 
       <div style={contentStyling}>
         <h1 style={contentStyling.headingStyle}><b>{user.username}'s Entries</b></h1>
 
@@ -175,7 +175,8 @@ const Entries = () => {
           </Route>
         </RouteSwitch>
       </div>        
-  )  
+  
+  : <div>Login to see your entries!</div>)
 };
 
 export default Entries;
