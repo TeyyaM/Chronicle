@@ -11,7 +11,6 @@ export default function Graphs() {
   
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
-  userRef.current = user;
   const graphStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.text_hex : '#d9b310',   
