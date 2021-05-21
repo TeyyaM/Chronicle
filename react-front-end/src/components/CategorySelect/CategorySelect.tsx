@@ -36,7 +36,7 @@ const CategorySelect = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number, id: number | string) => {
+  const handleMenuItemClick = (index: number, id: number | string) => {
     setCategoryId(id)
     setSelectedIndex(index);
     setAnchorEl(null);
@@ -72,7 +72,7 @@ const CategorySelect = (props) => {
             key={option[1]}
             disabled={index === 0}
             selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index, option[1])}
+            onClick={() => handleMenuItemClick(index, option[1])}
           >
             {option[0]}
           </MenuItem>

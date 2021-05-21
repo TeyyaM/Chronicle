@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { HexColorPicker, HexColorInput } from "react-colorful";
-import { useContext } from 'react'; 
+import { FormEventHandler, useContext } from 'react'; 
 import { UserContext } from '../hooks/UserContext';  
 import SaveButton from './SaveButton';
 
@@ -27,13 +27,11 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
     height: '100%',
   };
 
-  const saveColor = (event: any) => {
-    event.preventDefault();
+  const saveColor: FormEventHandler<HTMLFormElement> = () => {
     saveToDatabase();
-
   };
 
-  const changeColor = (event: any) => {
+  const changeColor = (event: string) => {
     setColor(event)
     setUser({...user, [convertedName]: event});
 

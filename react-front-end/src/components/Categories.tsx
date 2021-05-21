@@ -27,7 +27,9 @@ const Categories = () => {
         <Route path="/category/:id" component={Category} >
         <ul>
           {categories.map(item=> (
-            <li>{item.name}</li>
+            <li key={item.id} >
+              {item.name}
+              </li>
             ))}
             </ul>
             </Route>

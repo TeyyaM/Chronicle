@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, ChangeEventHandler } from 'react';
 import { Route, Switch as RouteSwitch, useHistory } from 'react-router-dom';
 import axios from 'axios';
 // useHistory   Link
@@ -107,7 +107,7 @@ const Entries = () => {
       })
   }, [])
 
-  const searchChange = event => {
+  const searchChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setSearchTerm(event.target.value);
     const results = categoryList.filter(categoryList =>
       categoryList.name.toLowerCase().includes(searchTerm)

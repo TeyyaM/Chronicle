@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { useEffect, useState, useContext, Fragment } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
@@ -27,6 +27,10 @@ interface Emojis {
   4: {src: string, name: string},
   5: {src: string, name: string},
 }
+interface Category {
+  name: string,
+  id: number,
+}
 
 const Entry = () => {
   const history = useHistory();
@@ -42,7 +46,7 @@ const Entry = () => {
     category_name: null
   });
   const [searchResults, setSearchResults] = useState<any>([]);
-  const [categoryList, setCategoryList] = useState<any>([]);
+  const [categoryList, setCategoryList] = useState<Category[] | []>([]);
   const [categoryId, setCategoryId] = useState<null | number>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [mood, setMood] = useState<null | number>(null);
@@ -92,62 +96,66 @@ const Entry = () => {
 
   }, [entryId]);
   
-  const updateEntry = () => {
+  const updateEntry = async () => {
     console.log("CONTENT ", content);
-    return axios.post(`/api/entries/${entryId}`, {
-      params: { title: content.title, content: content.content, mood, category_id: categoryId, user_id: content.user_id, privacy: content.privacy }
-    })
-    .then(res => {console.log("DATA: ", res.data)
-    return setEditMode(false)})
-    .catch(err => console.log("ERROR: ", err));
+    try {
+      const res = await axios.post(`/api/entries/${entryId}`, {
+        params: { title: content.title, content: content.content, mood, category_id: categoryId, user_id: content.user_id, privacy: content.privacy }
+      });
+      console.log("DATA: ", res.data);
+      return setEditMode(false);
+    } catch (err) {
+      return console.log("ERROR: ", err);
+    }
   };
 
-  const deleteEntry = () => {
-    return axios.delete(`/api/entries/${entryId}`, {
-      data: {
-        user_id: user.id,
-      }
-    })
-      .then(res => {
-        console.log("DATA: ", res.data)
-        return history.push('/entries');
-      })
-        .catch(err => console.log("ERROR: ", err));
+  const deleteEntry = async () => {
+    try {
+      const res = await axios.delete(`/api/entries/${entryId}`, {
+        data: {
+          user_id: user.id,
+        }
+      });
+      console.log("DATA: ", res.data);
+      return history.push('/entries');
+    } catch (err) {
+      return console.log("ERROR: ", err);
+    }
       }
 
   // displays emoji if entry has a mood
 
-  function titleHandler(event) {
+  const titleHandler = (event) => {
     setContent(prev => ({...prev, title: event.target.value}))
   };
 
-  function contentHandler(event) {
+  const contentHandler = (event) => {
     setContent((prev) => ({...prev, content: event.target.value}))
   };
 
-  const handleSearchChange = event => {
+  const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    const results = categoryList.filter(categoryList =>
-      categoryList.name.toLowerCase().includes(searchTerm)
+    const results = categoryList.filter(category =>
+      category.name.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
     setCategoryList(results);
   };
 
-  const action = (edit) => {
+  const action = (edit: boolean) => {
     if(edit) {
       return (
-        <Fragment>
+        <>
           <Button variant="contained" color="primary" onClick={() => updateEntry()}>Save</Button>
           <Button variant="contained" color="secondary" onClick={() => setEditMode(false)}>Cancel</Button>
-        </Fragment>
+        </>
       )
     } else {
       return (
-        <Fragment>
+        <>
           <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>Edit</Button>
           <Button variant="contained" color="secondary" onClick={() => deleteEntry()}>Delete</Button>
-        </Fragment>
+        </>
       )
     }
   }
