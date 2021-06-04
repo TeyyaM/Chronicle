@@ -17,9 +17,12 @@ const runSchemaFiles = function () {
 };
 const runSeedFiles = function () {
     console.log(chalk.cyan(`-> Loading Seeds ...`));
-    const sql = fs.readFileSync(`./db/seeds/00_dev_font_user_categories.sql`, 'utf8');
-    console.log(`\t-> Running ${chalk.green('00_dev_font_user_categories.sql')}`);
-    client.querySync(sql);
+    const schemaFilenames = fs.readdirSync('./db/seeds');
+    for (const fn of schemaFilenames) {
+        const sql = fs.readFileSync(`./db/seeds/${fn}`, 'utf8');
+        console.log(`\t-> Running ${chalk.green(fn)}`);
+        client.querySync(sql);
+    }
 };
 try {
     console.log(`-> Connecting to PG using ${connectionString} ...`);

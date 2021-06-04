@@ -40,7 +40,10 @@ You will need **TWO** terminal windows/tabs to run this (or some other plan for 
 
 In one terminal, `cd` into `react-front-end`. Run `npm install` to install the dependencies. Then run `npm start` and go to `localhost:3000` in your browser.
 
-In the other terminal, `cd` into `express-back-end`. Run `npm install` to install the dependencies, then you have the option to run `npm run db:reset` to seed the database with fake data or create your own database and tables.  
+In the other terminal, `cd` into `express-back-end`. Run `npm install` to install the dependencies, then you have the option to run `npm run db:reset` to seed the database with fake data or to have a blank database:
+1. comment/uncomment the necessary code in "express-back-end/bin/resetdb.ts"  
+2. run <tsc> in your terminal in the express-back-end directory
+3. run <npm run db:reset> in the same terminal
 
 In this same folder create a `.env` file using these secret variables but set to your information:
 DB_HOST=localhost
