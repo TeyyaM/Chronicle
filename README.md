@@ -1,6 +1,6 @@
 # Chronicle
 
-A private journaling web app designed to help you keep track of your mood over time and store your entires for you to look back upon.
+A private journaling web app designed to help you keep track of your mood over time and store your journal entrees for you to look back on.
 
 Created by [Tessa](https://github.com/TeyyaM), [Josiah](https://github.com/J-pilon) and [Sam](https://github.com/brackish888).
 
