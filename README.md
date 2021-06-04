@@ -48,8 +48,8 @@ After the dependencies are installed and while your in the same folder, create a
 * DB_PORT=5432
 
 Then you have the option to run <npm run db:reset> to seed the database with fake data or to have a blank database:
-1. comment/uncomment the necessary code in "express-back-end/bin/resetdb.ts"  
-2. run <tsc> in your terminal in the express-back-end directory
+1. comment/uncomment the necessary code in the file `express-back-end/bin/resetdb.ts`  
+2. run <tsc> in your terminal in the `express-back-end` directory
 3. run <npm run db:reset> in the same terminal
 
 Finally, run <npm run server> to start the backend server.
