@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { Route, Switch as RouteSwitch, useHistory } from 'react-router-dom';
 import axios from 'axios';
-// useHistory   Link
+
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -78,10 +78,8 @@ const Entries = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   
-  // const [categoryId, setCategoryId] = useState<null | number>(null);
   const [mood, setMood] = useState<null | number | 'all'>('all');
   const limit = 30;
-  // const categoryId = 'all'; // null or 'all' or a number
   useEffect(() => {
       // get pie chart data
     axios.get('/api/entries', {

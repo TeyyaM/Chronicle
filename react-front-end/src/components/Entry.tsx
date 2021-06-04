@@ -5,6 +5,8 @@ import { useEffect, useState, useContext, Fragment } from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../hooks/UserContext';
+
+import Mood from './Home/Mood'
 import { smiley, mild, neutral, unhappy, angry } from './emojis';
 
 interface Params {entryId: string};
@@ -103,21 +105,15 @@ const Entry = () => {
     };
   
   // displays emoji if entry has a mood
-  function moodImage (num: number | string | null, imgObj: Emojis,  editStatus: boolean): JSX.Element | JSX.Element[] | null {
+  function moodImage (num: number | string | null, imgObj: Emojis,  editStatus: boolean) {
     if (num && !editStatus) {
     return <p><img src={imgObj[num].src} alt={imgObj[num].name}/></p>;
 
     } else if (editStatus) {
 
-      const arr: JSX.Element[] = []
-      for (const [key, value] of Object.entries(imgObj)) {
-        arr.push(<p key={key} onClick={() => setContent({...content, mood: (key + 1)})}>
-                  <img src={value.src} alt={value.name}/>
-                </p>);
-      }
-      return arr;
+      return <Mood />
 
-    } else { return null;}   
+    } else { return null}   
   }
 
   function titleHandler(event) {
