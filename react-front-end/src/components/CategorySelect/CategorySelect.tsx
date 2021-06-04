@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      color: 'black',
       backgroundColor: theme.palette.background.paper,
       width: '155px',
       margin: 'auto',
@@ -16,9 +17,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-
-
 
 const CategorySelect = (props) => {
   const { categories, setCategoryId, all } = props;

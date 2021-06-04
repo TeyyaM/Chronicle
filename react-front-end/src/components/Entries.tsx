@@ -46,7 +46,7 @@ const Entries = () => {
       fontStyle: 'cursive',
       letterSpacing: '0.1em',
       backgroundColor: user ? user.secondary_hex : 'rebeccapurple', 
-      color: user ? user.accent_hex : 'rebeccapurple',
+      color: user ? user.primary_hex : 'rebeccapurple',
       borderRadius: 75,
     },
     titleStyling: {
@@ -159,7 +159,7 @@ const Entries = () => {
         <input
           style={{height: "20px", width: "148px"}}
           type="text"
-          placeholder="Narrow Down Categories"
+          placeholder="Filter Categories"
           value={searchTerm}
           onChange={searchChange}/>
         

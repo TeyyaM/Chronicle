@@ -12,17 +12,16 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   const user = userRef.current;
   const convertedName = name.toLowerCase() + '_hex';
 
-  const homeStyling = {
+  const colorPickerStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.text_hex : '#d9b310',   
     margin: 15,
     paddingBottom: 15,
     paddingTop: 15,
     width: '40%',
-
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
-    borderWidth: 3,
+    borderWidth: 8,
     borderRadius: 10,
     height: '100%',
   };
@@ -48,16 +47,12 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   };
 
   return (
-    <form style={homeStyling} onSubmit={saveColor}>
+    <form style={colorPickerStyling} onSubmit={saveColor}>
       <HexColorPicker color={color} onChange={changeColor} />
-  <label>
-    {name} Hex Value:
-  </label>
-      <span>
-      # <HexColorInput color={color} onChange={changeColor} name={name}/>
-      </span>
-  <SaveButton save={saveColor} color={color} />
-</form>
+      <label> {name} Hex Value: </label>
+      <span># <HexColorInput color={color} onChange={changeColor} name={name}/></span>
+      <SaveButton save={saveColor} color={color} />
+    </form>
   );
 };
 export default ColorPicker;

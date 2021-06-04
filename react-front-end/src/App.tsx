@@ -55,6 +55,5 @@ const App = () => {
     </div>
   );
 };
-// {/* </CustomColors> */}
 
 export default App;
