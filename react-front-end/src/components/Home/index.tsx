@@ -21,7 +21,7 @@ const Home = () => {
     paddingBottom: 250,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
-    borderWidth: 5,
+    borderWidth: 8,
     borderRadius: 10,
     height: '300%',
   };

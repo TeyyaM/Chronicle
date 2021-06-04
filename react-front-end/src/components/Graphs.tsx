@@ -19,7 +19,7 @@ export default function Graphs() {
     paddingBottom: 15,
     borderColor: user ? user.secondary_hex : 'black',
     borderStyle: 'solid',
-    borderWidth: 3,
+    borderWidth: 8,
     borderRadius: 10,
     height: '90%',
     width: '90%',

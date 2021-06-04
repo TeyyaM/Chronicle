@@ -33,8 +33,7 @@ const Entries = () => {
   const contentStyling = {
     height: '100%', 
     width: '96%',
-    // color: user ? user.text_hex : 'rebeccapurple',
-    color: 'white',
+    color: user ? user.text_hex : 'rebeccapurple',
     margin: 'auto',
     padding: '10px',
     fontFamily: 'Patrick Hand',
@@ -62,7 +61,7 @@ const Entries = () => {
       backgroundColor: user ? user.background_hex : '#85bade',
       borderStyle: 'solid',
       borderColor: user ? user.secondary_hex : 'rebeccapurple',
-      borderWidth: 10,
+      borderWidth: 8,
       borderRadius: 10,
       margin: 10
     },
