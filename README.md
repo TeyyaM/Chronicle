@@ -1,6 +1,6 @@
 # Chronicle
 
-A private journaling web app designed to help you keep track of your mood over time and store your journal entrees for you to look back on.
+A private journaling web app designed to help you keep track of your mood over time and store your journal entries for you to look back on.
 
 Created by [Tessa](https://github.com/TeyyaM), [Josiah](https://github.com/J-pilon) and [Sam](https://github.com/brackish888).
 
@@ -32,7 +32,8 @@ We started the project with a _no fluff_ React/Express boilerplate supplied by @
   - Reference your past entries by Category or by Date
     - Graph your mood overtime with a dynamic date picker that lets you pick the intervals that you want to graph.
 
-
+!["Video of homepage"](https://raw.githubusercontent.com/J-pilon/Chronicle/21b4b3a94747dbadd7ac047fe378ccafc300b2d0/docs/Peek%202021-06-04%2017-03.gif)
+!["Video of entries"](https://raw.githubusercontent.com/J-pilon/Chronicle/21b4b3a94747dbadd7ac047fe378ccafc300b2d0/docs/Peek%202021-06-04%2017-10.gif)
 
 ## Getting started! 
 
