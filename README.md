@@ -32,6 +32,8 @@ We started the project with a _no fluff_ React/Express boilerplate supplied by @
   - Reference your past entries by Category or by Date
     - Graph your mood overtime with a dynamic date picker that lets you pick the intervals that you want to graph.
 
+
+
 ## Getting started! 
 
 Fork this repository, then clone your fork onto your machine.
