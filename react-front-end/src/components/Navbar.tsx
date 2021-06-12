@@ -16,7 +16,6 @@ function Navbar() {
   padding-right: 1em;
   padding-left: 1em;
   border-radius: 4px;
-  margin-left: 1em;
   :hover {
     color: ${ user ? user.text_hex : 'darkgrey' };
     background: ${ user ? user.accent_hex : 'yellow' };
@@ -37,7 +36,7 @@ function Navbar() {
         <Link to="/graphs"><Button>Graphs</Button></Link>
         {!user ? 
         <><Link to="/login"><Button>Login</Button></Link>
-        <Link to="/si-up"><Button>Sign up</Button></Link></>
+        <Link to="/register"><Button>Sign up</Button></Link></>
         : <Link to="/logout"><Button>Logout</Button></Link>}
       </div>
     </div>

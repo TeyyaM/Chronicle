@@ -32,7 +32,7 @@ const CategorySelect = (props) => {
    : options = [['Select a category', 0], ['No Category', null],
    ...categories.map(category => [category.name, category.id])];
 
-  const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClickListItem = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 

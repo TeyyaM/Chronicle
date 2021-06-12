@@ -65,7 +65,7 @@ const Entries = () => {
       borderColor: user ? user.secondary_hex : 'rebeccapurple',
       borderWidth: 10,
       borderRadius: 10,
-      margin: 10
+      margin: '2em'
     },
   }
 

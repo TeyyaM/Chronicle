@@ -47,6 +47,7 @@ code {
 	display: flex;
 	justify-content: space-between;
 	margin-right: -1.5em;
+	gap: 1em;
 }
 
 .links {
