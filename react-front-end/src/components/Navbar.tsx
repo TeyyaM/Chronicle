@@ -30,14 +30,19 @@ function Navbar() {
         alt="logo" 
         style={{height:'190%', marginTop: '1.6em'}}/>
       <div className='Navbar-Buttons'>
-        <Link to="/"><Button>Chronicle Your Day </Button></Link>
-        <Link to="/entries"><Button>Entries</Button></Link>
-        <Link to="/settings"><Button>Settings</Button></Link>
-        <Link to="/graphs"><Button>Graphs</Button></Link>
-        {!user ? 
-        <><Link to="/login"><Button>Login</Button></Link>
-        <Link to="/register"><Button>Sign up</Button></Link></>
-        : <Link to="/logout"><Button>Logout</Button></Link>}
+
+        {user 
+        ? <>
+            <Link to="/"><Button>Chronicle Your Day </Button></Link>
+            <Link to="/entries"><Button>Entries</Button></Link>
+            <Link to="/settings"><Button>Settings</Button></Link>
+            <Link to="/graphs"><Button>Graphs</Button></Link>
+            <Link to="/logout"><Button>Logout</Button></Link>
+          </>
+        : <>
+            <Link to="/login"><Button>Login</Button></Link>
+            <Link to="/register"><Button>Sign up</Button></Link>
+          </>}
       </div>
     </div>
   );
