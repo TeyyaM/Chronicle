@@ -9,7 +9,7 @@ const Logout = () => {
   useEffect(() => {
     setUser(null)
     history.push('/')
-    }, []);
+    });
 
   return (
     <div>
