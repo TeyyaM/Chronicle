@@ -106,6 +106,15 @@ const getUserByUserId = (id) => {
     const queryParams = [id];
     return pool.query(query, queryParams);
 };
+const getUserIdByLogin = (username, password) => {
+    const query = `
+  SELECT id 
+  FROM users 
+    WHERE username = $1 
+    AND password = $2;`;
+    const queryParams = [username, password];
+    return pool.query(query, queryParams);
+};
 const getUsers = () => {
     const query = 'SELECT * FROM users';
     return pool.query(query);
@@ -194,9 +203,16 @@ App.get('/api/categories', (req, res) => {
     getCategories(userId)
         .then((data) => res.json(data.rows));
 });
-App.get('/api/users', (req, res) => {
+App.get('/api/users-list', (req, res) => {
     getUsers()
         .then((data) => res.json(data.rows));
+});
+App.get('/api/users', (req, res) => {
+    const { username, password } = req.query;
+    getUserIdByLogin('nope', password)
+        .then((data) => console.log('fake username data', data.rows));
+    getUserIdByLogin(username, password)
+        .then((data) => console.log('data', data.rows));
 });
 App.get('/api/users/:id', (req, res) => {
     getUserByUserId(req.params.id)

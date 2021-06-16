@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const formStyling = {
   display: 'flex',
@@ -21,11 +22,33 @@ const formStyling = {
   margin: 'auto',
 };
 
+// const textFieldStyling = {
+//   background: 'red',
+// };
+
+
 export default function Form(props) {
   const history = useHistory();
   const { entry, setEntry, submitContent } = props;
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
+  
+  const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+      root: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          width: '25ch',
+          backgroundColor: 'grey',
+        },
+      },
+      textFieldColors: {
+        color: 'red',
+        backgroundColor: 'white',
+      }
+    }),
+  );
+  const classes = useStyles();
 
   function submitHandler(event) {
     event.preventDefault();
@@ -56,7 +79,11 @@ export default function Form(props) {
           variant="outlined"
           fullWidth
           value={entry.title}
-          onInput={titleHandler}/>
+          onInput={titleHandler}
+          InputProps={{
+            classes: { root: classes.textFieldColors },
+          }}
+          />
 
         <TextField
           id="outlined-basic"
@@ -67,7 +94,8 @@ export default function Form(props) {
           variant="outlined"
           fullWidth
           value={entry.content}
-          onInput={contentHandler}/>
+          onInput={contentHandler}
+          />
 
         <Button
           variant="contained"

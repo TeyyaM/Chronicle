@@ -161,6 +161,16 @@ const getUserByUserId = (id: string) => {
   return pool.query(query, queryParams);
 };
 
+const getUserIdByLogin = (username: string, password: string) => {
+  const query = `
+  SELECT id 
+  FROM users 
+    WHERE username = $1 
+    AND password = $2;`;
+  const queryParams = [username, password];
+  return pool.query(query, queryParams);
+};
+
 const getUsers = () => {
   const query = 'SELECT * FROM users'
   return pool.query(query);
@@ -270,15 +280,24 @@ App.get('/api/categories', (req: Request, res: Response) => {
   .then((data) => res.json(data.rows));
 });
 
-App.get('/api/users', (req: Request, res: Response) => {
-
+// Dev only, remove later
+App.get('/api/users-list', (req: Request, res: Response) => {
   getUsers()
   .then((data) => res.json(data.rows));
 });
+
+App.get('/api/users', (req: Request, res: Response) => {
+  const { username, password } = req.query as { username: string, password: string };
+  getUserIdByLogin('nope', password)
+  .then((data) => console.log('fake username data', data.rows));
+  getUserIdByLogin(username, password)
+  .then((data) => console.log('data', data.rows));
+});
+
 App.get('/api/users/:id', (req: Request, res: Response) => {
    getUserByUserId(req.params.id)
    .then((data) => res.json(data.rows));
-  });
+});
 
 App.get('/api/fonts', (req: Request, res: Response) => {
 

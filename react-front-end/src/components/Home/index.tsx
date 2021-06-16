@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../hooks/UserContext';
+import LoginForm from '../LoginForm';
 
 import Form from './Form';
 import Mood from './Mood';
@@ -63,6 +64,7 @@ const Home = () => {
   
   return (
       <div style={homeStyling}>
+        <LoginForm/>
         <h1>Create An Entry ❉ <em>{currentDay.toDateString()}</em></h1>
         <PrivacySetting entry={entry} setEntry={setEntry} />
         <Mood mood={mood} setMood={setMood} reset={null} />
