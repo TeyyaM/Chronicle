@@ -89,7 +89,11 @@ const getCategories = (userId) => {
     return pool.query(query, queryParams);
 };
 const getUserByUserId = (id) => {
-    const query = `
+    if (!id) {
+        return null;
+    }
+    else {
+        const query = `
   SELECT users.*,
   fonts.script as body_script,
   title.script as title_script
@@ -103,8 +107,9 @@ const getUserByUserId = (id) => {
   ) as title
   ON users.id = title.user_id
     WHERE users.id = $1;`;
-    const queryParams = [id];
-    return pool.query(query, queryParams);
+        const queryParams = [id];
+        return pool.query(query, queryParams);
+    }
 };
 const getUserIdByLogin = (username, password) => {
     const query = `
@@ -209,14 +214,11 @@ App.get('/api/users-list', (req, res) => {
 });
 App.get('/api/users', (req, res) => {
     const { username, password } = req.query;
-    getUserIdByLogin('nope', password)
-        .then((data) => console.log('fake username data', data.rows));
+    console.log(username);
     getUserIdByLogin(username, password)
-        .then((data) => console.log('data', data.rows));
-});
-App.get('/api/users/:id', (req, res) => {
-    getUserByUserId(req.params.id)
-        .then((data) => res.json(data.rows));
+        .then((data) => getUserByUserId(data.rows[0] ? data.rows[0].id : null))
+        .then((data) => res.json(data ? data.rows[0] : null))
+        .catch(error => console.log('Error:', error));
 });
 App.get('/api/fonts', (req, res) => {
     getFonts()

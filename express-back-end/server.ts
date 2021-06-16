@@ -142,7 +142,11 @@ const getCategories = (userId: string) => {
   return pool.query(query, queryParams);
 };
 
-const getUserByUserId = (id: string) => {
+const getUserByUserId = (id: string | null) => {
+  // If statements checks if the username and password got matched to an id
+  if (!id) {  
+    return null;
+  } else {
   const query = `
   SELECT users.*,
   fonts.script as body_script,
@@ -159,6 +163,7 @@ const getUserByUserId = (id: string) => {
     WHERE users.id = $1;`;
   const queryParams = [id];
   return pool.query(query, queryParams);
+  }
 };
 
 const getUserIdByLogin = (username: string, password: string) => {
@@ -288,16 +293,19 @@ App.get('/api/users-list', (req: Request, res: Response) => {
 
 App.get('/api/users', (req: Request, res: Response) => {
   const { username, password } = req.query as { username: string, password: string };
-  getUserIdByLogin('nope', password)
-  .then((data) => console.log('fake username data', data.rows));
+  // Returns null to the front end if there's no matching user
   getUserIdByLogin(username, password)
-  .then((data) => console.log('data', data.rows));
+  .then((data) => getUserByUserId(data.rows[0] ? data.rows[0].id : null))
+  .then((data) => res.json(data ? data.rows[0] : null))
+  .catch(error => console.log('Error:', error));
+
 });
 
-App.get('/api/users/:id', (req: Request, res: Response) => {
-   getUserByUserId(req.params.id)
-   .then((data) => res.json(data.rows));
-});
+// Dev only, delete later
+// App.get('/api/users/:id', (req: Request, res: Response) => {
+//    getUserByUserId(req.params.id)
+//    .then((data) => res.json(data.rows));
+// });
 
 App.get('/api/fonts', (req: Request, res: Response) => {
 
