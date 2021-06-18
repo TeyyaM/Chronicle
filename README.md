@@ -13,11 +13,11 @@ Within this project we used many tools introduced to us such as:
 - Express
 - Jest
 - HTML
-- Css and SaSS
-- Cypress
+- CSS
 - Axios
 - Node
 - PostgreSQL
+- Cypress (upcoming/in progress)
 
 _In a way to simulate realworld experiences we decided to use Typescript as our main programming language, one that we had not covered in the course_
 
@@ -36,11 +36,19 @@ We started the project with a _no fluff_ React/Express boilerplate supplied by @
 
 ## Getting started!
 
+## Dependencies
+
+- react 17.0.2
+- typescript 4.2.4
+- node 14.16.0
+- npm 6.14.11
+- pgSQL 9.5.25
+
 Fork this repository, then clone your fork onto your machine.
 
 You will need **TWO** terminal windows/tabs to run this (or some other plan for running two Node processes).
 
-Firstly, in either terminal, you will need to create the database. Run `psql -U development`, enter the password `development`, then run `CREATE DATABASE chronicle_development;`. Once that is done, you can exist postgres with `\q` and proceed on to the other instructions. This _does_ require having postgressSQL on your machine.
+Firstly, in either terminal, you will need to create the database. Run `psql -U development`, enter the password `development`, then run `CREATE DATABASE chronicle_development;`. Once that is done, you can exist postgres with `\q` and proceed on to the other instructions. Reminder: this _does_ require having postgressSQL on your machine.
 
 In one terminal, `cd` into `react-front-end`. Run `npm install` to install the dependencies. Then run `npm start` and go to `localhost:3000` in your browser.
 
@@ -53,10 +61,3 @@ DB_NAME=chronicle_development
 DB_PORT=5432
 Then you can run `npm run go` to start the backend server.
 (this will run on localhost:8080)
-
-## Dependencies
-
-- react 17.0.2
-- typescript 4.2.4
-- node 14.16.0
-- npm 6.14.11
