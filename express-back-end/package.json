@@ -12,8 +12,10 @@
     "db:reset-seeds": "node dist/bin/generate-entry-seeds.js "
   },
   "dependencies": {
+    "@types/cookie-session": "^2.0.42",
     "body-parser": "^1.18.3",
     "chalk": "^4.1.1",
+    "cookie-session": "^1.4.0",
     "dotenv": "^9.0.0",
     "express": "^4.16.4",
     "nodemon": "^1.18.7",
