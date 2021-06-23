@@ -81,14 +81,17 @@ App.get('/api/fonts', (req: Request, res: Response) => {
   getFonts()
   .then((data) => res.json(data.rows));
 });
+
 App.get('/api/fonts/:id', (req: Request, res: Response) => {
   getFontByFontId(req.params.id)
   .then((data) => res.json(data.rows));
 });
+
 App.get('/api/graph/', (req: Request, res: Response) => {
   getGraphByUserId(userId, req.query)
   .then((data) => res.json(data.rows));
 });
+
 App.post('/api/entries', (req: Request, res: Response) => {
   const attributes = {
     title: req.body.title,
@@ -101,22 +104,27 @@ App.post('/api/entries', (req: Request, res: Response) => {
   insertEntry(attributes)
   .then((data) => res.json(data.rows));
 });
+
 App.post('/api/entries/:id', (req: Request, res: Response) => {
   updateDatabase(req.body.params, { table: 'entries', type: 'update', id: req.params.id })
   .then((data) => res.json(data.rows));
 });
+
 App.post('/api/users/:id', (req: Request, res: Response) => {
   updateDatabase(req.body.params, { table: 'users', type: 'update', id: req.params.id })
   .then((data) => res.json(data.rows));
 });
+
 App.delete('/api/entries/:id', (req: Request, res: Response) => {
   updateDatabase(req.body, { table: 'entries', type: 'delete', id: req.params.id })
   .then((data) => res.json(data.rows));
 });
+
 App.post('/api/categories', (req: Request, res: Response) => {
   insertCategory({user_id: userId, name: req.body.name})
   .then((data) => res.json(data.rows));
 });
+
 App.post('/api/users', (req: Request, res: Response) => {
   const attributes = {
     username: req.body.username,
@@ -126,8 +134,6 @@ App.post('/api/users', (req: Request, res: Response) => {
   insertUser(attributes)
   .then((data) => res.json(data.rows));
 });
-
-
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console

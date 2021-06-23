@@ -43,6 +43,7 @@ interface IEntryParams {
   limit?: null | string
   categoryId?: string | null;
 }
+
 export default function generateDatabaseHelpers(pool: Pool) {
 
   const getEntriesByCategory = (userId: string, params: IEntryParams) => {
@@ -241,7 +242,7 @@ export default function generateDatabaseHelpers(pool: Pool) {
     }
     queryParams.push(id)
     query += ` WHERE id = $${queryParams.length}`;
-    // this if will only fire when it's *not* the user table
+    // this if will only fire when it's *not* the user table, hence the ts ignore
     if (table !== 'users') {
       // @ts-ignore
       queryParams.push(attributes.user_id)
