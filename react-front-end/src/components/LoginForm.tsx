@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../hooks/UserContext';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -7,6 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+// IMPORTANT! In progress. Not complete
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +43,8 @@ export default function LoginForm() {
     password: '',
     showPassword: false,
   });
+  const { setUser } = useContext(UserContext);
+  const history = useHistory();
 
   console.log("This is just to stop errors", setError);
 
@@ -59,8 +65,8 @@ export default function LoginForm() {
     axios.get('/api/users', { params: { username, password } })
     .then((res) => {
       console.log(res.data);
-      // setUser(res.data[0]);
-      // history.push('/');
+      setUser(res.data[0]);
+      history.push('/');
     })
     .catch(err => console.log('ERROR: ', err))
     console.log("This is from the submit", { username, password })

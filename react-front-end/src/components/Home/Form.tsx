@@ -9,18 +9,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-const formStyling = {
-  display: 'flex',
-  background: 'white',
-  border: 0,
-  borderRadius: 3,
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-  color: 'black',
-  height: 347,
-  width: '90%',
-  padding: 10,
-  margin: 'auto',
-};
+
 
 // const textFieldStyling = {
 //   background: 'red',
@@ -32,6 +21,19 @@ export default function Form(props) {
   const { entry, setEntry, submitContent } = props;
   const { userRef } = useContext(UserContext);
   const user = userRef.current;
+
+  const formStyling = {
+    display: 'flex',
+    background: user ? user.accent_hex : '#d9b310',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: `1px 1px 1px 1px ${user ? user.accent_hex : '#d9b310'}`,
+    color: 'black',
+    height: 347,
+    width: '90%',
+    padding: 10,
+    margin: 'auto',
+  };
   
   const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +46,7 @@ export default function Form(props) {
       },
       textFieldColors: {
         color: 'red',
-        backgroundColor: 'white',
+        backgroundColor: user ? user.form_hex : '#fffbc8',
       }
     }),
   );
@@ -71,7 +73,7 @@ export default function Form(props) {
         height="90%"
         display="flex"
         flexDirection="column"
-        bgcolor={user ? user.form_hex : '#fffbc8'}>
+        >
 
         <TextField
           id="outlined-basic"
@@ -95,11 +97,13 @@ export default function Form(props) {
           fullWidth
           value={entry.content}
           onInput={contentHandler}
+          InputProps={{
+            classes: { root: classes.textFieldColors },
+          }}
           />
 
         <Button
           variant="contained"
-          color="primary"
           type="submit" >
           Submit
         </Button>

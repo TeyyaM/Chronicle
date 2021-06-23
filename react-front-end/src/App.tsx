@@ -11,6 +11,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { UserContext } from './hooks/UserContext';
+import Theme from './components/MainTheme';
 
 const App = () => {
   const [user, setUser] = useState<any>(null);
@@ -26,27 +27,29 @@ const App = () => {
   return (
     <div className="App" style={appStyling}>
       <UserContext.Provider value={{ userRef, setUser }}>
-        <Router>
-          <nav
-            style={{
-              backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
-              color: user ? user.text_hex : 'rebeccapurple',
-            }}>
-            <Navbar />
-          </nav>
-
-          <Switch>
-            <Route path="/entries/:entryId" component={Entry} />
-            <Route path="/entries" component={Entries} />
-            <Route path="/settings" component={Settings} />
-            <Route path="/graphs" component={Graphs} />
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/" component={Home} />
-              
-            <Redirect to="/" />
-          </Switch>
-        </Router >
+        <Theme>
+          <Router>
+            <nav
+              style={{
+                backgroundColor: user ? user.secondary_hex : 'rebeccapurple',
+                color: user ? user.text_hex : 'rebeccapurple',
+              }}>
+              <Navbar />
+            </nav>
+            
+            <Switch>
+              <Route path="/entries/:entryId" component={Entry} />
+              <Route path="/entries" component={Entries} />
+              <Route path="/settings" component={Settings} />
+              <Route path="/graphs" component={Graphs} />
+              <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/" component={Home} />
+                
+              <Redirect to="/" />
+            </Switch>
+          </Router >
+        </Theme>
       </UserContext.Provider>
     </div>
   );
