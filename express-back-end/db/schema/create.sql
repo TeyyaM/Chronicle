@@ -20,7 +20,7 @@ CREATE TABLE users (
   form_hex VARCHAR(7) DEFAULT '#fffcdf',
   text_hex VARCHAR(7) DEFAULT '#1D2731',
   button_hex VARCHAR(7) DEFAULT '#90e10d',
-  danger_hex VARCHAR(7) DEFAULT '#d80c2a',
+  danger_button_hex VARCHAR(7) DEFAULT '#d80c2a',
   prompts BOOLEAN DEFAULT TRUE,
   private BOOLEAN DEFAULT TRUE,
   date_created TIMESTAMP DEFAULT NOW(),

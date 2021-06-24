@@ -23,7 +23,7 @@ export default function Settings() {
       setText(user.text_hex);
       setForm(user.form_hex);
       setButton(user.button_hex);
-      setDangerButton(user.danger_hex);
+      setDangerButton(user.danger_button_hex);
     }
     // there's never a user id without a user
     // eslint-disable-next-line

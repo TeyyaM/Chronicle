@@ -22,7 +22,7 @@ export default function Theme(props: IThemeProps) {
         dark: user ? user.accent_hex : '#FFFF00', //yellow
       },
       secondary: {
-        main: user ? user.danger_hex : '#d80c2a', //white
+        main: user ? user.danger_button_hex : '#d80c2a', //white
         contrastText: user ? user.text_hex : '#000000', //black
         dark: user ? user.accent_hex : '#FFFF00', //yellow
       },

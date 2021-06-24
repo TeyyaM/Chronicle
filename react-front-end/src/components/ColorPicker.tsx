@@ -10,7 +10,7 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   const { color, setColor, name } = props
   const { userRef, setUser } = useContext(UserContext);   
   const user = userRef.current;
-  const convertedName = name.toLowerCase() + '_hex';
+  const convertedName = name.split(' ').join('_').toLowerCase() + '_hex';
 
   const homeStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',

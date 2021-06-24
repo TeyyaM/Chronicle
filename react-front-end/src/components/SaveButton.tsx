@@ -4,17 +4,25 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { green } from '@material-ui/core/colors';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useContext } from 'react';
+import { UserContext } from '../hooks/UserContext';
 
-const useStyles = makeStyles((theme: Theme) =>
+
+export default function CircularIntegration(props: { color: string, save: (event: any) => void; }) {
+  
+  const { userRef } = useContext(UserContext);
+  const user = userRef.current;
+
+  const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
       alignItems: 'center',
     },
     buttonSuccess: {
-      backgroundColor: green[500],
+      backgroundColor: user ? user.button_hex : '#ffffff',
       '&:hover': {
-        backgroundColor: green[700],
+        backgroundColor: user ? user.accent_hex : '#FFFF00',
       },
     },
     buttonProgress: {
@@ -28,7 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function CircularIntegration(props: { color: string, save: (event: any) => void; }) {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
