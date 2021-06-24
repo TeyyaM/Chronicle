@@ -7,6 +7,13 @@ import Mood from './Mood';
 import PrivacySetting from './PrivacySetting'
 import CategorySelect from '../CategorySelect/CategorySelect';
 
+interface IEntry {
+  title: string;
+  content: string;
+  privacy: boolean;
+  category: number | null;
+}
+
 const Home = () => {
   
   const { userRef } = useContext(UserContext);
@@ -31,7 +38,7 @@ const Home = () => {
   const [categoryId, setCategoryId] = useState<null | number>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [ mood, setMood ] = useState<null | number>(null);
-  const [ entry, setEntry ] = useState({
+  const [ entry, setEntry ] = useState<IEntry>({
     title: "", content: "", privacy: true, category: null
   });
 

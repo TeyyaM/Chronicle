@@ -64,8 +64,7 @@ export default function LoginForm() {
     const { username, password } = values;
     axios.get('/api/users', { params: { username, password } })
     .then((res) => {
-      console.log(res.data);
-      setUser(res.data[0]);
+      setUser(res.data);
       history.push('/');
     })
     .catch(err => console.log('ERROR: ', err))

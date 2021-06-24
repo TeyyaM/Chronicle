@@ -15,7 +15,8 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   const homeStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.text_hex : '#d9b310',   
-    margin: 15,
+    marginRight: 15,
+    marginLeft: 15,
     paddingBottom: 15,
     paddingTop: 15,
     width: '40%',

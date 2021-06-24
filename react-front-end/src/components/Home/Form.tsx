@@ -1,6 +1,6 @@
 // to resolve error "Expected an assignment or function call and instead saw an expression"
 /* eslint-disable */
-import { useContext } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
 import { UserContext } from '../../hooks/UserContext';
 import { useHistory } from 'react-router-dom';
 
@@ -15,8 +15,14 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 //   background: 'red',
 // };
 
+interface IEntry {
+  title: string;
+  content: string;
+  privacy: boolean;
+  category: number | null;
+}
 
-export default function Form(props) {
+export default function Form(props: { entry: IEntry, setEntry: Dispatch<SetStateAction<IEntry>>, submitContent: (userId: string | number) => void }) {
   const history = useHistory();
   const { entry, setEntry, submitContent } = props;
   const { userRef } = useContext(UserContext);
@@ -24,10 +30,10 @@ export default function Form(props) {
 
   const formStyling = {
     display: 'flex',
-    background: user ? user.accent_hex : '#d9b310',
+    background: user ? user.secondary_hex : 'rebeccapurple',
     border: 0,
     borderRadius: 3,
-    boxShadow: `1px 1px 1px 1px ${user ? user.accent_hex : '#d9b310'}`,
+    boxShadow: `1px 1px 1px 1px ${user ? user.secondary_hex : 'rebeccapurple'}`,
     color: 'black',
     height: 347,
     width: '90%',
@@ -102,11 +108,15 @@ export default function Form(props) {
           }}
           />
 
-        <Button
-          variant="contained"
-          type="submit" >
-          Submit
-        </Button>
+        <Box marginTop="1%" width="100%">
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            type="submit" >
+            Submit
+          </Button>
+        </Box>
       </Box>
     </form>
 
