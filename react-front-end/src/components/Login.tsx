@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { UserContext } from '../hooks/UserContext';
 // import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
 import LoginForm from './LoginForm';
 
 // IMPORTANT! In progress. Not complete
@@ -11,6 +10,10 @@ const Login = () => {
   const user = userRef.current;
   // const history = useHistory();
   
+  // if (!user) {
+  //   history.push('/')
+  // }
+
   const homeStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
     color: user ? user.texte_hex : '#d9b310',   
@@ -24,16 +27,7 @@ const Login = () => {
     borderRadius: 10,
     height: '300%',
   };
-  
-  console.log(user);
-  // useEffect(() => {
-  //   axios.get('/api/users/1')
-  //   .then((res) => {
-  //     setUser(res.data[0]);
-  //     history.push('/');
-  //   })
-  //   .catch(err => console.log('ERROR: ', err))
-  //   }, []);
+
 
   return (
     <div style={homeStyling}>
@@ -41,6 +35,7 @@ const Login = () => {
     </div>
 
   );
+  
 };
 
 export default Login;

@@ -51,12 +51,17 @@ export default function Form(props: { entry: IEntry, setEntry: Dispatch<SetState
         },
       },
       textFieldColors: {
-        color: 'red',
+        color: user ? user.text_hex : '#000000',
         backgroundColor: user ? user.form_hex : '#fffbc8',
-      }
+      },
     }),
   );
+
+
   const classes = useStyles();
+  const placeholder= {
+    color: user ? user.text_hex : '#000000'
+  }
 
   function submitHandler(event) {
     event.preventDefault();
@@ -91,6 +96,9 @@ export default function Form(props: { entry: IEntry, setEntry: Dispatch<SetState
           InputProps={{
             classes: { root: classes.textFieldColors },
           }}
+          InputLabelProps={{
+            style: placeholder }}
+
           />
 
         <TextField
@@ -106,6 +114,8 @@ export default function Form(props: { entry: IEntry, setEntry: Dispatch<SetState
           InputProps={{
             classes: { root: classes.textFieldColors },
           }}
+          InputLabelProps={{
+            style: placeholder }}
           />
 
         <Box marginTop="1%" width="100%">

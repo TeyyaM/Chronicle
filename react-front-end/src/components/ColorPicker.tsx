@@ -3,6 +3,7 @@ import { HexColorPicker, HexColorInput } from "react-colorful";
 import { FormEventHandler, useContext } from 'react'; 
 import { UserContext } from '../hooks/UserContext';  
 import SaveButton from './SaveButton';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 
 const ColorPicker = (props: { color: string; setColor: (color: string) => void; name: string;}) => {
@@ -11,6 +12,17 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   const { userRef, setUser } = useContext(UserContext);   
   const user = userRef.current;
   const convertedName = name.split(' ').join('_').toLowerCase() + '_hex';
+
+
+  const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+      textFieldColors: {
+        color: user ? user.text_hex : '#000000',
+        backgroundColor: user ? user.form_hex : '#fffbc8',
+      }
+    }),
+  );
+  const classes = useStyles();
 
   const homeStyling = {
     backgroundColor: user ? user.background_hex : '#0b3c5d',
@@ -53,7 +65,11 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
     {name} Hex Value:
   </label>
       <span>
-      # <HexColorInput color={color} onChange={changeColor} name={name}/>
+      # <HexColorInput color={color} 
+      onChange={changeColor} 
+      name={name}
+      className={classes.textFieldColors}
+      />
       </span>
   <SaveButton save={saveColor} color={color} />
 </form>
