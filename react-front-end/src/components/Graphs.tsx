@@ -25,13 +25,13 @@ export default function Graphs() {
     width: '90%',
     text: 'bold',
     marginTop: '20px',
-
   };
 
   const [startDate, setStartDate] = useState<null | Date>(new Date('2015-08-18'));
   const [endDate, setEndDate] = useState<null | Date>(new Date(Date.now()));
   const [pieData, setPieData] = useState<any>([{mood: 'Neutral', entries: 1}]);
   const [lineData, setLineData] = useState<any>([{mood: 1, date: '2019-08-30', best_fit: 1}]);
+
   useEffect(() => {
     // get pie chart data
   axios.get('/api/graph', {
@@ -77,6 +77,7 @@ export default function Graphs() {
       setLineData(data)
     });
   }, [startDate, endDate])
+
   return (
   <table style={graphStyling}>
   <PieGraph data={pieData} startDate={startDate} endDate={endDate} />

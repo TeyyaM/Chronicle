@@ -29,13 +29,11 @@ const ColorPicker = (props: { color: string; setColor: (color: string) => void; 
   const saveColor = (event: any) => {
     event.preventDefault();
     saveToDatabase();
-
   };
 
   const changeColor = (event: any) => {
     setColor(event)
     setUser({...user, [convertedName]: event});
-
   };
 
   const saveToDatabase = () => {

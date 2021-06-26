@@ -49,8 +49,8 @@ export default function CircularIntegration(props: { color: string, save: (event
   }, []);
 
   const handleButtonClick = (event) => {
-
     props.save(event);
+    
     if (!loading) {
       setSuccess(false);
       setLoading(true);
@@ -69,8 +69,7 @@ export default function CircularIntegration(props: { color: string, save: (event
           color="secondary"
           className={buttonClassname}
           disabled={loading}
-          onClick={handleButtonClick}
-        >
+          onClick={handleButtonClick} >
           Save
         </Button>
         {loading && <CircularProgress size={24} className={classes.buttonProgress} />}

@@ -11,7 +11,7 @@ const Category = () => {
 
   useEffect(() => {
     axios.get(`/api/categories/${params.categoryId}`)
-      .then(res => console.log(res.data)); // Do stuff with it
+      .then(res => console.log(res.data));
   }, [params.categoryId]);
 
   return (

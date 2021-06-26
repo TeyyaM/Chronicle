@@ -67,6 +67,7 @@ const Entry = () => {
   
   const params: Params = useParams();
   const entryId = params.entryId;
+  
   useEffect(() => {
     axios.get(`/api/entries/${entryId}`)
     .then(res => setContent({...res.data[0]})); // Do stuff with it

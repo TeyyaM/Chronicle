@@ -20,18 +20,15 @@ const Categories = () => {
   return (
     <div>
       <h2>Categories</h2>
-
-
-      <Switch>
-        
-        <Route path="/category/:id" component={Category} >
-        <ul>
-          {categories.map(item=> (
-            <li>{item.name}</li>
-            ))}
-            </ul>
-            </Route>
-            </Switch>
+      <Switch>  
+      <Route path="/category/:id" component={Category} >
+      <ul>
+        {categories.map(item=> (
+          <li>{item.name}</li>
+        ))}
+      </ul>
+      </Route>
+      </Switch>
       </div>
 
   );
